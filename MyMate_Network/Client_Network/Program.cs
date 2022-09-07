@@ -1,19 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
+using System.Text;
 using System.Net.Sockets;
 using System.Net;
 
 Console.WriteLine("Start Client");
-Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+Socket sock = new (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 //IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.158.1"), 7000);
-IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
+IPEndPoint ep = new (IPAddress.Parse("127.0.0.1"), 8090);
 sock.Connect(ep);
 
 String cmd = string.Empty;

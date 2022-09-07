@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerNetwork
+namespace MyMate_Network
 {
 	internal class Client
 	{
-
+		Thread thread;
 	}
 }

@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMate", "MyMate\MyMate.csproj", "{89FF43D5-F701-4D73-973A-319AD7A0871C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientNetwork", "Client_Network\ClientNetwork.csproj", "{5ED41F72-1AC0-4685-9D88-D2C258D0110B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientNetwork", "Client_Network\ClientNetwork.csproj", "{5ED41F72-1AC0-4685-9D88-D2C258D0110B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerNetwork", "ServerNetwork\ServerNetwork.csproj", "{36F000C9-05BB-47D6-BFB6-8C59F1C24D85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerNetwork", "ServerNetwork\ServerNetwork.csproj", "{36F000C9-05BB-47D6-BFB6-8C59F1C24D85}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{739D775D-0716-4221-BEB4-B7AABB2D19A7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{89FF43D5-F701-4D73-973A-319AD7A0871C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89FF43D5-F701-4D73-973A-319AD7A0871C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89FF43D5-F701-4D73-973A-319AD7A0871C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89FF43D5-F701-4D73-973A-319AD7A0871C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
