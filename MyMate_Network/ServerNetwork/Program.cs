@@ -6,8 +6,7 @@
 
 
 
-using MyMate_Network;
-
+using ServerNetwork.Module;
 
 Server server = Server.Instance;
 

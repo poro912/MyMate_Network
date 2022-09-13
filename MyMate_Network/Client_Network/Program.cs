@@ -3,8 +3,20 @@
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using ClientNetwork.Moudle;
 
 Console.WriteLine("Start Client");
+Client client = Client.Instance;
+
+
+while(true)
+{
+
+}
+
+
+/*
+ * 
 Socket sock = new (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 //IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.158.1"), 7000);
@@ -29,4 +41,4 @@ while ((cmd = Console.ReadLine()) != "Q")
 	//String data = Encoding.UTF8.GetString(buff, 0, n);
 
 }
-sock.Close();
+sock.Close();*/
