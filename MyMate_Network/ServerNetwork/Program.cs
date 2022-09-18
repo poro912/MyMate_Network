@@ -10,8 +10,7 @@ using ServerNetwork.Module;
 
 Server server = Server.Instance;
 
-do
+while (true) ;
 {
 	//Server.Start();
-}
-while (true);
+} 

@@ -35,9 +35,18 @@ namespace ClientNetwork.Moudle
 		{
 			Console.Write("포트 생성 \t\t");
 			connect = new();
-			connect.Start();
 			Console.WriteLine("성공");
 
+			Console.Write("포트 실행 \t\t");
+			try
+			{
+				connect.Start();
+				Console.WriteLine("성공");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
 
 			thread = new Thread(Run);
 			this.Start();
@@ -65,6 +74,10 @@ namespace ClientNetwork.Moudle
 				//client.Connect();
 				run = true;
 				thread.Start();
+
+				// Receive 객체에 스트림을 지정해준다.
+				Receive.SetStream(connect.stream);
+				Receive.StartReceive();
 			}
 		}
 
@@ -72,7 +85,5 @@ namespace ClientNetwork.Moudle
 		{
 			run = false;
 		}
-
-
 	}
 }

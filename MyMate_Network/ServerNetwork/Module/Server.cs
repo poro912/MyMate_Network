@@ -67,10 +67,13 @@ namespace ServerNetwork.Module
 				client = sep.Accept();
 				if(client != null)
 				{
+					Client tempClient = new(client);
 					Console.Write("새로운 클라이언트 접근 : \t");
 					Console.Write(client.Client.RemoteEndPoint.ToString());
 					Console.WriteLine("\n");
-					clients.add(client);
+					
+					clients.add(tempClient);
+					tempClient.send("");
 				}
 			}
 

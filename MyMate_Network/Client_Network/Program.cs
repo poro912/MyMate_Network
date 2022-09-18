@@ -1,11 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
-
+#define INTEGRATED
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using ClientNetwork.Moudle;
 
+// 뮤텍스 해야함
+
 Console.WriteLine("Start Client");
+
+#if INTEGRATED
 Client client = Client.Instance;
 
 
@@ -14,9 +18,8 @@ while(true)
 
 }
 
+#else
 
-/*
- * 
 Socket sock = new (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 //IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.158.1"), 7000);
@@ -41,4 +44,12 @@ while ((cmd = Console.ReadLine()) != "Q")
 	//String data = Encoding.UTF8.GetString(buff, 0, n);
 
 }
-sock.Close();*/
+sock.Close();
+
+#endif
+
+
+
+
+
+

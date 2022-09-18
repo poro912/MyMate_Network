@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace ServerNetwork.Module.sub
 {
-    internal class ClientContatiner
+    public class ClientContatiner
     {
-        private List<TcpClient> clients;
+        public List<Client> clients;
 
         public ClientContatiner()
         {
-            clients = new List<TcpClient>();
+            clients = new List<Client>();
         }
 
-        public void add(TcpClient client)
+        public void add(Client client)
         {
             clients.Add(client);
         }

@@ -13,11 +13,11 @@ namespace ClientNetwork.Moudle.sub
 	{
 		public const int port = 8090;
 		public const string Address = "127.0.0.1";
-
 	}
 	public class Connect
 	{
 		public TcpClient tcpclient;
+		public NetworkStream stream;
 		public string address;
 		public int port;
 		public Connect()
@@ -55,16 +55,30 @@ namespace ClientNetwork.Moudle.sub
 
 		public void Start()
 		{
+			Console.Write("커넥트 실행 \t");
 			try
 			{
 				//this.tcpclient.Connect("127.0.0.1", 8090);
 				this.tcpclient.Connect(address, port);
+				
+				//
+				this.stream = tcpclient.GetStream();
+
+				//stream.BeginRead()
 			}
 			catch(Exception e)
 			{
 				Console.Write("\n커넥트 에러 발생 \t");
 				Console.WriteLine(e.ToString());
+				return;
 			}
+			Console.WriteLine("성공");
+		}
+
+		
+		public void MessageRecieved(IAsyncResult ar)
+		{
+			
 		}
 	}
 }
