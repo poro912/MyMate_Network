@@ -8,23 +8,32 @@ namespace ServerNetwork.Module.sub
 {
 	static public class Send
 	{
-		static public void SendString(Stream stream, String data)
+		static private void SendData(Stream stream, ref Byte[] data)
 		{
-			byte[] buf = Encoding.Default.GetBytes(data);
-			
 			try
 			{
-				stream.Write(buf, 0, buf.Length);
+				stream.Write(data, 0, data.Length);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
 			}
-			/*catch (System.InvalidOperationException e)
-			{
-				
-			}*/
 		}
+		static public void SendString(Stream stream, ref String data)
+		{
+			// String 을 byte 배열로 변환하여 전송
+			byte[] buf = Encoding.Default.GetBytes(data);
+			
+			SendData(stream, ref buf);
+		}
+		static public void SendByteArray(Stream stream, ref Byte[] data)
+		{
+			SendData(stream, ref data);
+		}
+		
+		static public void SendToUser(object data)
+		{
 
+		}
 	}
 }

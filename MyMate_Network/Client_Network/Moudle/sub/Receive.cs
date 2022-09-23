@@ -8,7 +8,16 @@ using System.Net.Sockets;
 
 namespace ClientNetwork.Moudle.sub
 {
+
 	public delegate void receive(IAsyncResult ar);
+
+	// 받는 데이터에 따른 상수
+	static public class Receive_Const
+	{
+		public const int Distribute = 0;	// 분배기, 다음에 들어올 명령이 무엇인지 확인
+		public const int Receive = 1;		// 기본 수신
+	}
+
 	// 서버에서 값을 받아오는 메소드
 	public static class Receive
 	{
@@ -21,8 +30,9 @@ namespace ClientNetwork.Moudle.sub
 		static private Dictionary<int, receive> receive_dict
 			= new Dictionary<int, receive>()
 			{
-				{ 0, _Receive },		// 데이터 판별
-				{ 1, MessageReceive }	// 메시지 입력
+
+				{ Receive_Const.Distribute, _Receive },		// 데이터 판별
+				{ Receive_Const.Receive, MessageReceive }	// 메시지 입력
 			};
 
 		static public void SetStream(NetworkStream temp_stream)
@@ -42,6 +52,7 @@ namespace ClientNetwork.Moudle.sub
 			Console.WriteLine("네트워크로 입력을 받기 시작합니다.");
 			stream.BeginRead(received_byte, 0, received_byte.Length,
 				new AsyncCallback(receive_dict[0]), null);
+			NextReceive(Receive_Const.Distribute);
 		}
 
 	
@@ -82,7 +93,8 @@ namespace ClientNetwork.Moudle.sub
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("Receive 오류 발생");
+				Console.Write("Receive 오류 발생 \t: ");
+				Console.WriteLine(ex.ToString());
 			}
 		}
 	}

@@ -20,19 +20,19 @@ namespace ServerNetwork.Module
 		{
 			get
 			{
-				if (instance == null)
+				if (instance == null )
 				{
 					instance = new();
 				}
 				return instance;
 			}
 		}
-		static private SocketAndEndPoint sep;
+		private SocketAndEndPoint sep;
 		
-		static private Thread thread;
-		static private Thread accept_thread;
-		static private ClientContatiner clients = new ();
-		static private bool run = false;
+		private Thread thread;
+		private Thread accept_thread;
+		private ClientContatiner clients = new ();
+		private bool run = false;
 
 		
 
@@ -59,21 +59,28 @@ namespace ServerNetwork.Module
 			Console.WriteLine("Accept 스레드 실행\n");
 
 			// run 변수가 true 일동안 실행
-			while (run)
+			while (Instance.run)
 			{
 				TcpClient ?client = null;		// 클라이언트 정보 저장 null able 형 
 				
 				// Accept 실행 후 값을 반환하면 새로운 클라이언트 접근
-				client = sep.Accept();
+				client = Instance.sep.Accept();
+				
+				// 접근한 클라이언트가 있다면
 				if(client != null)
 				{
 					Client tempClient = new(client);
 					Console.Write("새로운 클라이언트 접근 : \t");
-					Console.Write(client.Client.RemoteEndPoint.ToString());
+					if(tempClient.socket.RemoteEndPoint != null)
+						Console.Write(tempClient.socket.RemoteEndPoint.ToString());
 					Console.WriteLine("\n");
-					
-					clients.add(tempClient);
-					tempClient.send("");
+
+					Instance.clients.add(tempClient);
+					foreach(var i in instance.clients.clients)
+					{
+						i.send("");
+					}
+
 				}
 			}
 
@@ -101,6 +108,7 @@ namespace ServerNetwork.Module
 		{
 			// 동작을 false로 전환
 			// 동작 마무리 이후 자동 종료
+			Console.WriteLine("스레드 종료 신호 발생");
 			run = false;
 			sep.Close();
 		}

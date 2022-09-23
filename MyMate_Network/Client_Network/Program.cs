@@ -15,7 +15,7 @@ Client client = Client.Instance;
 
 while(true)
 {
-
+	Thread.Sleep(10000);
 }
 
 #else

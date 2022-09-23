@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Net;
 using ServerNetwork.Module.sub;
 
-namespace MyMate_Network
+namespace ServerNetwork.Module.sub
 
 {
     class Accept

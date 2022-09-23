@@ -129,7 +129,7 @@ namespace ServerNetwork.Module.sub
 			Client.Close();
 		}
 
-		public TcpClient Accept()
+		public TcpClient? Accept()
 		{
 			TcpClient ?client = null;
 

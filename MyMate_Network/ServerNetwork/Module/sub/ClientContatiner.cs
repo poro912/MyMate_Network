@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ServerNetwork.Module.sub
 {
+    // 21억명의 정보를 저장할 수 있겠지
     public class ClientContatiner
     {
         public List<Client> clients;
@@ -19,8 +20,11 @@ namespace ServerNetwork.Module.sub
             clients = new List<Client>();
         }
 
-        public void add(Client client)
+        public void add( Client client)
         {
+            // 객체 생성이 안되거나 유저가 없으면 종료
+            if (client == null )
+                return;
             clients.Add(client);
         }
     }

@@ -5,12 +5,14 @@
 //
 
 
-
 using ServerNetwork.Module;
+
+Console.WriteLine("Start Server");
+
 
 Server server = Server.Instance;
 
-while (true) ;
+while (true)
 {
-	//Server.Start();
+	Thread.Sleep(10000);
 } 
