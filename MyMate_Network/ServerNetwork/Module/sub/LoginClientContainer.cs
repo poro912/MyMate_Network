@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace ServerNetwork.Module.sub
 {
 	// 로그인 된 사용자의 주소를 저장할 수 있는 사전
+	// 로그인 완료된 사용자의 데이터만 유지
+	// user_code를 key 값으로 데이터를 바로 보낼 수 있도록 함
 	public class LoginClientContainer
 	{
 		static private LoginClientContainer instance;

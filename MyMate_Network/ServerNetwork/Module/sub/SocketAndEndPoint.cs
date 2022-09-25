@@ -23,8 +23,9 @@ namespace ServerNetwork.Module.sub
 	{
 		public const int port = 8090;
 		public const string Address = "127.0.0.1";
-
 	}
+
+	// 소켓과 Endpoint 정보를 저장하는 클래스
 	public class SocketAndEndPoint
 	{
 		public IPAddress address;
@@ -129,6 +130,7 @@ namespace ServerNetwork.Module.sub
 			Client.Close();
 		}
 
+		// 소켓에 들어오는 Accept 요청을 받기위한 메소드
 		public TcpClient? Accept()
 		{
 			TcpClient ?client = null;

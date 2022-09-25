@@ -25,12 +25,21 @@ namespace ServerNetwork.Module.sub
 			this.socket = tcpClient.Client;
 		}
 
-		public void send(string at)
+		// 클라이언트에게 문자열을 전송하는 메소드
+		public void send(ref String target)
 		{
+			/*
 			if (this.socket.RemoteEndPoint != null)
 				Console.WriteLine(this.socket.RemoteEndPoint.ToString() + "클라이언트에 데이터를 전송합니다.");
 			string temp = "Hello World";
-			Send.SendString(this.stream, ref temp);
+			*/
+			Send.Data(ref this.stream, ref target);
+		}
+
+		// 클라이언트에게 바이트 배열을 전송하는 메소드
+		public void send(ref Byte[] target)
+		{
+			Send.Data(ref this.stream, ref target);
 		}
 	}
 }

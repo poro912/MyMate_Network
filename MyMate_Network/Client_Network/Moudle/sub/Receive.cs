@@ -30,7 +30,6 @@ namespace ClientNetwork.Moudle.sub
 		static private Dictionary<int, receive> receive_dict
 			= new Dictionary<int, receive>()
 			{
-
 				{ Receive_Const.Distribute, _Receive },		// 데이터 판별
 				{ Receive_Const.Receive, MessageReceive }	// 메시지 입력
 			};
@@ -61,7 +60,14 @@ namespace ClientNetwork.Moudle.sub
 		static private void _Receive(IAsyncResult ar)
 		{
 			//int t = 0;
+
 			
+			/*foreach(byte i in received_byte)
+			{
+				Console.Write(i + " ");
+			}
+			Console.WriteLine();*/
+
 			string receive_data = Encoding.Default.GetString(received_byte);
 			Console.WriteLine("데이터 받음\t: " + receive_data);
 

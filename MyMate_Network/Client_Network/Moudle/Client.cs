@@ -27,20 +27,20 @@ namespace ClientNetwork.Moudle
 			}
 		}
 
-		static private Connect connect;
-		static private Thread thread;
-		static private bool run = false;
+		private Connect connect;
+		private Thread thread;
+		private bool run = false;
 
 		private Client()
 		{
 			Console.Write("포트 생성 \t\t");
-			connect = new();
+			this.connect = new ();
 			Console.WriteLine("성공");
 
 			Console.Write("포트 실행 \t\t");
 			try
 			{
-				connect.Start();
+				this.connect.Start();
 				Console.WriteLine("성공");
 			}
 			catch (Exception e)
@@ -48,19 +48,20 @@ namespace ClientNetwork.Moudle
 				Console.WriteLine(e.Message);
 			}
 
-			thread = new Thread(Run);
+			this.thread = new Thread(Run);
 			this.Start();
 		}
 
 		~Client()
 		{
-			Stop();
+			this.Stop();
+			this.thread.Interrupt();
 		}
 
-		static private void Run()
+		private void Run()
 		{
 			Console.WriteLine("스레드 실행");
-			while(run)
+			while(this.run)
 			{
 
 			}
@@ -69,21 +70,22 @@ namespace ClientNetwork.Moudle
 
 		public void Start()
 		{
-			if(!run)
+			if(!this.run)
 			{
 				//client.Connect();
-				run = true;
-				thread.Start();
+				this.run = true;
+				this.thread.Start();
 
 				// Receive 객체에 스트림을 지정해준다.
-				Receive.SetStream(connect.stream);
+				Receive.SetStream(this.connect.stream);
 				Receive.StartReceive();
 			}
 		}
 
 		public void Stop()
 		{
-			run = false;
+			Console.WriteLine("스레드 종료 신호 발생");
+			this.run = false;
 		}
 	}
 }

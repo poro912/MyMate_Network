@@ -27,5 +27,13 @@ namespace ServerNetwork.Module.sub
                 return;
             clients.Add(client);
         }
-    }
+
+		public void SendAll(ref string data)
+		{
+			foreach (var client in clients)
+			{
+                client.send(ref data);
+			}
+		}
+	}
 }

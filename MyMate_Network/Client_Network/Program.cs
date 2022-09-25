@@ -3,6 +3,8 @@
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+
+// 클라이언트 통신을 위한 using
 using ClientNetwork.Moudle;
 
 // 뮤텍스 해야함
@@ -10,11 +12,13 @@ using ClientNetwork.Moudle;
 Console.WriteLine("Start Client");
 
 #if INTEGRATED
+// 클라이언트 통신을 여는 문장
 Client client = Client.Instance;
 
 
 while(true)
 {
+	// cpu 부하를 줄이기 위한 스레드 sleep
 	Thread.Sleep(10000);
 }
 

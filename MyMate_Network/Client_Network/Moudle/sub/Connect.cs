@@ -14,43 +14,30 @@ namespace ClientNetwork.Moudle.sub
 		public const int port = 8090;
 		public const string Address = "127.0.0.1";
 	}
+
 	public class Connect
 	{
 		public TcpClient tcpclient;
 		public NetworkStream stream;
 		public string address;
 		public int port;
-		public Connect()
-		{
-			Init();
-		}
+
 
 		public Connect(
 			string address = Default.Address
 			,int port = Default.port)
 		{
-			Init(address,port);
+			Console.WriteLine("Connect 객체 생성");
+			this.address = address;
+			this.port = port;
+			Console.WriteLine("데이터 삽입 완료");
+			this.tcpclient = new TcpClient();
+			Console.WriteLine("객체 생성 완료");
 		}
 
 		~Connect()
 		{
 			tcpclient.Close();
-		}
-
-		private void Init()
-		{
-			Init(Default.port);
-		}
-		private void Init(int port)
-		{
-			Init(Default.Address, port);
-		}
-
-		private void Init(String address ,int port)
-		{
-			this.address=address;
-			this.port = port;
-			this.tcpclient = new TcpClient();
 		}
 
 		public void Start()
