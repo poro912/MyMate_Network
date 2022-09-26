@@ -15,15 +15,18 @@ namespace ClientNetwork.Moudle.sub
 		public const string Address = "127.0.0.1";
 	}
 
-	public class Connect
+	// 서버의 접속 정보를 담는 클래스
+	public class Server
 	{
+		// 서버의 tcpclient 정보 저장
 		public TcpClient tcpclient;
+		// 서버의 stream 저장
 		public NetworkStream stream;
 		public string address;
 		public int port;
 
 
-		public Connect(
+		public Server(
 			string address = Default.Address
 			,int port = Default.port)
 		{
@@ -35,7 +38,7 @@ namespace ClientNetwork.Moudle.sub
 			Console.WriteLine("객체 생성 완료");
 		}
 
-		~Connect()
+		~Server()
 		{
 			tcpclient.Close();
 		}
@@ -66,6 +69,11 @@ namespace ClientNetwork.Moudle.sub
 		public void MessageRecieved(IAsyncResult ar)
 		{
 			
+		}
+
+		public void send(ref string data)
+		{
+			Send.Data(ref stream, ref data);
 		}
 	}
 }

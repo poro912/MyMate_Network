@@ -21,7 +21,7 @@ namespace ServerNetwork.Module.sub
 			this.tcpClient = tcpClient;
 			// 클라이언트의 스트림을 저장
 			this.stream = tcpClient.GetStream();
-			// 
+			// 클라이언트의 소켓을 저장
 			this.socket = tcpClient.Client;
 		}
 

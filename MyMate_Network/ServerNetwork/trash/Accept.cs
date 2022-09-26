@@ -11,6 +11,7 @@ namespace ServerNetwork.Module.sub
 
 {
 	// 사용 안되고 있음
+	/*
     class Accept
 	{
 		// Accept가 일어났을 때 진행할 명령어 순서
@@ -27,5 +28,6 @@ namespace ServerNetwork.Module.sub
 			return socket;
 		}
 	}
+	*/
 }
 	

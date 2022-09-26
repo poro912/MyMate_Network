@@ -17,7 +17,7 @@ while (true)
 	// cpu 부하를 줄이기 위한 스레드 sleep
 	// Thread.Sleep(10000);
 
-	String input = Console.ReadLine();
+	String? input = Console.ReadLine();
 	if(input != null)
 		server.SendAll(ref input);
 } 

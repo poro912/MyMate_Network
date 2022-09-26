@@ -5,9 +5,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerNetwork.Module.sub
+namespace Protocal
 {
-	// 클라이언트와 연계되어 데이터를 전송할 때 사용
 	static public class Send
 	{
 		// byte 형태의 데이터 전송

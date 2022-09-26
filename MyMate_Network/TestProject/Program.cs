@@ -17,6 +17,10 @@ foreach (byte b in results.GetRange(1,4))
 Console.WriteLine();
 
 Data = DataConvertor.Convert(ref results);
-Console.WriteLine(Data.Key);
-Console.WriteLine(Data.Value);
-Console.WriteLine(Data.Value.GetType());
+if(Data.Value != null)
+{
+	Console.WriteLine(Data.Key);
+	Console.WriteLine(Data.Value);
+	Console.WriteLine(Data.Value.GetType());
+
+}

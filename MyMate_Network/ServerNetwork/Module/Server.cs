@@ -101,14 +101,7 @@ namespace ServerNetwork.Module
 				// 접근한 클라이언트가 있다면
 				Instance.Accept(ref client);
 
-				// 각 클라이언트를 실험하기위한 문장
-				foreach (var i in instance.clients.clients)
-				{
-					string a = "send Test Data";
-					i.send(ref a);
-				}
 			}
-
 			Console.WriteLine("Accept 스레드 종료\n");
 			return;
 		}
@@ -131,6 +124,8 @@ namespace ServerNetwork.Module
 			// 클라이언트 리스트에 추가
 			Instance.clients.add(tempClient);
 		}
+
+		// 모든 클라이언트에게 문자열 데이터 전송
 		public void SendAll(ref string data)
 		{
 			instance.clients.SendAll(ref data);
