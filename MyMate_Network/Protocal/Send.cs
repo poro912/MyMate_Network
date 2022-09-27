@@ -5,13 +5,19 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Protocal
+namespace Protocol
 {
-	static public class Send
+	public class Send
 	{
+		// 스트림 저장 멤버
+		private NetworkStream stream;
+		public NetworkStream Stream { get; set; }
+
 		// byte 형태의 데이터 전송
-		static public void Data(ref NetworkStream stream, ref Byte[] data)
-		{
+		public void Data(
+			ref NetworkStream stream,
+			ref Byte[] data
+		){
 			// 들어온 데이터가 없다면 종료
 			if (data.Length.Equals(0))
 				return;
@@ -25,10 +31,15 @@ namespace Protocal
 			}
 		}
 
-		// 문자열 전송
-		static public void Data(ref NetworkStream stream, ref String data)
-		{
+		// 단순 문자열 전송
+		// 문자열의 양 끝 공백을 제거한 후 byte 단위로 변환하여 전달
+		public void Data(
+			ref NetworkStream stream,
+			ref String data
+		){
 			// String 을 byte 배열로 변환하여 전송
+			data.Trim();
+
 			byte[] buf = Encoding.Default.GetBytes(data);
 			Console.WriteLine("전송 데이터 : " + data);
 			// 해당 스트림으로 문자열 전송

@@ -56,7 +56,7 @@ namespace ClientNetwork.Moudle
 			}
 
 			// 스레드를 생성하고 시작한다.
-			// this.thread = new Thread(Run);
+			this.thread = new Thread(Run);
 			// this.Start();
 		}
 

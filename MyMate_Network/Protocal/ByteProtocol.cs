@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 // 기본 자료형을 Byte_arr 자료형으로 변환
 // Byte_arr 자료형을 기본 자료형으로 변환
-namespace Protocal
+namespace Protocol
 {
 	// 자료형에 따른 상수를 정의
 	static public class DataType
