@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.Net.Sockets;
 using System.Diagnostics;
+using ClientNetwork.trash;
+using Protocol;
 
 namespace ClientNetwork.Moudle.sub
 {
@@ -25,6 +27,9 @@ namespace ClientNetwork.Moudle.sub
 		public string address;
 		public int port;
 
+		public Send send;
+		public Receive receive;
+
 
 		public Server(
 			string address = Default.Address
@@ -36,6 +41,13 @@ namespace ClientNetwork.Moudle.sub
 			Console.WriteLine("데이터 삽입 완료");
 			this.tcpclient = new TcpClient();
 			Console.WriteLine("객체 생성 완료");
+
+			// 클라이언트의 전송 클래스
+			this.send = new Send();
+
+			// 클라이언트의 수신 클래스
+			this.receive = new();
+
 		}
 
 		~Server()
@@ -54,6 +66,12 @@ namespace ClientNetwork.Moudle.sub
 				//
 				this.stream = tcpclient.GetStream();
 
+				this.send.setStream(stream);
+
+				this.receive.setStream(stream);
+
+				this.receive.Start();
+
 				//stream.BeginRead()
 			}
 			catch(Exception e)
@@ -71,9 +89,5 @@ namespace ClientNetwork.Moudle.sub
 			
 		}
 
-		public void send(ref string data)
-		{
-			Send.Data(ref stream, ref data);
-		}
 	}
 }

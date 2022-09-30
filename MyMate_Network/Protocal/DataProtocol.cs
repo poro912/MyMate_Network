@@ -14,16 +14,16 @@ namespace Protocol
 	}
 	// 클래스 입력 방식에 대한 델리게이트
 	public delegate void receive_struct(IAsyncResult ar);
-	public abstract class ProtocolStruct
+	interface IClassProtocol
 	{
-		public abstract object Send(object obj);
-		public abstract object Receive(object obj);
+		public object Send(object obj);
+		public object Receive(object obj);
 	}
 	
 
 	
 
-	public class MessageProtocol : ProtocolStruct
+	public class MessageProtocol : IClassProtocol
 	{
 		public class Message
 		{
@@ -32,19 +32,15 @@ namespace Protocol
 			public String Context;
 			public DateTime date;
 		}
-		public override object Send(object obj)
+		public object Send(object obj)
 		{
 			Message message = (Message)obj;
 			List<byte> t = new();
 
-
-
-
-
 			return message; 
 		}
 
-		public override object Receive(object obj)
+		public object Receive(object obj)
 		{
 			Message msg = new Message();
 			

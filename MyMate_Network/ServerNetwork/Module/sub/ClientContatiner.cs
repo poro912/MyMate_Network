@@ -32,7 +32,14 @@ namespace ServerNetwork.Module.sub
 		{
 			foreach (var client in clients)
 			{
-                client.send(ref data);
+                client.send.Data(ref data);
+			}
+		}
+		public void SendAll(ref byte[] data)
+		{
+			foreach (var client in clients)
+			{
+				client.send.Data(ref data);
 			}
 		}
 	}

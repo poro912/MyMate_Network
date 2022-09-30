@@ -18,10 +18,13 @@ Client client = Client.Instance;
 
 while(true)
 {
-	string data = "test data";
 	// cpu 부하를 줄이기 위한 스레드 sleep
-	Thread.Sleep(1000);
-	client.Send(ref data);
+	 Thread.Sleep(100000);
+
+
+	//string data = "test data";
+	//Thread.Sleep(1000);
+	//client.Send(ref data);
 }
 
 #else

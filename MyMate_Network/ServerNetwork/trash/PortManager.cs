@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerNetwork.Module.sub
+namespace ServerNetwork.trash
 {
+    /*
     public class PortManager
     {
         private PortManager instance;
@@ -20,4 +21,5 @@ namespace ServerNetwork.Module.sub
         }
 
     }
+    */
 }

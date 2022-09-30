@@ -5,6 +5,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using Protocol;
+using ServerNetwork.trash;
+
 namespace ServerNetwork.Module.sub
 {
 	public class Client
@@ -13,6 +16,9 @@ namespace ServerNetwork.Module.sub
 		private NetworkStream stream;
 		public Socket socket;
 		// Thread thread;
+
+		public Send send;
+		public Receive receive;
 
 		// 생성된 클라이언트 구조체를 초기화
 		public Client(TcpClient tcpClient)
@@ -23,23 +29,10 @@ namespace ServerNetwork.Module.sub
 			this.stream = tcpClient.GetStream();
 			// 클라이언트의 소켓을 저장
 			this.socket = tcpClient.Client;
-		}
-
-		// 클라이언트에게 문자열을 전송하는 메소드
-		public void send(ref String target)
-		{
-			/*
-			if (this.socket.RemoteEndPoint != null)
-				Console.WriteLine(this.socket.RemoteEndPoint.ToString() + "클라이언트에 데이터를 전송합니다.");
-			string temp = "Hello World";
-			*/
-			Send.Data(ref this.stream, ref target);
-		}
-
-		// 클라이언트에게 바이트 배열을 전송하는 메소드
-		public void send(ref Byte[] target)
-		{
-			Send.Data(ref this.stream, ref target);
+			// 클라이언트의 전송 클래스
+			this.send = new(stream);
+			// 클라이언트의 수신 클래스
+			this.receive = new(stream);
 		}
 	}
 }

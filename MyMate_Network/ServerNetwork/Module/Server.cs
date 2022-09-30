@@ -130,6 +130,9 @@ namespace ServerNetwork.Module
 		{
 			instance.clients.SendAll(ref data);
 		}
-
+		public void SendAll(ref byte[] data)
+		{
+			instance.clients.SendAll(ref data);
+		}
 	}
 }

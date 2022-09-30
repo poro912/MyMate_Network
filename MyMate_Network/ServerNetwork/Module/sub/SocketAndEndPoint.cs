@@ -1,11 +1,4 @@
-﻿// 하나만 동작해야함
-
-// Endpoint 를 사용한 코드
-// #define ENDPOINT
-
-// 소켓 리스너를 이용한 코드
-#define SOCKET
-
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -54,58 +47,6 @@ namespace ServerNetwork.Module.sub
 			Init(IPAddress.Any, port);
 		}
 
-#if ENDPOINT
-		public Socket socket;
-		public IPEndPoint endpoint;
-		
-		private void Init(IPAddress address, int port)
-		{
-			this.address = address;
-			this.port = port;
-
-			// TCP 방식으로 소켓 초기화
-			socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			endpoint = new(this.address, this.port);
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="bind">임시 대기 가능한 클라언트 수</param>
-		public void bind(int bind = 5)
-		{
-			// 포트 설정
-			try
-			{
-				// 포트를 바인드
-				Console.Write("포트 바인드  포트번호 : " + port + "\t");
-				// 소켓과 End point bind
-				socket.Bind(endpoint);
-
-				// 대기를 하는 포트의 수를 지정
-				socket.Listen(bind);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(port + "포트 바인드 실패");
-				Console.WriteLine("에러 내용 : " + ex.Message);
-				Close();
-			}
-		}
-
-		public void Start()
-		{
-			bind();
-		}
-
-		public void Close()
-		{
-			socket.Close();
-			socket.Dispose();
-		}
-
-#elif SOCKET
 		public TcpListener Listener;
 		public TcpClient Client;
 
@@ -146,7 +87,6 @@ namespace ServerNetwork.Module.sub
 
 			return client;
 		}
-#endif
 	}
 
 }

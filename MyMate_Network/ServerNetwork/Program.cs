@@ -18,6 +18,12 @@ while (true)
 	// Thread.Sleep(10000);
 
 	String? input = Console.ReadLine();
+	byte[] buffer = new byte[1024];
 	if(input != null)
+	{
 		server.SendAll(ref input);
+		Protocol.DataGenerater.Generate(ref input, ref buffer);
+		server.SendAll(ref buffer);
+	}
+		
 } 

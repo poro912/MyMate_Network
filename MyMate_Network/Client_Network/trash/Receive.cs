@@ -8,7 +8,7 @@ using System.Net.Sockets;
 
 namespace ClientNetwork.Moudle.sub
 {
-
+	/*
 	public delegate void receive(IAsyncResult ar);
 
 	// 받는 데이터에 따른 상수
@@ -37,8 +37,8 @@ namespace ClientNetwork.Moudle.sub
 		static private Dictionary<int, receive> receive_dict
 			= new Dictionary<int, receive>()
 			{
-				{ Receive_Const.Distribute, _Receive },		// 데이터 판별
-				{ Receive_Const.Receive, MessageReceive }	// 메시지 입력
+				{ Receive_Const.Distribute, new receive(_Receive) },		// 데이터 판별
+				{ Receive_Const.Receive, new receive( MessageReceive ) }	// 메시지 입력
 			};
 
 		// 최초로 입력을 받기 시작하는 메소드
@@ -121,4 +121,5 @@ namespace ClientNetwork.Moudle.sub
 			stream = temp_stream;
 		}
 	}
+	*/
 }

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Diagnostics;
 using ClientNetwork.Moudle.sub;
+using System.Net.Http;
+
+using ClientNetwork.trash;
+using Protocol;
 
 namespace ClientNetwork.Moudle
 {
@@ -33,6 +37,9 @@ namespace ClientNetwork.Moudle
 		private Thread thread;
 		// 스레드 정지 신호가 발생했는지 확인
 		private bool run = false;
+
+
+
 
 		// 생성자
 		// 포트 할당과 스레드 실행을 동시에 한다.
@@ -87,10 +94,7 @@ namespace ClientNetwork.Moudle
 				this.run = true;
 				this.thread.Start();
 
-				// Receive 객체에 스트림을 지정해준다.
-				Receive.SetStream(this.server.stream);
-				// 수신을 받기 시작한다.
-				Receive.StartReceive();
+				//server.receive.getNextData();
 			}
 		}
 
@@ -100,10 +104,11 @@ namespace ClientNetwork.Moudle
 			Console.WriteLine("스레드 종료 신호 발생");
 			this.run = false;
 		}
-
+		
 		public void Send(ref string data)
 		{
-			server.send(ref data);
+			this.server.send.Data(ref data);
 		}
+
 	}
 }

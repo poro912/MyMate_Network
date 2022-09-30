@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 
-namespace ServerNetwork.Module.sub
+namespace ServerNetwork.trash
 
 {
 	// 사용 안되고 있음
 	/*
-    class Accept
+    class Accept__
 	{
 		// Accept가 일어났을 때 진행할 명령어 순서
 		public Socket process(ref SocketAndEndPoint sop)
