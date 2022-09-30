@@ -6,6 +6,9 @@
 
 // 서버 통신을 위한 using
 using ServerNetwork.Module;
+using ServerNetwork.Module.sub;
+using Protocol;
+using Protocol.Protocols;
 
 Console.WriteLine("Start Server");
 
@@ -24,6 +27,11 @@ while (true)
 		server.SendAll(ref input);
 		Protocol.DataGenerater.Generate(ref input, ref buffer);
 		server.SendAll(ref buffer);
+		Client client = new();
+		client.send() ;
+
+		Protocol.User
+		Client.sned(Protocol.ClassGenerater.Generate(data));
 	}
 		
 } 

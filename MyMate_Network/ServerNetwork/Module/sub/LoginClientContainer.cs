@@ -23,7 +23,6 @@ namespace ServerNetwork.Module.sub
 		}
 
 		private Dictionary<int, Client> userList;
-
 		public LoginClientContainer()
 		{
 			userList = new Dictionary<int, Client>();
