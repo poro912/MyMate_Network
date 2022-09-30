@@ -1,56 +1,90 @@
 ﻿using System.Text;
 using System.Collections;
 using System.Net.Sockets;
+using Protocol.Protocols;
+using Protocal.Protocols;
 
 namespace Protocol
 {
 	// 프로토콜에 맞춰 자료(클래스)를 byte로 변환해주는 클래스
 	// 해당 프로토콜 내부에 있는 메시지 형태의 클래스로 변환해 넘겨줘야 함
 	
-	static public class ProtocolConst
+	static public class ClassType
 	{
-		public const int Distribute = 0;    // 분배기, 다음에 들어올 명령이 무엇인지 확인
-		public const int Receive = 1;       // 기본 수신
-	}
-	// 클래스 입력 방식에 대한 델리게이트
-	public delegate void receive_struct(IAsyncResult ar);
-	interface IClassProtocol
-	{
-		public object Send(object obj);
-		public object Receive(object obj);
-	}
-	
-
-	
-
-	public class MessageProtocol : IClassProtocol
-	{
-		public class Message
-		{
-			public int usercode;
-			public int target;
-			public String Context;
-			public DateTime date;
-		}
-		public object Send(object obj)
-		{
-			Message message = (Message)obj;
-			List<byte> t = new();
-
-			return message; 
-		}
-
-		public object Receive(object obj)
-		{
-			Message msg = new Message();
-			
-			
-			return (object)msg;
-		}
-
+		public const byte BaseConst	= 0b_0000_1111;
+		public const byte Login		= BaseConst + 1;
+		public const byte UserInfo	= BaseConst+2;
+		public const byte Message	= BaseConst+3;
 		
 	}
 
+	interface IClassProtocol
+	{
+		// 클래스를 List<byte>로 변환
+		// 데이터를 Generate 할 때는 ClassType을 가장 앞에 추가해야 한다.
+		public void Generate(object target, ref List<byte>destination);
+
+		// List<byte>를 클래스로 변환
+		public object Convert(ref List<byte> target);
+	}
+	// public delegate class
+
+	// 제너레이터 호출
+	static public class ClassGenerater
+	{
+		static public void Generate(ref UserInfoProtocol.User target, ref List<byte> destination)
+		{
+			UserInfoProtocol.Generate(ref target, ref destination);
+			return;
+		}
+
+		static public void Generate(ref MessageProtocol.Message target, ref List<byte> destination)
+		{
+			MessageProtocol.Generate(ref target, ref destination);
+			return;
+		}
+	}
+	
+	static public class ClassConvertor
+	{
+		// 클래스 컨버터
+		// byte_arr 형태의 데이터를 해석해주는 형태의 델리게이트를 배열로 저장
+		static public Dictionary<byte, Converter?> convert_arr =
+			new Dictionary<byte, Converter?> {
+				{ClassType.Login, LoginProtocol.Convert},
+				{ClassType.UserInfo, UserInfoProtocol.Convert},
+				{DataType.INT, MessageProtocol.Convert },
+				
+		};
+		static KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		{
+			// 컨버터 메소드를 임시저장할 델리게이트 변수
+			Converter? converter;
+
+			// 가장 처음에 있는 분류 데이터
+			byte key = target[0];
+			// 분류 데이터는 삭제
+			target.RemoveAt(0);
+
+			convert_arr.TryGetValue(key,out converter);
+
+			if (converter != null)
+				return converter(ref target);
+
+
+			return ReturnNull();
+		}
+		static private KeyValuePair<byte, object?> ReturnNull()
+		{
+			return new(0, null);
+		}
+	}
+	
+	
+}
+
+
+	/*
 	// 받는 데이터에 따른 상수
 	static public class Receive_Const
 	{
@@ -160,4 +194,4 @@ namespace Protocol
 			stream = temp_stream;
 		}
 	}
-}
+	*/

@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		..\working list.txt = ..\working list.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocal", "Protocal\Protocal.csproj", "{6AF4DA19-77B0-4B1E-BD53-7A2CD2ED39D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocol", "Protocal\Protocol.csproj", "{6AF4DA19-77B0-4B1E-BD53-7A2CD2ED39D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{7A4D21B4-04E7-4E0A-91AA-3D4B5525E5E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\TestProject.csproj", "{7A4D21B4-04E7-4E0A-91AA-3D4B5525E5E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
