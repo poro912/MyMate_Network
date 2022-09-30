@@ -1,0 +1,64 @@
+파일
+
+ClientNetwork
+	Program.cs
+	Client.cs
+		Server.cs
+ServerNetwork
+	Program.cs
+	Server.cs
+		Client.cs
+		ClientContainer.cs
+		LoginClientContainer.cs
+		SocketAndEndPoint.cs
+Protocal
+	ByteProtocal.cs				: 기본데이터에 대한 Generator와 Convertor가 정의 되어 있음
+									기본 데이터 <-> byte[]의 상호변환
+	DataProtocal.cs				: 기본 데이터 목록을 클래스 객체로 변환
+									클래스 <-> 기본 데이터
+	Receive.cs					: 파일을 수신할 때의 방법을 정의
+	Send.cs						: 파일을 전송할 때의 방법을 정의
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+해야 할 일
+클라이언트	: 데이터를 전송할 수 있도록 만들어야 함
+서버		: 데이터를 수신받을 수 있도록 해야 함
+데이터 큐를 생성해야함
+
+
+서버와 클라이언트의 기본 구조에 대해 생성하였음
+서로 정보를 주고 받을 수 있도록 기본 구조를 만들었음
+
+instance 정보를 받으면 자동으로 통신이 실행되도록 만들었음
+
+9/23 금
+일부 코드에 대하여 주석 추가
+
+
+
+9/25 일
+프로토콜 구조 구현
+key 값에 대해 델리게이트가 발동되도록 구현
+Client static 태그에 따른 버그 수정 (생성자 변경)
+	Connect 객체 생성자 단일화
+
+서버에서 모든 클라이언트에게 문자열 데이터 전송이 가능하도록 제작
+
+
+9월 26일
+프로토콜을 생성하여 운용하는 형태를 작성함
+클라이언트의 주석을 작성함
+클래스의 용도가 달라 이름이 애매한 경우가 있어 이를 수정함
+프로토콜의 용도를 더 넓혀 Receive 방법과 Send 방법을 서버와 클라이언트가 동일하게 만듦
+
+9월 27일
+따로 관리되던 send 와 receive를 protocol로 빼서 함께 관리함
+
+9월 29일
+제너레이터, 컨버터 기본 구조 완성
+send, receive 메소드 기본 구조 완성
+server와 client에 send, receive 객체 할당
+
+9월 30일
+Receive 객체에 대한 버그를 확인
