@@ -8,7 +8,7 @@
 using ServerNetwork.Module;
 using ServerNetwork.Module.sub;
 using Protocol;
-using Protocol.Protocols;
+//using Protocol.trash;
 
 Console.WriteLine("Start Server");
 
@@ -18,20 +18,7 @@ Server server = Server.Instance;
 while (true)
 {
 	// cpu 부하를 줄이기 위한 스레드 sleep
-	// Thread.Sleep(10000);
+	Thread.Sleep(10000);
 
-	String? input = Console.ReadLine();
-	byte[] buffer = new byte[1024];
-	if(input != null)
-	{
-		server.SendAll(ref input);
-		Protocol.DataGenerater.Generate(ref input, ref buffer);
-		server.SendAll(ref buffer);
-		Client client = new();
-		client.send() ;
-
-		Protocol.User
-		Client.sned(Protocol.ClassGenerater.Generate(data));
-	}
 		
 } 

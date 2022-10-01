@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Protocol;
+using Protocol.trash;
 
 List<byte> results = new (5);
 KeyValuePair<byte, Object?> Data;
@@ -27,7 +28,7 @@ if(Data.Value != null)
 String target = "hello mymate";
 
 List<byte> des = new List<byte>();
-Protocol.DataGenerater.Generate(ref target,ref des);
+DataGenerater.Generate(ref target,ref des);
 
 Console.WriteLine("byte 상수 출력 : " + DataType.STRING);
 
@@ -44,7 +45,7 @@ foreach (var t in des)
 }
 Console.WriteLine();
 
-KeyValuePair<byte, object?> result = Protocol.DataConvertor.Convert(ref des);
+KeyValuePair<byte, object?> result = DataConvertor.Convert(ref des);
 Console.WriteLine("string 으로 변환한 데이터 : " + result.Value);
 
 

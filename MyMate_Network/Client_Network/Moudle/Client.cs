@@ -32,7 +32,7 @@ namespace ClientNetwork.Moudle
 		}
 
 		// 커넥트 객체
-		private Server server;
+		public Server server;
 		// 통신 스레드
 		private Thread thread;
 		// 스레드 정지 신호가 발생했는지 확인
@@ -107,7 +107,7 @@ namespace ClientNetwork.Moudle
 		
 		public void Send(ref string data)
 		{
-			this.server.send.Data(ref data);
+			this.server.send.Data(data);
 		}
 
 	}

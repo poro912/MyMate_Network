@@ -1,4 +1,5 @@
 ﻿using Protocol;
+using Protocol.trash;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +45,9 @@ namespace Protocal.Protocols
 
 		static public void Generate(ref Login target, ref List<byte> destination)
 		{
-			destination.Add(ClassType.Login);
-			DataGenerater.Generate(ref target.id, ref destination);
-			DataGenerater.Generate(ref target.pw, ref destination);
+			destination.Add(DataType.LOGIN);
+			Generater.Generate(ref target.id, ref destination);
+			Generater.Generate(ref target.pw, ref destination);
 		}
 		// List<byte>를 클래스로 변환
 		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
@@ -54,15 +55,15 @@ namespace Protocal.Protocols
 			KeyValuePair<byte, object?> temp;
 			Login result = new();
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.id = (string)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.pw = (string)temp.Value;
 
-			return new(ClassType.Message, result);
+			return new(DataType.MESSAGE, result);
 		}
 	}
 }

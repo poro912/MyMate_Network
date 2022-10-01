@@ -83,11 +83,5 @@ namespace ClientNetwork.Moudle.sub
 			Console.WriteLine("성공");
 		}
 
-		
-		public void MessageRecieved(IAsyncResult ar)
-		{
-			
-		}
-
 	}
 }

@@ -2,21 +2,12 @@
 using System.Collections;
 using System.Net.Sockets;
 using Protocol.Protocols;
-using Protocal.Protocols;
 
-namespace Protocol
+namespace Protocol.trash
 {
 	// 프로토콜에 맞춰 자료(클래스)를 byte로 변환해주는 클래스
 	// 해당 프로토콜 내부에 있는 메시지 형태의 클래스로 변환해 넘겨줘야 함
-	
-	static public class ClassType
-	{
-		public const byte BaseConst	= 0b_0000_1111;
-		public const byte Login		= BaseConst + 1;
-		public const byte UserInfo	= BaseConst+2;
-		public const byte Message	= BaseConst+3;
-		
-	}
+	/*
 
 	interface IClassProtocol
 	{
@@ -29,22 +20,6 @@ namespace Protocol
 	}
 	// public delegate class
 
-	// 제너레이터 호출
-	static public class ClassGenerater
-	{
-		static public void Generate(ref UserInfoProtocol.User target, ref List<byte> destination)
-		{
-			UserInfoProtocol.Generate(ref target, ref destination);
-			return;
-		}
-
-		static public void Generate(ref MessageProtocol.Message target, ref List<byte> destination)
-		{
-			MessageProtocol.Generate(ref target, ref destination);
-			return;
-		}
-	}
-	
 	static public class ClassConvertor
 	{
 		// 클래스 컨버터
@@ -70,7 +45,7 @@ namespace Protocol
 
 			if (converter != null)
 				return converter(ref target);
-
+			
 
 			return ReturnNull();
 		}
@@ -80,7 +55,7 @@ namespace Protocol
 		}
 	}
 	
-	
+	*/
 }
 
 

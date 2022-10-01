@@ -1,4 +1,4 @@
-﻿using Protocol;
+﻿using Protocol.trash;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Protocol.Protocols
 {
-	public class MessageProtocol
+    public class MessageProtocol
 	{
 		public class Message
 		{
@@ -57,11 +57,10 @@ namespace Protocol.Protocols
 		// 클래스를 List<byte>로 변환
 		static public void Generate(ref Message target, ref List<byte> destination)
 		{
-			destination.Add(ClassType.Message);
-			DataGenerater.Generate(ref target.servercode, ref destination);
-			DataGenerater.Generate(ref target.usercode, ref destination);
-			DataGenerater.Generate(ref target.context, ref destination);
-			//DataGenerater.Generate(ref target.date, ref destination);
+			destination.Add(DataType.MESSAGE);
+			Generater.Generate(ref target.servercode,	ref destination);
+			Generater.Generate(ref target.usercode,		ref destination);
+			Generater.Generate(ref target.context,		ref destination);
 		}
 
 		// List<byte>를 클래스로 변환
@@ -70,25 +69,19 @@ namespace Protocol.Protocols
 			KeyValuePair<byte, object?> temp;
 			Message result = new();
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.servercode = (int)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.usercode = (int)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.context = (string)temp.Value;
 
-			/*
-			temp = DataConvertor.Convert(ref target);
-			if (temp.Value != null)
-				result.servercode = (int)temp.Value;
-			*/
-
-			return new (ClassType.Message, result);
+			return new (DataType.MESSAGE, result);
 		}
 	}
 }

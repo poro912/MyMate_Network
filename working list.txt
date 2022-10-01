@@ -2,13 +2,13 @@
 
 ClientNetwork
 	Program.cs
-	Client.cs
-		Server.cs
+	Client.cs					: 클라이언트 통신을 위한 클래스
+		Server.cs				: 서버에 대한 정보를 저장하기 위한 클래스
 ServerNetwork
 	Program.cs
-	Server.cs
-		Client.cs
-		ClientContainer.cs
+	Server.cs					: Accept가 가능하도록 만들어주는 서버 클래스
+		Client.cs				: Client 와 연결을 유지할 수 있도록 만들어주는 클래스
+		ClientContainer.cs		: 
 		LoginClientContainer.cs
 		SocketAndEndPoint.cs
 Protocal
@@ -20,8 +20,12 @@ Protocal
 	Send.cs						: 파일을 전송할 때의 방법을 정의
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 메모
-Generate	-> 데이터 생성
-Convert		-> 데이터 해석
+Generate	-> 데이터 생성		Data		->List<byte>
+Convert		-> 데이터 해석		List<byte>	-> KeyValuePair<byte, object?>
+								byte[]		-> KeyValuePair<byte, object?>
+
+Send		-> 데이터 전송		byte[]
+Receive		-> 데이터 수신		byte[]
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -67,5 +71,17 @@ server와 client에 send, receive 객체 할당
 9월 30일
 Receive 객체에 대한 버그를 확인 -> byte[]을 해석 하기전에 생성하여 문제 발생
 -> 한 곳에서만 새로 배열을 할당하는 방식으로 문제를 해결
+Login 프로토콜 생성
+
+10월 2일
+기존 generator 와 converter의 네임 스페이스가 너무 길어져 번거로움 발생
+이에 최대한 짧게 줄이는 방향으로 제공
+Generator와 Converter를 통합하여 저장하기로 결정
+자료형을 통합하여 사용하지 않는 자료형을 삭제하였음
+자료형을 통합하여 DataType 클래스에 저장
+
+DynamicSend 메소드를 생성하여 전송중에 다음 전송을 대기 하지 않아도 되도록 만들었음
+Receive Class 에 이벤트를 생성해서 데이터가 전송될 때마다 이벤트를 발생시키게 하였음
+
 
 

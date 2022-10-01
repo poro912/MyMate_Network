@@ -11,7 +11,14 @@ namespace Protocol
 {
 	public delegate void receive(IAsyncResult ar);
 
-	// 1024 byte 데이터를 읽어와 넘겨주며 다음 데이터를 읽기위해 대기한다.	
+	// Receive receive = new(stream);
+	// receive.Start();
+
+	// 1024 byte 데이터를 읽어와 넘겨주며 다음 데이터를 읽기위해 대기한다.
+	// Receive.Data()를 사용하게 되면 네트워크 에서 데이터를 읽어와 queue에 저장하기 시작한다.
+	// 읽어온 데이터는 receive_queue에 저장된다.
+	// Receive.pop() 하면 다음 데이터를 가져온다.	// 이 때 null 값인지 확인해야함
+	// 수신 시 데이터는 byte[] 형태이다.
 	public class Receive
 	{
 		// 입력받은 byte[1024] 데이터를 저장하는 큐
@@ -19,6 +26,21 @@ namespace Protocol
 
 		// 스트림 저장 멤버
 		public NetworkStream stream { get; set; }
+
+		// 이벤트 발생기
+		private event EventHandler _receive_event;
+
+		public event EventHandler ReceiveEvent
+		{
+			add
+			{
+				_receive_event += value;
+			}
+			remove
+			{
+				_receive_event -= value;
+			}
+		}
 
 		// 임시 변수
 		private byte[] received_byte;
@@ -46,12 +68,17 @@ namespace Protocol
 
 		public void Start()
 		{
+			run = true;
 			Data();
+		}
+		public void Stop()
+		{
+			run = false;
 		}
 
 		// Receive.Data()
 		// 데이터를 읽어오기 시작한다	.
-		public void Data()
+		private void Data()
 		{
 			received_byte = new byte[1024];
 			// 실행 상태가 아니라면종료
@@ -91,30 +118,37 @@ namespace Protocol
 			// 데이터를 받아오는 대로 queue에 저장
 			receive_queue.Enqueue(this.received_byte);
 
-			foreach (var i in this.received_byte)
+			// 이벤트 호출
+			if(_receive_event != null)
+				_receive_event(this, EventArgs.Empty);
+
+			/*foreach (var i in this.received_byte)
 			{
 				Console.Write(i + " ");
 			}
 			Console.WriteLine();
-
-			// 처리 끝 다음 데이터를 받을 준비를 함
-
+			*/
 			// 새로운 byte 배열을 저장
 			// this.received_byte = new byte[1024];
 
+			// 처리 끝 다음 데이터를 받을 준비를 함
 			Data();
 		}
 
 		// get 이후 NULL값 확인을 해야함
-		public void getNextData(out byte[]? destination)
+		public void Pop(out byte[]? destination)
 		{
 			this.receive_queue.TryDequeue(out destination);
 		}
-		public byte[]? getNextData()
+		public byte[]? Pop()
 		{
-			byte[]? temp ;
-			this.receive_queue.TryDequeue(out temp);
+			this.receive_queue.TryDequeue(out byte[]? temp);
 			return temp;
 		}
+	}
+
+	public class DynamicReceive
+	{
+
 	}
 }

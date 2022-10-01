@@ -1,4 +1,4 @@
-﻿using Protocol;
+﻿using Protocol.trash;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,12 +59,12 @@ namespace Protocol.Protocols
 		// byte 데이터를 생성
 		static public void Generate(ref User target, ref List<byte> destination)
 		{
-			destination.Add(ClassType.UserInfo);
-			DataGenerater.Generate(ref target.code, ref destination);
-			DataGenerater.Generate(ref target.id, ref destination);
-			DataGenerater.Generate(ref target.name, ref destination);
-			DataGenerater.Generate(ref target.nick, ref destination);
-			DataGenerater.Generate(ref target.phone, ref destination);
+			destination.Add(DataType.USER_INFO);
+			Generater.Generate(ref target.code, ref destination);
+			Generater.Generate(ref target.id, ref destination);
+			Generater.Generate(ref target.name, ref destination);
+			Generater.Generate(ref target.nick, ref destination);
+			Generater.Generate(ref target.phone, ref destination);
 			return;
 		}
 
@@ -74,27 +74,27 @@ namespace Protocol.Protocols
 			User result = new();
 
 			// code 값 입력 받음
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.code = (int)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.id = (string)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.name = (string)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.nick = (string)temp.Value;
 
-			temp = DataConvertor.Convert(ref target);
+			temp = Converter.Convert(ref target);
 			if (temp.Value != null)
 				result.phone = (string)temp.Value;
 
-			return new (ClassType.UserInfo, result);
+			return new (DataType.USER_INFO, result);
 		}
 	}
 }
