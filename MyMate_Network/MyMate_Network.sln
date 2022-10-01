@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{019E5A5D-EB8F-4BB7-AFCE-9F405907F00F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientNetwork", "Client_Network\ClientNetwork.csproj", "{5ED41F72-1AC0-4685-9D88-D2C258D0110B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientNetwork", "ClientNetwork\ClientNetwork.csproj", "{5ED41F72-1AC0-4685-9D88-D2C258D0110B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerNetwork", "ServerNetwork\ServerNetwork.csproj", "{36F000C9-05BB-47D6-BFB6-8C59F1C24D85}"
 EndProject

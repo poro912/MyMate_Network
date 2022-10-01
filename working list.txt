@@ -12,10 +12,9 @@ ServerNetwork
 		LoginClientContainer.cs
 		SocketAndEndPoint.cs
 Protocal
-	ByteProtocal.cs				: 기본데이터에 대한 Generator와 Convertor가 정의 되어 있음
-									기본 데이터 <-> byte[]의 상호변환
-	DataProtocal.cs				: 기본 데이터 목록을 클래스 객체로 변환
-									클래스 <-> 기본 데이터
+	DataType.cs					: 자료형에 대한 상수 정의
+	Generater.cs				: 송신 데이터를 생성해주는 클래스
+	Converter.cs				: 수신한 데이터를 사용할 수 있도록 번역해주는 클래스
 	Receive.cs					: 파일을 수신할 때의 방법을 정의
 	Send.cs						: 파일을 전송할 때의 방법을 정의
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -26,6 +25,11 @@ Convert		-> 데이터 해석		List<byte>	-> KeyValuePair<byte, object?>
 
 Send		-> 데이터 전송		byte[]
 Receive		-> 데이터 수신		byte[]
+
+송수신 형태
+단일 변수	: |분류상수|값|
+배열		: |분류상수|길이|배열|
+클래스		: |분류상수|단일변수|단일변수|배열|배열|
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -75,7 +79,7 @@ Login 프로토콜 생성
 
 10월 2일
 기존 generator 와 converter의 네임 스페이스가 너무 길어져 번거로움 발생
-이에 최대한 짧게 줄이는 방향으로 제공
+이에 최대한 짧게 줄이는 방향으로 제공하기로 함
 Generator와 Converter를 통합하여 저장하기로 결정
 자료형을 통합하여 사용하지 않는 자료형을 삭제하였음
 자료형을 통합하여 DataType 클래스에 저장
