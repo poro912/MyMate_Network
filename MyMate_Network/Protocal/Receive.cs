@@ -29,7 +29,6 @@ namespace Protocol
 
 		// 이벤트 발생기
 		private event EventHandler _receive_event;
-
 		public event EventHandler ReceiveEvent
 		{
 			add
@@ -122,15 +121,6 @@ namespace Protocol
 			if(_receive_event != null)
 				_receive_event(this, EventArgs.Empty);
 
-			/*foreach (var i in this.received_byte)
-			{
-				Console.Write(i + " ");
-			}
-			Console.WriteLine();
-			*/
-			// 새로운 byte 배열을 저장
-			// this.received_byte = new byte[1024];
-
 			// 처리 끝 다음 데이터를 받을 준비를 함
 			Data();
 		}
@@ -145,6 +135,17 @@ namespace Protocol
 			this.receive_queue.TryDequeue(out byte[]? temp);
 			return temp;
 		}
+
+		// get 이후 NULL값 확인을 해야함
+		public void Pop(out List<byte> destination)
+		{
+			byte[]? temp;
+			this.receive_queue.TryDequeue(out temp);
+			if (temp != null)
+				destination = temp.ToList();
+			else
+				destination = new List<byte>();
+		}
 	}
 
 	public class DynamicReceive
@@ -152,3 +153,12 @@ namespace Protocol
 
 	}
 }
+
+/*foreach (var i in this.received_byte)
+			{
+				Console.Write(i + " ");
+			}
+			Console.WriteLine();
+			*/
+// 새로운 byte 배열을 저장
+// this.received_byte = new byte[1024];
