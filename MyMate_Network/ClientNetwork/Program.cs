@@ -5,7 +5,9 @@ using System.Net.Sockets;
 using System.Net;
 
 // 클라이언트 통신을 위한 using
-using ClientNetwork.Moudle;
+using ClientNetwork;
+using Protocol;
+using Protocal.Protocols;
 
 // 뮤텍스 해야함
 
@@ -13,15 +15,32 @@ Console.WriteLine("Start Client");
 
 #if INTEGRATED
 // 클라이언트 통신을 여는 문장
-Client client = Client.Instance;
+Server server = Server.Instance;
 
+// 데이터를 받기위한 변수들
+KeyValuePair<byte, object?> result;
+byte[]? a_data;
+List<byte> l_data = new();
 
 while(true)
 {
 	// cpu 부하를 줄이기 위한 스레드 sleep
-	 Thread.Sleep(100000);
+	Thread.Sleep(1000);
+	a_data = server.receive.Pop();
+	if(a_data != null)
+	{
+		result = Converter.Convert(ref a_data);
+		Console.WriteLine("전송받은 데이터 타입 : " + result.Key);
+		Console.WriteLine("전송받은 데이터 : " + result.Value);
 
+		LoginProtocol.Login login = new();
+		login.Set("admin", "1234");
 
+		Generater.Generate(ref login, ref l_data);
+		server.send.Data(l_data);
+
+		a_data = null;
+	}
 	//string data = "test data";
 	//Thread.Sleep(1000);
 	//client.Send(ref data);

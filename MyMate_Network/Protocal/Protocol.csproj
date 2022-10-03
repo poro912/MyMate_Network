@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include=".trash\ByteProtocol.cs" />
+    <Compile Include=".trash\ClassProtocol.cs" />
+  </ItemGroup>
+
 </Project>

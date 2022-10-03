@@ -2,12 +2,11 @@
 
 ClientNetwork
 	Program.cs
-	Client.cs					: 클라이언트 통신을 위한 클래스
-		Server.cs				: 서버에 대한 정보를 저장하기 위한 클래스
+	Server.cs					: 서버에 대한 정보를 저장하기 위한 클래스
 ServerNetwork
 	Program.cs
 	Server.cs					: Accept가 가능하도록 만들어주는 서버 클래스
-		Client.cs				: Client 와 연결을 유지할 수 있도록 만들어주는 클래스
+		Client.cs				: Client 와 연결을 유지 및 통신할 수 있는 클래스
 		ClientContainer.cs		: 
 		LoginClientContainer.cs
 		SocketAndEndPoint.cs
@@ -87,5 +86,14 @@ Generator와 Converter를 통합하여 저장하기로 결정
 DynamicSend 메소드를 생성하여 전송중에 다음 전송을 대기 하지 않아도 되도록 만들었음
 Receive Class 에 이벤트를 생성해서 데이터가 전송될 때마다 이벤트를 발생시키게 하였음
 
+ClientNetwork의 Client 객체가 필요 없다 느껴져 삭제
+간단하게 Send 객체에 접근 할 수 있도록 수정
+기존 Client 의 객체 정보를 갖고있던 상태를 Server의 정보만 갖고 있도록 수정
+
+Server에서 Accept 발생 시 루틴을 정해놓는게 아닌 외부에서 지정해줘야함
+따라서 델리게이트를 선언하여 액셉트 시 루틴을 줄 수 있게 하였음
 
 
+10월 3일
+기본적인 구조 테스트 완료
+예제 구현 

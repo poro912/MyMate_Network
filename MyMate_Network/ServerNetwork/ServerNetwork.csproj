@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include=".trash\Accept.cs" />
+    <Compile Include=".trash\PortManager.cs" />
+    <Compile Include=".trash\Send.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Protocal\Protocol.csproj" />
   </ItemGroup>
 

@@ -63,7 +63,7 @@ namespace Protocal.Protocols
 			if (temp.Value != null)
 				result.pw = (string)temp.Value;
 
-			return new(DataType.MESSAGE, result);
+			return new(DataType.LOGIN, result);
 		}
 	}
 }

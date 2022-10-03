@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 // 해당 클래스에 동기화를 적용시켜 한번에 한 객체만 접근하도록 해야 함
 
-namespace ServerNetwork.Module.sub
+namespace ServerNetwork.Module
 {
     // 21억명의 정보를 저장할 수 있겠지
     public class ClientContatiner
@@ -20,27 +20,27 @@ namespace ServerNetwork.Module.sub
             clients = new List<Client>();
         }
 
-        public void add( Client client)
+        public void add(Client client)
         {
             // 객체 생성이 안되거나 유저가 없으면 종료
-            if (client == null )
+            if (client == null)
                 return;
             clients.Add(client);
         }
 
-		public void SendAll(ref string data)
-		{
-			foreach (var client in clients)
-			{
+        public void SendAll(ref string data)
+        {
+            foreach (var client in clients)
+            {
                 client.send.Data(data);
-			}
-		}   
-		public void SendAll(ref byte[] data)
-		{
-			foreach (var client in clients)
-			{
-				client.send.Data(data);
-			}
-		}
-	}
+            }
+        }
+        public void SendAll(ref byte[] data)
+        {
+            foreach (var client in clients)
+            {
+                client.send.Data(data);
+            }
+        }
+    }
 }

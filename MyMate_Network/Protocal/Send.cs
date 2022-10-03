@@ -37,10 +37,19 @@ namespace Protocol
 
 		// byte 형태의 데이터 전송
 		// 하나의 바이트 배열을 전송 할 때 사용
+		public void Data(List<byte> data)
+		{
+			Data(data.ToArray());
+		}
+
+		// byte 형태의 데이터 전송
+		// 하나의 바이트 배열을 전송 할 때 사용
 		public void Data(Byte[] data)
 		{
 			// 들어온 데이터가 없다면 종료
 			if (data.Length.Equals(0))
+				return;
+			if (this.stream == null)
 				return;
 			try
 			{
@@ -151,6 +160,13 @@ namespace Protocol
 			}
 		}
 
+		public void Stop()
+		{
+			this.run = false;
+			// 스레드 강제 중지
+			sendThread.Interrupt();
+		}
+
 
 		private void SendThread()
 		{
@@ -164,6 +180,9 @@ namespace Protocol
 			{
 				if (this.send_queue.IsEmpty && count > 5)
 					break;
+				if (run == false)
+					break;
+
 				// 큐에서 데이터를 가져옴
 				send_queue.TryDequeue(out byte[]? temp);
 
