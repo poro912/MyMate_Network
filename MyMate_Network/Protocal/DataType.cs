@@ -9,6 +9,7 @@ namespace Protocol
 	// 자료형에 따른 상수를 정의
 	static public class DataType
 	{
+		// 기본 자료형 타입
 		public const byte OBJECT		= 0; //0
 		public const byte STRING		= 1; //1
 		public const byte BYTE			= 2; //2
@@ -25,12 +26,22 @@ namespace Protocol
 		public const byte DOUBLEARRAY	= 13; //13
 		public const byte BOOLARRAY		= 14; //14
 		public const byte TIME			= 15; //15
-		public const byte BASE_CONST		= 0b_0000_1111; //16
-		// 로그인 데이터 상수
-		public const byte LOGIN			= BASE_CONST + 1;
-		// 유저 정보 데이터 상수
-		public const byte USER_INFO		= BASE_CONST + 2;
-		// 메시지 데이터 상수
-		public const byte MESSAGE		= BASE_CONST + 3;
+
+		// 제어 타입
+		public const byte CONTROLLBASE	= 0b_0000_1111; //15
+		// 로그인
+		public const byte LOGIN			= CONTROLLBASE + 1;
+		// 로그아웃
+		public const byte LOGOUT		= CONTROLLBASE + 2;
+		// 연결 확인
+		public const byte ISCONNECT		= CONTROLLBASE + 3;
+
+
+		// 클래스 타입
+		public const byte CLASSBASE		= 0b_0001_1111; //31
+		// 유저 정보
+		public const byte USER_INFO		= CLASSBASE + 1;
+		// 메시지
+		public const byte MESSAGE		= CLASSBASE + 2;
 	}
 }

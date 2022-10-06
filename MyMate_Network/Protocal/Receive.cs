@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Protocol
 {
-	public delegate void receive(IAsyncResult ar);
+	//public delegate void receive(IAsyncResult ar);
 
 	// Receive receive = new(stream);
 	// receive.Start();
@@ -145,6 +145,10 @@ namespace Protocol
 				destination = temp.ToList();
 			else
 				destination = new List<byte>();
+		}
+		public bool isEmpty()
+		{
+			return this.receive_queue.IsEmpty;
 		}
 	}
 

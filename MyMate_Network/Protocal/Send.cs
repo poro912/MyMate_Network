@@ -58,6 +58,7 @@ namespace Protocol
 			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
+				throw;
 			}
 		}
 
@@ -76,6 +77,7 @@ namespace Protocol
 			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
+				throw;
 			}
 		}
 
@@ -120,13 +122,9 @@ namespace Protocol
 		// 전송할 byte[1024] 데이터를 저장하는 큐
 		public ConcurrentQueue<byte[]> send_queue;
 
-		public bool run = false;
-
 		private Thread sendThread;
 
 		private Send send;
-
-		//Mutex mutex;
 
 		public DynamicSend(NetworkStream stream)
 		{
@@ -137,15 +135,14 @@ namespace Protocol
 			send_queue = new ConcurrentQueue<byte[]>();
 
 			sendThread = new Thread(SendThread);
-
-			run = false;
 		}
 
 		// 데이터를 큐에 집어 넣으면서 스레드를 실행한다.
 		public void Push(byte[] data)
 		{
 			send_queue.Enqueue(data);
-			if (!run)
+			// 스레드가 현재 동작중이 아니라면 동작시킨다.
+			if (!this.sendThread.IsAlive)
 			{
 				sendThread.Start();
 			}
@@ -154,7 +151,7 @@ namespace Protocol
 		public void Push(ref List<byte> data)
 		{
 			send_queue.Enqueue(data.ToArray());
-			if (!run)
+			if (!this.sendThread.IsAlive)
 			{
 				sendThread.Start();
 			}
@@ -162,9 +159,8 @@ namespace Protocol
 
 		public void Stop()
 		{
-			this.run = false;
-			// 스레드 강제 중지
 			sendThread.Interrupt();
+			sendThread.Join();	// 스레드가 제대로 중지되는지 모르겠음
 		}
 
 
@@ -173,34 +169,38 @@ namespace Protocol
 			// 혹시라도 입력중에 스레드가 꺼지는 것을 방지하기 위한 count 변수
 			int count = 0;
 
-			run = true;
-
 			// 큐가 빌때까지 메시지를 전송
 			do
 			{
 				if (this.send_queue.IsEmpty && count > 5)
 					break;
-				if (run == false)
-					break;
 
 				// 큐에서 데이터를 가져옴
 				send_queue.TryDequeue(out byte[]? temp);
 
-				// 더이상 읽을 데이터가 없는지 5회 확인 후 스레드 종료
+				// 더이상 읽을 데이터가 없는지 5회(0.05초) 확인 후 스레드 종료
 				if (temp == null)
 				{
 					count++;
+					Thread.Sleep(10);
 					continue;
 				}
+
+				try
+				{
+					// 데이터를 전송한다.
+					send.Data(temp);
+				}
+				catch(Exception e)
+				{
+					throw;
+					break;
+				}
 				
-				// 데이터를 전송한다.
-				send.Data(temp);
 
 				// 읽은 데이터가 있다면 count 0으로 초기화
 				count = 0;
 			} while (true);
-			
-			run = false;
 		}
 	}
 }

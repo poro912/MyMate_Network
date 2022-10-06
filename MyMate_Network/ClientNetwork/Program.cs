@@ -7,7 +7,7 @@ using System.Net;
 // 클라이언트 통신을 위한 using
 using ClientNetwork;
 using Protocol;
-using Protocal.Protocols;
+using Protocol.Protocols;
 
 // 뮤텍스 해야함
 
