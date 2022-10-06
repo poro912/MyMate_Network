@@ -10,7 +10,7 @@ ServerNetwork
 		ClientContainer.cs		: 
 		LoginClientContainer.cs
 		SocketAndEndPoint.cs
-Protocal
+Protocol
 	DataType.cs					: 자료형에 대한 상수 정의
 	Generater.cs				: 송신 데이터를 생성해주는 클래스
 	Converter.cs				: 수신한 데이터를 사용할 수 있도록 번역해주는 클래스
@@ -97,3 +97,11 @@ Server에서 Accept 발생 시 루틴을 정해놓는게 아닌 외부에서 지정해줘야함
 10월 3일
 기본적인 구조 테스트 완료
 예제 구현 
+
+10월 5일
+Receive에 isEmpty 추가
+IsConnect 클래스 구현
+
+10월 6일
+send시 stream이 닫혀있을 경우 예외처리를 상위로 보내주기위한 코드를 작성함
+thread 의 run 변수를 isAlive로 대체하였다. 

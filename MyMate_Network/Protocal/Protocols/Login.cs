@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Protocal.Protocols
+namespace Protocol.Protocols
 {
 	public class LoginProtocol
 	{

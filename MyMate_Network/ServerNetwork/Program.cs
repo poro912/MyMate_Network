@@ -5,7 +5,6 @@
 //
 
 // 서버 통신을 위한 using
-using Protocal.Protocols;
 using Protocol;
 using ServerNetwork;
 using ServerNetwork.Module;

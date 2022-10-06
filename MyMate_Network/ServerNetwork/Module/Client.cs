@@ -12,17 +12,17 @@ namespace ServerNetwork.Module
 {
     public class Client
     {
-        public TcpClient tcpClient;
-        private NetworkStream stream;
+		private NetworkStream stream;
+
+		public TcpClient tcpClient;
         public Socket socket;
-        // Thread thread;
 
         public Send send;
         public DynamicSend dynamicSend;
         public Receive receive;
 
-        // 생성된 클라이언트 구조체를 초기화
-        public Client(TcpClient tcpClient)
+		// 생성된 클라이언트 구조체를 초기화
+		public Client(TcpClient tcpClient)
         {
             // tcpClinet 객체를 저장
             this.tcpClient = tcpClient;
@@ -53,5 +53,6 @@ namespace ServerNetwork.Module
         {
             receive.Start();
         }
+
     }
 }

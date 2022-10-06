@@ -1,4 +1,4 @@
-﻿using Protocal.Protocols;
+﻿
 using Protocol.Protocols;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ namespace Protocol
 	{
 		// List<byte>
 
+		// 일반 자료형
 		// int
 		static public void Generate(ref int target, ref List<byte> destination)
 		{
@@ -35,6 +36,17 @@ namespace Protocol
 			destination.AddRange(Encoding.UTF8.GetBytes(target));
 		}
 
+		// bool
+		static public void Generate(ref bool target, ref List<byte> destination)
+		{
+			// 해석하기 위한 데이터 삽입
+			destination.Add(DataType.BOOL);
+
+			// int 형 데이터를 해당 byte 형으로 변환
+			destination.AddRange(BitConverter.GetBytes(target));
+		}
+
+		// 제어 데이터형
 		// Login
 		static public void Generate(ref LoginProtocol.Login target, ref List<byte> destination)
 		{
@@ -42,6 +54,20 @@ namespace Protocol
 			return;
 		}
 
+		// Login
+		static public void Generate(ref LogoutProtocol.Logout target, ref List<byte> destination)
+		{
+			LogoutProtocol.Generate(ref target, ref destination);
+			return;
+		}
+		// Login
+		static public void Generate(ref isConnectProtocol.IsConnect target, ref List<byte> destination)
+		{
+			isConnectProtocol.Generate(ref target, ref destination);
+			return;
+		}
+
+		// 클래스 형
 		// User
 		static public void Generate(ref UserInfoProtocol.User target, ref List<byte> destination)
 		{
@@ -55,6 +81,8 @@ namespace Protocol
 			MessageProtocol.Generate(ref target, ref destination);
 			return;
 		}
+
+
 	}
 }
 
