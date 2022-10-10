@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Net.Sockets;
-using System.Diagnostics;
-using ClientNetwork.trash;
 using Protocol;
 
 namespace ClientNetwork

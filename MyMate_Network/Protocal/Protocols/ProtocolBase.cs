@@ -51,23 +51,23 @@ namespace Protocol.Protocols
 		}
 
 
-		static public void Generate(ref DataName target, ref List<byte> destination)
+		static public void Generate(DataName target, ref ByteList destination)
 		{
 			destination.Add(DataType.DataName);
-			Generater.Generate(ref target.data1, ref destination);
-			Generater.Generate(ref target.data2, ref destination);
+			Generater.Generate(target.data1, ref destination);
+			Generater.Generate(target.data2, ref destination);
 		}
 		// List<byte>를 클래스로 변환
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			DataName result = new();
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.data1 = (string)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.data2 = (string)temp.Value;
 

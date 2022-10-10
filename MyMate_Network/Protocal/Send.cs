@@ -37,7 +37,7 @@ namespace Protocol
 
 		// byte 형태의 데이터 전송
 		// 하나의 바이트 배열을 전송 할 때 사용
-		public void Data(List<byte> data)
+		public void Data(ByteList data)
 		{
 			Data(data.ToArray());
 		}
@@ -63,7 +63,7 @@ namespace Protocol
 		}
 
 		public void Data(
-			ref NetworkStream stream,
+			NetworkStream stream,
 			Byte[] data
 		)
 		{
@@ -100,7 +100,7 @@ namespace Protocol
 		}
 
 		public void Data(
-			ref NetworkStream stream,
+			NetworkStream stream,
 			String data
 		){
 			// String 을 byte 배열로 변환하여 전송
@@ -109,7 +109,7 @@ namespace Protocol
 			byte[] buf = Encoding.Default.GetBytes(data);
 			Console.WriteLine("전송 데이터 : " + data);
 			// 해당 스트림으로 문자열 전송
-			Data(ref stream, buf);
+			Data(stream, buf);
 		}
 
 		
@@ -148,7 +148,7 @@ namespace Protocol
 			}
 		}
 
-		public void Push(ref List<byte> data)
+		public void Push(ByteList data)
 		{
 			send_queue.Enqueue(data.ToArray());
 			if (!this.sendThread.IsAlive)
@@ -193,8 +193,8 @@ namespace Protocol
 				}
 				catch(Exception e)
 				{
+					Console.WriteLine(e);
 					throw;
-					break;
 				}
 				
 

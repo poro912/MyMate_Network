@@ -16,7 +16,7 @@ namespace Protocol.trash
 		public void Generate(object target, ref List<byte>destination);
 
 		// List<byte>를 클래스로 변환
-		public object Convert(ref List<byte> target);
+		public object Convert(List<byte> target);
 	}
 	// public delegate class
 
@@ -31,7 +31,7 @@ namespace Protocol.trash
 				{DataType.INT, MessageProtocol.Convert },
 				
 		};
-		static KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static Result Convert(List<byte> target)
 		{
 			// 컨버터 메소드를 임시저장할 델리게이트 변수
 			Converter? converter;
@@ -44,7 +44,7 @@ namespace Protocol.trash
 			convert_arr.TryGetValue(key,out converter);
 
 			if (converter != null)
-				return converter(ref target);
+				return converter(target);
 			
 
 			return ReturnNull();

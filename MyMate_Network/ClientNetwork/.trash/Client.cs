@@ -57,7 +57,7 @@ namespace ClientNetwork.trash
 
 		}
 		
-		public void Send(ref string data)
+		public void Send(string data)
 		{
 			this.server.send.Data(data);
 		}

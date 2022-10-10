@@ -55,29 +55,29 @@ namespace Protocol.Protocols
 		}
 
 		// 클래스를 List<byte>로 변환
-		static public void Generate(ref Message target, ref List<byte> destination)
+		static public void Generate(Message target, ref ByteList destination)
 		{
 			destination.Add(DataType.MESSAGE);
-			Generater.Generate(ref target.servercode,	ref destination);
-			Generater.Generate(ref target.usercode,		ref destination);
-			Generater.Generate(ref target.context,		ref destination);
+			Generater.Generate(target.servercode,	ref destination);
+			Generater.Generate(target.usercode,		ref destination);
+			Generater.Generate(target.context,		ref destination);
 		}
 
 		// List<byte>를 클래스로 변환
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			Message result = new();
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.servercode = (int)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.usercode = (int)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.context = (string)temp.Value;
 

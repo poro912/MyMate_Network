@@ -57,40 +57,40 @@ namespace Protocol.Protocols
 		}
 
 		// byte 데이터를 생성
-		static public void Generate(ref User target, ref List<byte> destination)
+		static public void Generate(User target, ref ByteList destination)
 		{
 			destination.Add(DataType.USER_INFO);
-			Generater.Generate(ref target.code, ref destination);
-			Generater.Generate(ref target.id, ref destination);
-			Generater.Generate(ref target.name, ref destination);
-			Generater.Generate(ref target.nick, ref destination);
-			Generater.Generate(ref target.phone, ref destination);
+			Generater.Generate(target.code, ref destination);
+			Generater.Generate(target.id, ref destination);
+			Generater.Generate(target.name, ref destination);
+			Generater.Generate(target.nick, ref destination);
+			Generater.Generate(target.phone, ref destination);
 			return;
 		}
 
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			User result = new();
 
 			// code 값 입력 받음
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.code = (int)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.id = (string)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.name = (string)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.nick = (string)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.phone = (string)temp.Value;
 

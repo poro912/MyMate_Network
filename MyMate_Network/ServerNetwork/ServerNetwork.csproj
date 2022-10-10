@@ -9,12 +9,15 @@
 
   <ItemGroup>
     <Compile Include=".trash\Accept.cs" />
+    <Compile Include=".trash\ClientContatiner.cs" />
+    <Compile Include=".trash\LoginClientContainer.cs" />
     <Compile Include=".trash\PortManager.cs" />
     <Compile Include=".trash\Send.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Protocal\Protocol.csproj" />
+    <ProjectReference Include="..\TestDataSender\TestDataSender.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ int i = 10;
 
 
 Console.WriteLine("target\t" + i);
-DataGenerater.Generate(ref i, ref results);
+Generater.Generate(i, ref results);
 
 Console.WriteLine("Data Type : " + results[0]);
 foreach (byte b in results.GetRange(1,4))
@@ -17,7 +17,7 @@ foreach (byte b in results.GetRange(1,4))
 }
 Console.WriteLine();
 
-Data = DataConvertor.Convert(ref results);
+Data = Converter.Convert(results);
 if(Data.Value != null)
 {
 	Console.WriteLine(Data.Key);
@@ -28,7 +28,7 @@ if(Data.Value != null)
 String target = "hello mymate";
 
 List<byte> des = new List<byte>();
-DataGenerater.Generate(ref target,ref des);
+Generater.Generate(target,ref des);
 
 Console.WriteLine("byte 상수 출력 : " + DataType.STRING);
 
@@ -45,7 +45,7 @@ foreach (var t in des)
 }
 Console.WriteLine();
 
-KeyValuePair<byte, object?> result = DataConvertor.Convert(ref des);
+KeyValuePair<byte, Object?> result = Converter.Convert(des);
 Console.WriteLine("string 으로 변환한 데이터 : " + result.Value);
 
 
