@@ -1,4 +1,8 @@
-﻿using System;
+﻿// 전역으로 사용하는 별칭 설정
+global using RcdResult = System.Collections.Generic.KeyValuePair<byte, object?>;
+global using ByteList = System.Collections.Generic.List<byte>;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace Protocol
 {
+	// 컨버터 메소드
+	// byte_arr 형태의 데이터를 해당 자료형으로 변환해준다.
+	public delegate RcdResult Convert(ByteList target);
+
 	// 자료형에 따른 상수를 정의
 	static public class DataType
 	{

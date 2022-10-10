@@ -1,17 +1,15 @@
-﻿
-using Protocol.Protocols;
+﻿using Protocol.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// 자료형 정의
+
+
 namespace Protocol
 {
-	// 컨버터 메소드
-	// byte_arr 형태의 데이터를 해당 자료형으로 변환해준다.
-	public delegate KeyValuePair<byte, object?> Convert(ref List<byte> target);
-
 	// 데이터 변환기
 	// List<byte> -> 값
 
@@ -26,7 +24,7 @@ namespace Protocol
 			new Dictionary<byte, Convert?> {
 				{DataType.STRING	, ConvertString },
 				{DataType.INT		, ConvertInt },
-				{DataType.INT       , ConvertBool },
+				{DataType.BOOL       , ConvertBool },
 
 				{DataType.LOGIN		, LoginProtocol.Convert},
 				{DataType.LOGOUT     , LogoutProtocol.Convert},
@@ -36,18 +34,18 @@ namespace Protocol
 				{DataType.MESSAGE	, MessageProtocol.Convert },
 
 		};
-		static public KeyValuePair<byte, object?> Convert(ref byte[] target)
+		static public RcdResult Convert(byte[] target)
 		{
-			List<byte> bytes = new List<byte>();
+			ByteList bytes = new ByteList();
 
 			// 자동으로 변경해서 넘겨준다.
 			bytes = target.ToList();
 
-			return Convert(ref bytes);
+			return Convert(bytes);
 		}
 
 
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
 			// 컨버터 메소드를 임시저장할 델리게이트 변수
 			Convert? converter;
@@ -61,7 +59,7 @@ namespace Protocol
 			convert_dict.TryGetValue(key, out converter);
 			// key값에 따라 델리게이트를 호출하여 변환
 			if (converter != null)
-				return converter(ref target);
+				return converter(target);
 
 			// 반환할 수 없다면 0,0 반환
 			return ReturnNull();
@@ -69,7 +67,7 @@ namespace Protocol
 
 
 		// Int
-		static private KeyValuePair<byte, object?> ConvertInt(ref List<byte> target)
+		static private RcdResult ConvertInt(ByteList target)
 		{
 			// 임시 변수에 데이터를 넣어 저장 후
 			byte[] temp = new byte[4];
@@ -84,10 +82,10 @@ namespace Protocol
 		}
 
 		// String
-		static private KeyValuePair<byte, object?> ConvertString(ref List<byte> target)
+		static private RcdResult ConvertString(ByteList target)
 		{
 			// 문자열의 길이를 읽어옴
-			int? n = (int?)ConvertInt(ref target).Value;
+			int? n = (int?)ConvertInt(target).Value;
 			// 결과를 저장할 문자열
 			string result;
 
@@ -105,7 +103,7 @@ namespace Protocol
 		}
 
 		// bool
-		static private KeyValuePair<byte, object?> ConvertBool(ref List<byte> target)
+		static private RcdResult ConvertBool(ByteList target)
 		{
 			// 임시 변수에 데이터를 넣어 저장 후
 			byte[] temp = new byte[1] ;
@@ -121,7 +119,7 @@ namespace Protocol
 		}
 
 
-		static private KeyValuePair<byte, object?> ReturnNull()
+		static private RcdResult ReturnNull()
 		{
 			return new(0, null);
 		}

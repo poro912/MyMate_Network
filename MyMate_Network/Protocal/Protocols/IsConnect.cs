@@ -37,18 +37,18 @@ namespace Protocol.Protocols
 		}
 
 
-		static public void Generate(ref IsConnect target, ref List<byte> destination)
+		static public void Generate(IsConnect target, ref ByteList destination)
 		{
 			destination.Add(DataType.ISCONNECT);
-			Generater.Generate(ref target.connectInfo, ref destination);
+			Generater.Generate(target.connectInfo, ref destination);
 		}
-		// List<byte>를 클래스로 변환
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		// ByteList를 클래스로 변환
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			IsConnect result = new();
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.connectInfo = (int)temp.Value;
 

@@ -6,9 +6,12 @@
 
 // 서버 통신을 위한 using
 using Protocol;
+using Protocol.Protocols;
 using ServerNetwork;
 using ServerNetwork.Module;
-//using Protocol.trash;
+
+using server = ServerNetwork.Server;
+
 
 Console.WriteLine("Start Server");
 
@@ -26,9 +29,14 @@ KeyValuePair<byte, object?> result;
 byte[]? a_data = new byte[1024];
 List<byte> l_data = new();
 
+
 while (true)
 {
 	a_data = null;
+
+	if (temp.client == null)
+		continue;
+
 	// cpu 부하를 줄이기 위한 스레드 sleep
 	Thread.Sleep(1000);
 
@@ -39,7 +47,7 @@ while (true)
 	if (a_data != null)
 	{
 		// 입력된 데이터를 Key Value 로 변환
-		result = Converter.Convert(ref a_data);
+		result = Converter.Convert(a_data);
 
 		// 변환시 값이 없다면 null 반환
 		if (result.Value == null)

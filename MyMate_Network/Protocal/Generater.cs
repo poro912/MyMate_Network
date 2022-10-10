@@ -14,7 +14,7 @@ namespace Protocol
 
 		// 일반 자료형
 		// int
-		static public void Generate(ref int target, ref List<byte> destination)
+		static public void Generate(int target, ref ByteList destination)
 		{
 			// 해석하기 위한 데이터 삽입
 			destination.Add(DataType.INT);
@@ -24,7 +24,7 @@ namespace Protocol
 		}
 
 		// string
-		static public void Generate(ref string target, ref List<byte> destination)
+		static public void Generate(string target, ref ByteList destination)
 		{
 			// 해석하기 위한 데이터 삽입
 			destination.Add(DataType.STRING);
@@ -37,7 +37,7 @@ namespace Protocol
 		}
 
 		// bool
-		static public void Generate(ref bool target, ref List<byte> destination)
+		static public void Generate(bool target, ref ByteList destination)
 		{
 			// 해석하기 위한 데이터 삽입
 			destination.Add(DataType.BOOL);
@@ -48,37 +48,37 @@ namespace Protocol
 
 		// 제어 데이터형
 		// Login
-		static public void Generate(ref LoginProtocol.Login target, ref List<byte> destination)
+		static public void Generate(LoginProtocol.Login target, ref ByteList destination)
 		{
-			LoginProtocol.Generate(ref target, ref destination);
+			LoginProtocol.Generate(target, ref destination);
 			return;
 		}
 
 		// Login
-		static public void Generate(ref LogoutProtocol.Logout target, ref List<byte> destination)
+		static public void Generate(LogoutProtocol.Logout target, ref ByteList destination)
 		{
-			LogoutProtocol.Generate(ref target, ref destination);
+			LogoutProtocol.Generate(target, ref destination);
 			return;
 		}
 		// Login
-		static public void Generate(ref isConnectProtocol.IsConnect target, ref List<byte> destination)
+		static public void Generate(isConnectProtocol.IsConnect target, ref ByteList destination)
 		{
-			isConnectProtocol.Generate(ref target, ref destination);
+			isConnectProtocol.Generate(target, ref destination);
 			return;
 		}
 
 		// 클래스 형
 		// User
-		static public void Generate(ref UserInfoProtocol.User target, ref List<byte> destination)
+		static public void Generate(UserInfoProtocol.User target, ref ByteList destination)
 		{
-			UserInfoProtocol.Generate(ref target, ref destination);
+			UserInfoProtocol.Generate(target, ref destination);
 			return;
 		}
 
 		// Message
-		static public void Generate(ref MessageProtocol.Message target, ref List<byte> destination)
+		static public void Generate(MessageProtocol.Message target, ref ByteList destination)
 		{
-			MessageProtocol.Generate(ref target, ref destination);
+			MessageProtocol.Generate(target, ref destination);
 			return;
 		}
 

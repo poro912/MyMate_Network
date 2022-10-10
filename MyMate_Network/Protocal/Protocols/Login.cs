@@ -43,23 +43,23 @@ namespace Protocol.Protocols
 		}
 
 
-		static public void Generate(ref Login target, ref List<byte> destination)
+		static public void Generate(Login target, ref ByteList destination)
 		{
 			destination.Add(DataType.LOGIN);
-			Generater.Generate(ref target.id, ref destination);
-			Generater.Generate(ref target.pw, ref destination);
+			Generater.Generate(target.id, ref destination);
+			Generater.Generate(target.pw, ref destination);
 		}
 		// List<byte>를 클래스로 변환
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			Login result = new();
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.id = (string)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.pw = (string)temp.Value;
 

@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestDataSender;
 
 namespace ServerNetwork
 {
 	public class Temp
 	{
 		public Client client;
+		public TDS tds;
 
 		public void Accept(Client cli)
 		{
@@ -19,7 +21,7 @@ namespace ServerNetwork
 			string hi = "hello";
 			this.client = cli;
 			this.client.start();
-			Generater.Generate(ref hi, ref bytes);
+			Generater.Generate(hi, ref bytes);
 			this.client.send.Data(bytes);
 		}
 	};

@@ -28,16 +28,16 @@ namespace Protocol
 		public NetworkStream stream { get; set; }
 
 		// 이벤트 발생기
-		private event EventHandler _receive_event;
+		private event EventHandler receive_event;
 		public event EventHandler ReceiveEvent
 		{
 			add
 			{
-				_receive_event += value;
+				receive_event += value;
 			}
 			remove
 			{
-				_receive_event -= value;
+				receive_event -= value;
 			}
 		}
 
@@ -53,6 +53,7 @@ namespace Protocol
 			receive_queue = new ConcurrentQueue<byte[]>();
 			//received_byte = new byte[1024];
 		}
+
 		public Receive()
 		{
 			this.run = true;
@@ -118,8 +119,8 @@ namespace Protocol
 			receive_queue.Enqueue(this.received_byte);
 
 			// 이벤트 호출
-			if(_receive_event != null)
-				_receive_event(this, EventArgs.Empty);
+			if(receive_event != null)
+				receive_event(this, EventArgs.Empty);
 
 			// 처리 끝 다음 데이터를 받을 준비를 함
 			Data();
@@ -137,14 +138,14 @@ namespace Protocol
 		}
 
 		// get 이후 NULL값 확인을 해야함
-		public void Pop(out List<byte> destination)
+		public void Pop(out ByteList destination)
 		{
 			byte[]? temp;
 			this.receive_queue.TryDequeue(out temp);
 			if (temp != null)
 				destination = temp.ToList();
 			else
-				destination = new List<byte>();
+				destination = new ByteList();
 		}
 		public bool isEmpty()
 		{

@@ -11,11 +11,11 @@ namespace Protocol.Protocols
 		public class Logout
 		{
 			// Data Declear
-			public string usercode;
+			public int usercode;
 			public string id;
 			public Logout() { }
 			public Logout(
-				string usercode,
+				int usercode,
 				string id
 				)
 			{
@@ -24,7 +24,7 @@ namespace Protocol.Protocols
 			}
 
 			public void Get(
-				out string usercode,
+				out int usercode,
 				out string id
 			)
 			{
@@ -33,7 +33,7 @@ namespace Protocol.Protocols
 			}
 
 			public void Set(
-				string usercode,
+				int usercode,
 				string id
 				)
 			{
@@ -43,23 +43,23 @@ namespace Protocol.Protocols
 		}
 
 
-		static public void Generate(ref Logout target, ref List<byte> destination)
+		static public void Generate(Logout target, ref ByteList destination)
 		{
-			destination.Add(DataType.LOGINOUT);
-			Generater.Generate(ref target.usercode, ref destination);
-			Generater.Generate(ref target.id, ref destination);
+			destination.Add(DataType.LOGOUT);
+			Generater.Generate(target.usercode, ref destination);
+			Generater.Generate(target.id, ref destination);
 		}
 		// List<byte>를 클래스로 변환
-		static public KeyValuePair<byte, object?> Convert(ref List<byte> target)
+		static public RcdResult Convert(ByteList target)
 		{
-			KeyValuePair<byte, object?> temp;
+			RcdResult temp;
 			Logout result = new();
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
-				result.usercode = (string)temp.Value;
+				result.usercode = (int)temp.Value;
 
-			temp = Converter.Convert(ref target);
+			temp = Converter.Convert(target);
 			if (temp.Value != null)
 				result.id = (string)temp.Value;
 
