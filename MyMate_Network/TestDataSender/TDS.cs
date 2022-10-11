@@ -49,9 +49,9 @@ namespace TestDataSender
 
 			isConnect.Set(1);
 			login.Set("admin", "1234");
-			logout.Set(0, "admin");
-			message.Set(0, 0, "hello", DateTime.Now);
-			user.set(0, "admin", "admin", "admin", "010-0000-0000");
+			logout.Set(1, "admin");
+			message.Set(1, 1, "hello", DateTime.Now);
+			user.set(1, "admin", "admin", "admin", "010-0000-0000");
 			
 
 			thread = new(run);
@@ -130,7 +130,8 @@ namespace TestDataSender
 				if ('q' == send_data || 'Q' == send_data)
 					break;
 
-				send_byte.Clear();
+				if( !('r' == send_data || 'R' == send_data) )
+					send_byte.Clear();
 
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')
@@ -179,7 +180,8 @@ namespace TestDataSender
 				if ('q' == send_ctrl || 'Q' == send_ctrl)
 					break;
 
-				send_byte.Clear();
+				if (!('r' == send_ctrl || 'R' == send_ctrl))
+					send_byte.Clear();
 
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')
@@ -244,7 +246,8 @@ namespace TestDataSender
 				if ('q' == send_class || 'Q' == send_class)
 					break;
 
-				send_byte.Clear();
+				if (!('r' == send_class || 'R' == send_class))
+					send_byte.Clear();
 
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')

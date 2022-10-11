@@ -122,3 +122,8 @@ LoginClientContainer 삭제
 
 10월 10일 
 TDS 완성
+TDS 버그 수정
+
+10월 12일
+Receive 이벤트 수정
+

@@ -5,11 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Protocol
 {
-	//public delegate void receive(IAsyncResult ar);
+	public delegate void DataReceived();
 
 	// Receive receive = new(stream);
 	// receive.Start();
@@ -28,8 +27,8 @@ namespace Protocol
 		public NetworkStream stream { get; set; }
 
 		// 이벤트 발생기
-		private event EventHandler receive_event;
-		public event EventHandler ReceiveEvent
+		private event DataReceived receive_event;
+		public event DataReceived ReceiveEvent
 		{
 			add
 			{
@@ -99,13 +98,15 @@ namespace Protocol
 			catch (System.IO.IOException)
 			{
 				Console.WriteLine("서버와 연결이 끊어졌습니다.");
+				throw;
 			}
 			catch (Exception ex)
 			{
 				Console.Write("Receive 오류 발생 \t: ");
 				Console.WriteLine(ex.ToString());
+				throw;
 			}
-			Console.WriteLine("데이터를 읽기 시작합니다.");
+			//Console.WriteLine("데이터를 읽기 시작합니다.");
 		}
 
 		// 데이터 삽입
@@ -113,17 +114,21 @@ namespace Protocol
 		{
 			// byte[] 의 내용을 string 으로 번역하여 출력
 			string receive_data = Encoding.Default.GetString(this.received_byte);
-			Console.WriteLine("데이터 받음\t: " + receive_data);
+			//Console.WriteLine("데이터 받음\t: " + receive_data);
 
 			// 데이터를 받아오는 대로 queue에 저장
 			receive_queue.Enqueue(this.received_byte);
 
-			// 이벤트 호출
-			if(receive_event != null)
-				receive_event(this, EventArgs.Empty);
-
 			// 처리 끝 다음 데이터를 받을 준비를 함
 			Data();
+
+			// 다음 데이터 받을 준비를 먼저 한 후 이벤트를 호출한다.
+
+			// 이벤트 호출
+			// 이벤트가 할당되어 있으며, 큐가 비어있지 않은 경우
+			if (receive_event != null)
+				if(!this.isEmpty())
+					receive_event();
 		}
 
 		// get 이후 NULL값 확인을 해야함
@@ -147,6 +152,7 @@ namespace Protocol
 			else
 				destination = new ByteList();
 		}
+
 		public bool isEmpty()
 		{
 			return this.receive_queue.IsEmpty;
