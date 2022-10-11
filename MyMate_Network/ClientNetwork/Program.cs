@@ -34,6 +34,8 @@ while (true)
 	if(a_data != null)
 	{
 		result = Converter.Convert(a_data);
+		if(result.Key == DataType.ISCONNECT)
+			continue;
 		Console.WriteLine("전송받은 데이터 타입 : " + result.Key);
 		Console.WriteLine("전송받은 데이터 : " + result.Value);
 
