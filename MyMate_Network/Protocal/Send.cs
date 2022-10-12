@@ -159,8 +159,8 @@ namespace Protocol
 
 		public void Stop()
 		{
-			sendThread.Interrupt();
-			sendThread.Join();	// 스레드가 제대로 중지되는지 모르겠음
+			//sendThread.Interrupt();
+			//sendThread.Join();	// 스레드가 제대로 중지되는지 모르겠음
 		}
 
 

@@ -23,6 +23,7 @@ KeyValuePair<byte, object?> result;
 byte[]? a_data;
 List<byte> l_data = new();
 
+// TDS 필요시 주석 해제
 TDS tds = new TDS(server.send);
 
 while (true)
