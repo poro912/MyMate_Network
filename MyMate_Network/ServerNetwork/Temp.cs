@@ -23,6 +23,8 @@ namespace ServerNetwork
 			this.client.start();
 			Generater.Generate(hi, ref bytes);
 			this.client.send.Data(bytes);
+
+			tds = new(client.send);
 		}
 	};
 

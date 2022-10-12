@@ -17,6 +17,8 @@ namespace Protocol
 	// 자료형에 따른 상수를 정의
 	static public class DataType
 	{
+		// 가장 앞의 비트가 1이라면 nullable
+		public const byte nullable		= 0b1000_0000;
 		// 기본 자료형 타입
 		public const byte OBJECT		= 0; //0
 		public const byte STRING		= 1; //1
