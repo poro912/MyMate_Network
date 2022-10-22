@@ -14,7 +14,7 @@ namespace Protocol
 	// byte_arr 형태의 데이터를 해당 자료형으로 변환해준다.
 	public delegate RcdResult Convert(ByteList target);
 
-	// 자료형에 따른 상수를 정의
+
 	static public class DataType
 	{
 		// 가장 앞의 비트가 1이라면 nullable
@@ -45,6 +45,15 @@ namespace Protocol
 		public const byte LOGOUT		= CONTROLLBASE + 2;
 		// 연결 확인
 		public const byte ISCONNECT		= CONTROLLBASE + 3;
+		// 요청
+		public const byte REQUEST		= CONTROLLBASE + 4;
+		// 최근 데이터 모두 요청
+		public const byte REQUEST_RECENT_ALL = CONTROLLBASE + 5;
+		// 대량 데이터(다중 데이터)
+		// 가변 데이터
+		public const byte VARIABLE		= CONTROLLBASE + 6;
+		// 최초 실행, 모든 데이터 전송
+		public const byte OPERATING		= CONTROLLBASE + 7;
 
 
 		// 클래스 타입
@@ -53,5 +62,14 @@ namespace Protocol
 		public const byte USER_INFO		= CLASSBASE + 1;
 		// 메시지
 		public const byte MESSAGE		= CLASSBASE + 2;
+		// 서버
+		public const byte SERVER		= CLASSBASE + 3;
+		// 캘린더
+		public const byte CALENDER		= CLASSBASE + 4;
+		// 체크리스트
+		public const byte CHECKLIST		= CLASSBASE + 5;
+		// 친구
+		public const byte FRIEND		= CLASSBASE + 6;
+
 	}
 }
