@@ -23,7 +23,7 @@ namespace Protocol
 		// 입력받은 byte[1024] 데이터를 저장하는 큐
 		public ConcurrentQueue<byte[]> receive_queue ;
 
-		// 스트림 저장 멤버
+		// 스트림 저장 멤버 
 		public NetworkStream stream { get; set; }
 
 		// 이벤트 발생기

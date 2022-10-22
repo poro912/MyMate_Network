@@ -137,3 +137,17 @@ Receive 이벤트 수정
 어디까지 날라갔는지 확인 필요
 대량 데이터를 전송하여 수신 받을 수 있도록 해야 함
 대량 데이터를 수신완료한 시점에 델리게이트를 발동해야 함
+
+10월 23일 (토)
+모든 작업을 DLL로 변경하는 작업을 시작함
+DLL로 변경하며 내부 매커니즘을 일부 손 볼 생각임
+async로 Send를 구현하는 작업 완료
+기존에 Server.Send.Data()		Server.Receive.Pop() 처럼 길었던 것을 
+			Server.Send()		Server.Pop() 처럼 간략하게 줄였음
+Protocol 옮기기 완료
+TDS 옮기기 완료
+Client 옮기기 완료
+
+혼란의 여지가 있는 프로젝트 명 일부 변경
+ClientNetwork -> ClientToServer
+ServerNetwork -> ServerToClient
