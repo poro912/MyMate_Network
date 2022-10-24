@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Protocol;
-using ServerNetwork.trash;
 
 namespace ServerNetwork.Module
 {

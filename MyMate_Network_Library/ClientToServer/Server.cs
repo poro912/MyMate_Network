@@ -26,9 +26,9 @@ namespace Client_to_Server
 		public readonly string address;
 		public readonly int port;
 
-		public Send send;
-		public DynamicSend dynamicSend;
-		public Receive receive;
+		//public Send send;
+		//public DynamicSend dynamicSend;
+		//public Receive receive;
 
 		public Communicater? communicater;
 
@@ -61,10 +61,10 @@ namespace Client_to_Server
 			Console.WriteLine("객체 생성 완료");
 
 			// 클라이언트의 전송 클래스
-			send = new();
+			//send = new();
 
 			// 클라이언트의 수신 클래스
-			receive = new();
+			//receive = new();
 
 			// 송수신 시작
 			Start();
@@ -89,16 +89,16 @@ namespace Client_to_Server
 
 				
 				// 클라이언트의 전송 클래스
-				dynamicSend = new(stream);
+				//dynamicSend = new(stream);
 
 				// 전송 객체에 스트림을 저장한다.
-				send.setStream(stream);
+				//send.setStream(stream);
 
 				// 수신 객체에 스트림을 저장한다.
-				receive.setStream(stream);
+				//receive.setStream(stream);
 
 				// 수신을 시작한다.
-				receive.Start();
+				//receive.Start();
 
 
 

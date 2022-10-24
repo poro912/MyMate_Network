@@ -5,11 +5,16 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyMate_Network_Library", "MyMate_Network_Library.csproj", "{71FFEF5C-A755-4755-BE63-15EEFFB7109C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataSender", "..\TestDataSender\TestDataSender.csproj", "{5162FC96-0451-4BB8-A6DE-1F9F660AD7F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataSender", "..\TestDataSender\TestDataSender.csproj", "{5162FC96-0451-4BB8-A6DE-1F9F660AD7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientToServer", "..\ClientTpoServer\ClientToServer.csproj", "{9FBE372D-5ACA-479A-8A2E-615481F458CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientToServer", "..\ClientToServer\ClientToServer.csproj", "{9FBE372D-5ACA-479A-8A2E-615481F458CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerToClient", "..\ServerToClient\ServerToClient.csproj", "{DEDEF9F2-767A-4947-B6E6-8D4239482B07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerToClient", "..\ServerToClient\ServerToClient.csproj", "{DEDEF9F2-767A-4947-B6E6-8D4239482B07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{E147BE2A-8CC6-4214-AE84-AEDE232EA5B8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\working list.txt = ..\..\working list.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
