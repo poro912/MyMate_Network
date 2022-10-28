@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ServerNetwork.Module;
+using ServerToClinet;
 
-namespace ServerNetwork
+namespace ServerToClient
 {
     public delegate void ClientAccept(Client client);
 
@@ -16,7 +16,7 @@ namespace ServerNetwork
         // 서버 클래스를 가져오면 곧바로 네트워킹이 실행되며 동작된다.
 
         // 싱글톤 구현
-        static private Server instance;
+        static private Server? instance;
         public static Server Instance
         {
             get
@@ -30,17 +30,16 @@ namespace ServerNetwork
         }
 
         // 서버에 대한 포트 정보를 저장하기위한 멤버
-        private SocketAndEndPoint sep;
-
+        readonly public SocketAndEndPoint sep;
 
         // Accept 정보를 받기 위한 스레드
-        private Thread accept_thread;
+        readonly public Thread accept_thread;
         private bool run = false;
 
         // 클라이언트의 정보를 저장하기 위한 멤버
-        public ClientContatiner clients = new();
+        public List<Client> clients;
 
-        public ClientAccept clientAccept;
+        public ClientAccept? clientAccept;
 
         // 객체가 생성된 직후 스레드를 생성하여 문장을 지속 실행함
         private Server()
@@ -55,6 +54,7 @@ namespace ServerNetwork
             accept_thread = new Thread(() => AcceptRun());
             Console.WriteLine("성공");
 
+            clients = new List<Client>();
             // Accept 스레드 실행
             Start();
         }
@@ -92,11 +92,10 @@ namespace ServerNetwork
             // run 변수가 true 일동안 실행
             while (Instance.run)
             {
-                TcpClient? client;      // 클라이언트 정보 저장 null able 형 
-
                 // Accept 실행 후 값을 반환하면 새로운 클라이언트 접근
                 // 해당 문장이 sleep 과 같은 행위를 하기때문에 부하 없음
-                client = Instance.sep.Accept();
+                // 클라이언트 정보 저장 null able 형
+                TcpClient? client = Instance.sep.Accept();
 
                 if (client == null)
                     continue;
@@ -107,6 +106,8 @@ namespace ServerNetwork
             return;
         }
 
+        // 여기 수정
+        // 따로 처리하지 않고 바로 던져주기만 하자
         private void Accept(TcpClient? client)
         {
             if (client == null)
@@ -116,34 +117,26 @@ namespace ServerNetwork
             Client tempClient = new(client);
             Console.Write("새로운 클라이언트 접근 : \t");
 
-            // 해당 클라이언트의 소켓에 대한 정보를 출력
-            if (tempClient.socket.RemoteEndPoint != null)
-                Console.Write(tempClient.socket.RemoteEndPoint.ToString());
+            if (tempClient.socket.RemoteEndPoint == null)
+            {
+                Console.WriteLine("리모트가 생성되지 않았습니다.");
+                return;
+            }
 
+            // 해당 클라이언트의 소켓에 대한 정보를 출력
+            Console.Write(tempClient.socket.RemoteEndPoint.ToString());
             Console.WriteLine("\n");
 
-			// 델리게이트를 호출
-			if (instance.clientAccept != null)
-			{
-				instance.clientAccept(new Client(client));
-			}
-			else
-			{
-				// 클라이언트 리스트에 추가
-				Instance.clients.add(tempClient);
-			}
-		}
-
-        /*
-		// 모든 클라이언트에게 문자열 데이터 전송
-		public void SendAll(ref string data)
-		{
-			instance.clients.SendAll(ref data);
-		}
-		public void SendAll(ref byte[] data)
-		{
-			instance.clients.SendAll(ref data);
-		}
-		*/
+            // 델리게이트를 호출
+            if (Instance.clientAccept != null)
+            {
+                Instance.clientAccept(tempClient);
+            }
+            else
+            {
+                // 클라이언트 리스트에 추가
+                Instance.clients.Add(tempClient);
+            }
+        }
     }
 }

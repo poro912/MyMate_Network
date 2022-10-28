@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMate_Network_Library.Protocols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Protocol
 {
 	public class LogoutProtocol
 	{
-		public class Logout
+		public class Logout : IProtocolClass
 		{
 			// Data Declear
 			public int usercode;
@@ -41,6 +42,12 @@ namespace Protocol
 			{
 				this.usercode = usercode;
 				this.id = id;
+			}
+			public void Print()
+			{
+				Console.WriteLine("Logout");
+				Console.WriteLine("usercode : " +usercode);
+				Console.WriteLine("id : " + id); 
 			}
 		}
 

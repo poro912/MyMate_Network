@@ -20,6 +20,13 @@ namespace Protocol
 			// int 형 데이터를 해당 byte 형으로 변환
 			destination.AddRange(BitConverter.GetBytes(target));
 		}
+		static public ByteList Generate(int target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
 
 		// string
 		static public void Generate(string target, ref ByteList destination)
@@ -33,6 +40,12 @@ namespace Protocol
 			// 문자열의 내용 삽입
 			destination.AddRange(Encoding.UTF8.GetBytes(target));
 		}
+		static public ByteList Generate(string target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 
 		// bool
 		static public void Generate(bool target, ref ByteList destination)
@@ -43,6 +56,12 @@ namespace Protocol
 			// int 형 데이터를 해당 byte 형으로 변환
 			destination.AddRange(BitConverter.GetBytes(target));
 		}
+		static public ByteList Generate(bool target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 
 		// 제어 데이터형
 		// Login
@@ -51,6 +70,12 @@ namespace Protocol
 			LoginProtocol.Generate(target, ref destination);
 			return;
 		}
+		static public ByteList Generate(LoginProtocol.Login target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 
 		// Login
 		static public void Generate(LogoutProtocol.Logout target, ref ByteList destination)
@@ -58,11 +83,24 @@ namespace Protocol
 			LogoutProtocol.Generate(target, ref destination);
 			return;
 		}
-		// Login
+		static public ByteList Generate(LogoutProtocol.Logout target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
+		// IsConnect
 		static public void Generate(isConnectProtocol.IsConnect target, ref ByteList destination)
 		{
 			isConnectProtocol.Generate(target, ref destination);
 			return;
+		}
+		static public ByteList Generate(isConnectProtocol.IsConnect target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
 		}
 
 		// 클래스 형
@@ -72,6 +110,12 @@ namespace Protocol
 			UserInfoProtocol.Generate(target, ref destination);
 			return;
 		}
+		static public ByteList Generate(UserInfoProtocol.User target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 
 		// Message
 		static public void Generate(MessageProtocol.Message target, ref ByteList destination)
@@ -79,7 +123,11 @@ namespace Protocol
 			MessageProtocol.Generate(target, ref destination);
 			return;
 		}
-
-
+		static public ByteList Generate(MessageProtocol.Message target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 	}
 }

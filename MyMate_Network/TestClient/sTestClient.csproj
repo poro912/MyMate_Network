@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="ClientToServer">
+      <HintPath>..\..\MyMate_Network_Library\ProjectBuilder\bin\Debug\net6.0\ClientToServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MyMate_Network_Library">
+      <HintPath>..\..\MyMate_Network_Library\ProjectBuilder\bin\Debug\net6.0\MyMate_Network_Library.dll</HintPath>
+    </Reference>
+    <Reference Include="TestDataSender">
+      <HintPath>..\..\MyMate_Network_Library\ProjectBuilder\bin\Debug\net6.0\TestDataSender.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

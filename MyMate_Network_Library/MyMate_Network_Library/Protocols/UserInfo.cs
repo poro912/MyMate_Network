@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMate_Network_Library.Protocols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Protocol
 {
 	public class UserInfoProtocol
 	{
-		public class User
+		public class User : IProtocolClass
 		{
 			public int code;
 			public string id;
@@ -51,7 +52,7 @@ namespace Protocol
 				nick = this.nick;
 				phone = this.phone;
 			}
-			public void set(
+			public void Set(
 				int code, 
 				string id, 
 				string name, 
@@ -64,6 +65,15 @@ namespace Protocol
 				this.name = name;
 				this.nick = nick;
 				this.phone = phone;
+			}
+			public void Print()
+			{
+				Console.WriteLine("UserInfo");
+				Console.WriteLine("code : " + code);
+				Console.WriteLine("id : " + id);
+				Console.WriteLine("name : " + name);
+				Console.WriteLine("nick : " + nick);
+				Console.WriteLine("phone : " + phone);
 			}
 		}
 

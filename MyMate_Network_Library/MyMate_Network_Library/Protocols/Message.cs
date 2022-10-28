@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMate_Network_Library.Protocols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Protocol
 {
     public class MessageProtocol
 	{
-		public class Message
+		public class Message : IProtocolClass
 		{
 			public int usercode;
 			public int servercode;
@@ -58,6 +59,15 @@ namespace Protocol
 				this.servercode = servercode;
 				this.context = context;
 				this.date = date;
+			}
+
+			public void Print()
+			{
+				Console.WriteLine("Message");
+				Console.WriteLine("usercode : " + usercode);
+				Console.WriteLine("servercode : " + servercode);
+				Console.WriteLine("context : " + context);
+				Console.WriteLine("date : " + date.ToString());
 			}
 		}
 

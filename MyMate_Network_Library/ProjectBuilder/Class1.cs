@@ -1,4 +1,4 @@
-﻿namespace TestDataSender
+﻿namespace ProjectBuilder
 {
 	public class Class1
 	{

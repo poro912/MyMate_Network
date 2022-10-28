@@ -9,12 +9,6 @@ using Protocol;
 
 namespace Client_to_Server
 {
-	static public class Default
-	{
-		public const int port = 8090;
-		public const string Address = "127.0.0.1";
-	}
-
 	// 서버에 대한 연결 정보를 갖고 있기위한 클래스
 	public class Server : Communicater
 	{
@@ -30,7 +24,7 @@ namespace Client_to_Server
 		//public DynamicSend dynamicSend;
 		//public Receive receive;
 
-		public Communicater? communicater;
+		// public Communicater? communicater;
 
 		// 싱글톤 구현
 		static private Server? instance;
@@ -47,8 +41,8 @@ namespace Client_to_Server
 		}
 
 		private Server(
-			string address = Default.Address,
-			int port = Default.port
+			string address = Default.Network.Address,
+			int port = Default.Network.port
 			)
 		{
 			Console.WriteLine("Connect 객체 생성");
@@ -56,7 +50,7 @@ namespace Client_to_Server
 			this.port = port;
 
 			Console.WriteLine("데이터 삽입 완료");
-			tcpclient = new();
+			this.tcpclient = new();
 
 			Console.WriteLine("객체 생성 완료");
 
@@ -67,12 +61,12 @@ namespace Client_to_Server
 			//receive = new();
 
 			// 송수신 시작
-			Start();
+			this.Start();
 		}
 
 		~Server()
 		{
-			tcpclient.Close();
+			this.tcpclient.Close();
 		}
 
 		// 통신을 시작할 때 실행한다.
@@ -82,10 +76,10 @@ namespace Client_to_Server
 			try
 			{
 				//this.tcpclient.Connect("127.0.0.1", 8090);
-				tcpclient.Connect(address, port);
+				this.tcpclient.Connect(this.address, this.port);
 
 				// 스트림을 현재 객체에 저장
-				stream = tcpclient.GetStream();
+				this.stream = tcpclient.GetStream();
 
 				
 				// 클라이언트의 전송 클래스
@@ -102,11 +96,11 @@ namespace Client_to_Server
 
 
 
-				// 송수신 스트림 설정
-				SetStream(stream);
+				// 송수신(Communicator) 스트림 설정
+				this.SetStream(stream);
 
 				//수신을 시작한다.
-				this.ReceiveStart();
+				this.StartReceive();
 			}
 			catch (Exception e)
 			{

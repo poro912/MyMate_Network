@@ -7,84 +7,60 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 
-namespace ServerNetwork.Module
+namespace ServerToClinet
 {
-    // 기본값 설정
-    static public class Default
-    {
-        public const int port = 8090;
-        public const string Address = "127.0.0.1";
-    }
+	// 기본값 설정
+	// 소켓과 Endpoint 정보를 저장하는 클래스
+	public class SocketAndEndPoint
+	{
+		public IPAddress address;
+		public int port;
 
-    // 소켓과 Endpoint 정보를 저장하는 클래스
-    public class SocketAndEndPoint
-    {
-        public IPAddress address;
-        public int port;
+		public TcpListener Listener;
+		public TcpClient? Client;
 
-        public SocketAndEndPoint()
-        {
-            Init();
-        }
-        public SocketAndEndPoint(int port)
-        {
-            Init(port);
-        }
+		public SocketAndEndPoint(int port = Default.Network.port) : this(IPAddress.Any, port){}
+		public SocketAndEndPoint(IPAddress address, int port = Default.Network.port)
+		{
+			this.address = address;
+			this.port = port;
 
-        ~SocketAndEndPoint()
-        {
-            Close();
-        }
+			Listener = new TcpListener(address, port);
+		}
 
-        private void Init()
-        {
-            Init(Default.port);
-        }
-        private void Init(int port)
-        {
-            Init(IPAddress.Any, port);
-        }
+		~SocketAndEndPoint()
+		{
+			Close();
+		}
 
-        public TcpListener Listener;
-        public TcpClient Client;
+		public void Start()
+		{
+			Console.WriteLine("소켓 활성화");
+			Listener.Start();
+		}
 
-        private void Init(IPAddress address, int port)
-        {
-            this.address = address;
-            this.port = port;
+		public void Close()
+		{
+			Console.WriteLine("소켓 중지");
+			Listener.Stop();
+			if(Client != null)
+				Client.Close();
+		}
 
-            Listener = new TcpListener(address, port);
-        }
-
-        public void Start()
-        {
-            Console.WriteLine("소켓 활성화");
-            Listener.Start();
-        }
-
-        public void Close()
-        {
-            Console.WriteLine("소켓 중지");
-            Listener.Stop();
-            Client.Close();
-        }
-
-        // 소켓에 들어오는 Accept 요청을 받기위한 메소드
-        public TcpClient? Accept()
-        {
-            TcpClient? client = null;
-
-            try
-            {
-                client = Listener.AcceptTcpClient();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            return client;
-        }
-    }
-
+		// 소켓에 들어오는 Accept 요청을 받기위한 메소드
+		public TcpClient? Accept()
+		{
+			TcpClient? client = null;
+			try
+			{
+				client = Listener.AcceptTcpClient();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+				throw;
+			}
+			return client;
+		}
+	}
 }

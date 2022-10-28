@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMate_Network_Library.Protocols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Protocol
 {
 	public class LoginProtocol
 	{
-		public class Login
+		public class Login : IProtocolClass
 		{
 			public string id;
 			public string pw;
@@ -43,6 +44,12 @@ namespace Protocol
 			{
 				this.id = id;
 				this.pw = pw;
+			}
+			public void Print()
+			{
+				Console.WriteLine("Login");
+				Console.WriteLine("id : " + id);
+				Console.WriteLine("pw : " + pw);
 			}
 		}
 

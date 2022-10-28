@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 using Protocol;
 
-namespace ServerNetwork.Module
+namespace ServerToClinet
 {
-    public class Client
+    public class Client:Communicater
     {
 		private NetworkStream stream;
 
 		public TcpClient tcpClient;
         public Socket socket;
 
-        public Send send;
-        public DynamicSend dynamicSend;
-        public Receive receive;
+        //public Communicater communicater;
+        //public DynamicSend dynamicSend;
+        //public Receive receive;
 
 		// 생성된 클라이언트 구조체를 초기화
 		public Client(TcpClient tcpClient)
@@ -33,25 +33,29 @@ namespace ServerNetwork.Module
             socket = tcpClient.Client;
 
             // 클라이언트의 전송 클래스
-            send = new(stream);
+            //send = new(stream);
 
             // 클라이언트의 전송 클래스
-            dynamicSend = new(stream);
+            //dynamicSend = new(stream);
 
             // 클라이언트의 수신 클래스
-            receive = new(stream);
+            //receive = new(stream);
+            SetStream(stream);
+            //Start();
         }
 
         ~Client()
         {
-            receive.Stop();
-            dynamicSend.Stop();
+            //receive.Stop();
+            //dynamicSend.Stop();
+            StopReceive();
         }
 
-        public void start()
+        public void Start()
         {
-            receive.Start();
-        }
+            //receive.Start();
+			StartReceive();
+		}
 
     }
 }

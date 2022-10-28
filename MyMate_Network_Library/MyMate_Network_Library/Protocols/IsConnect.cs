@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMate_Network_Library.Protocols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Protocol
 {
 	public class isConnectProtocol
 	{
-		public class IsConnect
+		public class IsConnect : IProtocolClass
 		{
 			// Data Declear
 			public int connectInfo;
@@ -33,8 +34,14 @@ namespace Protocol
 			{
 				this.connectInfo = connectInfo;
 			}
-		}
 
+			public void Print()
+			{
+				Console.WriteLine("IsConnect");
+				Console.WriteLine("connectInfo : " + connectInfo);
+			}
+
+		}
 
 		static public void Generate(IsConnect target, ref ByteList destination)
 		{
@@ -53,6 +60,5 @@ namespace Protocol
 
 			return new(DataType.ISCONNECT, result);
 		}
-
 	}
 }

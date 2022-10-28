@@ -24,7 +24,7 @@ namespace Protocol
 		// 공통 변수
 		private NetworkStream? stream;
 		// 스트림 저장 멤버
-		public NetworkStream? Stream { get; set; }
+		public NetworkStream? Stream { get; private set; }
 
 		// Sender 변수
 		// 전송할 byte[1024] 데이터를 저장하는 큐
@@ -57,7 +57,7 @@ namespace Protocol
 			// send 변수
 			send_queue = new ConcurrentQueue<byte[]>();
 			send_semaphore = new(1, 1);
-			send_task = new Task(this.SnedProcess);
+			send_task = new Task(this.SnedSatrt);
 			// receive 변수
 			receive_queue = new ConcurrentQueue<byte[]>();
 			ReceiveRun = false;
@@ -71,7 +71,7 @@ namespace Protocol
 			// send 변수
 			send_queue = new ConcurrentQueue<byte[]>();
 			send_semaphore = new(1, 1);
-			send_task = new Task(this.SnedProcess);
+			send_task = new Task(this.SnedSatrt);
 			// receive 변수
 			receive_queue = new ConcurrentQueue<byte[]>();
 			ReceiveRun = false;
@@ -86,15 +86,48 @@ namespace Protocol
 
 		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡSenderㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		
-		// 하나의 바이트 배열을 전송 할 때 사용
+		
+		// 큐에 데이터를 삽입한 후 비동기로 데이터 전송
 		public void Send(ByteList data)
 		{
-			Send(data.ToArray());
+			send_queue.Enqueue(data.ToArray());
+			send_task.Start();
+			//Task.Run(this.SnedSatrt);
+		}
+		public void Send(byte[] data)
+		{
+			send_queue.Enqueue(data);
+			send_task.Start();
+			//Task.Run(this.SnedSatrt);
+		}
+
+		// 데이터 연속전송
+#pragma warning disable CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
+		private async void SnedSatrt()
+#pragma warning restore CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
+		{
+			send_task = new Task(this.SnedSatrt);
+			if (!send_semaphore.WaitOne(10))
+				return;
+
+			// 큐가 빌때까지 반복실행
+			while (!send_queue.IsEmpty)
+			{
+				// 만약 읽어온 항목이 있다면
+				if (send_queue.TryDequeue(out byte[]? data))
+				{
+					SendProcess(data);
+				}
+				else
+					break;
+			}
+			
+			send_semaphore.Release();
 		}
 
 		// byte 형태의 데이터 전송
 		// 하나의 바이트 배열을 전송 할 때 사용
-		public void Send(Byte[] data)
+		public void SendProcess(Byte[] data)
 		{
 			// 들어온 데이터가 없다면 종료
 			if (data.Length.Equals(0))
@@ -112,52 +145,26 @@ namespace Protocol
 			}
 		}
 
-		// 데이터 큐에 삽입
-		public void push(byte[] data)
-		{
-			// 데이터를 큐에 넣고
-			send_queue.Enqueue(data);
-			send_task.Start();
-		}
-
-		// 데이터 연속전송
-		private async void SnedProcess()
-		{
-			if (!send_semaphore.WaitOne(10))
-				return;
-
-			while(!send_queue.IsEmpty)
-			{
-				// 만약 읽어온 항목이 있다면
-				if (send_queue.TryDequeue(out byte[]? data))
-				{
-					Send(data);
-				}
-				else
-					break;
-			}
-			send_semaphore.Release();
-		}
 		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡReceiverㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 		// 수신 시작
-		public void ReceiveStart()
+		public void StartReceive()
 		{
 			if(false == this.ReceiveRun)
 			{
 				this.ReceiveRun = true;
-				Receive();
+				ReceiveProcess();
 			}
 		}
 		// 수신 중지
-		public void ReceiveStop()
+		public void StopReceive()
 		{
 			this.ReceiveRun = false;
 		}
 		
 		// Receive.Data()
 		// 데이터를 읽어오기 시작한다.
-		private void Receive()
+		private void ReceiveProcess()
 		{
 			received_byte = new byte[1024];
 			// 실행 상태가 아니라면종료
@@ -191,37 +198,42 @@ namespace Protocol
 		// 데이터 삽입
 		private void SaveDataInQueue(IAsyncResult ar)
 		{
+			Console.WriteLine("데이터 들어옴");
+			Console.WriteLine("데이터 길이 : " + received_byte.Length);
 			string receive_data = Encoding.Default.GetString(this.received_byte);
+			Console.WriteLine("내용 : " + receive_data);
 
 			// 데이터를 받아오는 대로 queue에 저장
 			receive_queue.Enqueue(this.received_byte);
 
 			// 처리 끝 다음 데이터를 받을 준비를 함
 			// 다음 데이터 받을 준비를 먼저 한 후 이벤트를 호출한다.
-			Receive();
+			ReceiveProcess();
 
 			// 이벤트 호출
 			// 이벤트가 할당되어 있으며, 큐가 비어있지 않은 경우
 			if (Receive_event != null)
-				if (!this.isEmpty())
+				if (!this.IsEmpty())
 					Receive_event();
 		}
 
 		// get 이후 NULL값 확인을 해야함
 		// byte[] 형태로 반환하는 pop
-		public void Pop(out byte[]? destination)
+		public void Receive(out byte[]? destination)
 		{
 			this.receive_queue.TryDequeue(out destination);
 		}
-		public byte[]? Pop()
+		public RcdResult Receive()
 		{
 			this.receive_queue.TryDequeue(out byte[]? temp);
-			return temp;
+			if (temp == null)
+				return new(0, 0);
+			return Protocol.Converter.Convert(temp);
 		}
 
 		// get 이후 NULL값 확인을 해야함
 		// ByteList 형태로 반환하는 pop
-		public void Pop(out ByteList destination)
+		public void Receive(out ByteList destination)
 		{
 			byte[]? temp;
 			this.receive_queue.TryDequeue(out temp);
@@ -232,7 +244,7 @@ namespace Protocol
 		}
 
 		// 큐가 비었는지 확인
-		public bool isEmpty()
+		public bool IsEmpty()
 		{
 			return this.receive_queue.IsEmpty;
 		}

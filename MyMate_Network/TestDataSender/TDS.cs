@@ -54,11 +54,11 @@ namespace TestDataSender
 			user.set(1, "admin", "admin", "admin", "010-0000-0000");
 			
 
-			thread = new(run);
+			thread = new(Run);
 			thread.Start();
 		}
 
-		public void run()
+		public void Run()
 		{
 			Thread.Sleep(1000);
 			while(true)
@@ -75,7 +75,7 @@ namespace TestDataSender
 				{
 					try
 					{
-						data_select_run();
+						DataSelectRun();
 					}
 					catch
 					{
@@ -87,7 +87,7 @@ namespace TestDataSender
 			}
 		}
 
-		public void data_select_run()
+		public void DataSelectRun()
 		{
 			while(true)
 			{

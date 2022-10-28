@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocol", "Protocal\Protoc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\TestProject.csproj", "{7A4D21B4-04E7-4E0A-91AA-3D4B5525E5E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataSender", "TestDataSender\TestDataSender.csproj", "{39448288-80B7-433A-AF21-228C6F674654}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataSender", "TestDataSender\TestDataSender.csproj", "{39448288-80B7-433A-AF21-228C6F674654}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sTestServer", "TestServer\sTestServer.csproj", "{53BEF6B1-AE1F-4AFE-A36E-C01FA9A9D848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sTestClient", "TestClient\sTestClient.csproj", "{9C2598DE-27CD-420E-ACB6-CFD91949D1F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{39448288-80B7-433A-AF21-228C6F674654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39448288-80B7-433A-AF21-228C6F674654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39448288-80B7-433A-AF21-228C6F674654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53BEF6B1-AE1F-4AFE-A36E-C01FA9A9D848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53BEF6B1-AE1F-4AFE-A36E-C01FA9A9D848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53BEF6B1-AE1F-4AFE-A36E-C01FA9A9D848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53BEF6B1-AE1F-4AFE-A36E-C01FA9A9D848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2598DE-27CD-420E-ACB6-CFD91949D1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2598DE-27CD-420E-ACB6-CFD91949D1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2598DE-27CD-420E-ACB6-CFD91949D1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2598DE-27CD-420E-ACB6-CFD91949D1F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

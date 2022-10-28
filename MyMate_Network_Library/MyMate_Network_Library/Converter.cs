@@ -28,21 +28,19 @@ namespace Protocol
 
 				{DataType.USER_INFO , UserInfoProtocol.Convert},
 				{DataType.MESSAGE   , MessageProtocol.Convert },
-
 		};
 		static public RcdResult Convert(byte[] target)
 		{
-			ByteList bytes = new ByteList();
-
-			// 자동으로 변경해서 넘겨준다.
-			bytes = target.ToList();
+			// 바이트 리스트로 변환해 전달
+			ByteList bytes = target.ToList();
 
 			return Convert(bytes);
 		}
 
-
 		static public RcdResult Convert(ByteList target)
 		{
+			if(0 == target.Count)
+				return ReturnNull();
 			// 컨버터 메소드를 임시저장할 델리게이트 변수
 			Convert? converter;
 
@@ -114,11 +112,9 @@ namespace Protocol
 			return new(DataType.BOOL, BitConverter.ToBoolean(temp, 0));
 		}
 
-
 		static private RcdResult ReturnNull()
 		{
 			return new(0, null);
 		}
-
 	}
 }

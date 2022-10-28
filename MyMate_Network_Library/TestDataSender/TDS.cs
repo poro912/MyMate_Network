@@ -1,30 +1,34 @@
-﻿using System;
+﻿// null 참조 연산 Console.ReadLine() 메소드에 대한 에러 제거
+#pragma warning disable CS8601
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Protocol;
+using sConvert = System.Convert;
+
 
 namespace TestDataSender
 {
 	// 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
 	public class TDS
 	{
-		public Thread thread;
+		private Thread thread;
 
-		public Send send;
+		public Communicater commu;
 
 		// variable
-		int i = 0;
-		string str = "";
+		int i = 1234;
+		string str = "TestData";
 
 		// Controll
 		public isConnectProtocol.IsConnect isConnect = new();
 		public LoginProtocol.Login login = new();
 		public LogoutProtocol.Logout logout = new();
 
-		// Class
+		// Class	
 		public MessageProtocol.Message message = new();
 		public UserInfoProtocol.User user = new();
 
@@ -36,24 +40,24 @@ namespace TestDataSender
 		private char send_data = '0';           // 일반 변수 중 어떤 변수 protocol에 저장된 상수로 전송
 		private char send_class = '0';
 
-		public TDS(Send send)
+		public TDS(Communicater commu)
 		{
 			send_byte = new();
 
-			this.send = send;
+			this.commu = commu;
 
 			isConnect.Set(1);
 			login.Set("admin", "1234");
 			logout.Set(1, "admin");
 			message.Set(1, 1, "hello", DateTime.Now);
-			user.set(1, "admin", "admin", "admin", "010-0000-0000");
+			user.Set(1, "admin", "admin", "admin", "010-0000-0000");
 
 
-			thread = new(run);
+			thread = new(Run);
 			thread.Start();
 		}
 
-		public void run()
+		public void Run()
 		{
 			Thread.Sleep(1000);
 			while (true)
@@ -70,7 +74,7 @@ namespace TestDataSender
 				{
 					try
 					{
-						data_select_run();
+						DataSelectRun();
 					}
 					catch
 					{
@@ -82,7 +86,7 @@ namespace TestDataSender
 			}
 		}
 
-		public void data_select_run()
+		public void DataSelectRun()
 		{
 			while (true)
 			{
@@ -144,11 +148,13 @@ namespace TestDataSender
 				if (send_data == 'i' || send_data == 'I')
 					Generater.Generate(i, ref send_byte);
 				else if (send_data == 's' || send_data == 'S')
+#pragma warning disable CS8604 // 가능한 null 참조 인수입니다.
 					Generater.Generate(str, ref send_byte);
+#pragma warning restore CS8604 // 가능한 null 참조 인수입니다.
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -215,7 +221,7 @@ namespace TestDataSender
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -283,7 +289,7 @@ namespace TestDataSender
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -294,6 +300,6 @@ namespace TestDataSender
 				}
 			}
 		}
-
 	}
 }
+
