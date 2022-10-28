@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClientToServer\ClientToServer.csproj" />
+    <ProjectReference Include="..\MyMate_Network_Library\MyMate_Network_Library.csproj" />
+    <ProjectReference Include="..\ServerToClient\ServerToClient.csproj" />
+    <ProjectReference Include="..\TestDataSender\TestDataSender.csproj" />
+  </ItemGroup>
+
+</Project>

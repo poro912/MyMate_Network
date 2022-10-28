@@ -1,58 +1,57 @@
-﻿using System;
+﻿// null 참조 연산 Console.ReadLine() 메소드에 대한 에러 제거
+#pragma warning disable CS8601
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 using Protocol;
-using Protocol.Protocols;
-
-using static Protocol.Protocols.UserInfoProtocol;
 using sConvert = System.Convert;
+
 
 namespace TestDataSender
 {
 	// 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
 	public class TDS
 	{
-		public Thread thread;
+		private Thread thread;
 
-		public Send send;
+		public Communicater commu;
 
 		// variable
-		int i = 0;
-		string str = "";
+		int i = 1234;
+		string str = "TestData";
 
 		// Controll
 		public isConnectProtocol.IsConnect isConnect = new();
 		public LoginProtocol.Login login = new();
 		public LogoutProtocol.Logout logout = new();
 
-		// Class
+		// Class	
 		public MessageProtocol.Message message = new();
 		public UserInfoProtocol.User user = new();
 
 		private List<byte> send_byte;
 
-		private char send_way = '0';		// 전송 방법 기존데이터 / 신규 데이터
-		private char send_type = '0';		// 전송 데이터 일반변수 / 클래스
+		private char send_way = '0';        // 전송 방법 기존데이터 / 신규 데이터
+		private char send_type = '0';       // 전송 데이터 일반변수 / 클래스
 		private char send_ctrl = '0';
 		private char send_data = '0';           // 일반 변수 중 어떤 변수 protocol에 저장된 상수로 전송
 		private char send_class = '0';
 
-		public TDS(Send send)
+		public TDS(Communicater commu)
 		{
 			send_byte = new();
 
-			this.send = send;
+			this.commu = commu;
 
 			isConnect.Set(1);
 			login.Set("admin", "1234");
 			logout.Set(1, "admin");
 			message.Set(1, 1, "hello", DateTime.Now);
-			user.set(1, "admin", "admin", "admin", "010-0000-0000");
-			
+			user.Set(1, "admin", "admin", "admin", "010-0000-0000");
+
 
 			thread = new(Run);
 			thread.Start();
@@ -61,7 +60,7 @@ namespace TestDataSender
 		public void Run()
 		{
 			Thread.Sleep(1000);
-			while(true)
+			while (true)
 			{
 				Console.WriteLine("\n1 : 저장된 데이터\t 2 : 새로운 데이터");
 				Console.WriteLine("Q/q : 종료");
@@ -89,7 +88,7 @@ namespace TestDataSender
 
 		public void DataSelectRun()
 		{
-			while(true)
+			while (true)
 			{
 				Console.WriteLine("\n1 : 기본 변수\t 2 : 컨트롤\t 3 : 메소드\t");
 				Console.WriteLine("Q/q : 돌아가기");
@@ -119,7 +118,7 @@ namespace TestDataSender
 		// 변수 전송
 		public void SendVariable()
 		{
-			while(true)
+			while (true)
 			{
 				Console.WriteLine("\nint : i\t sting : s");
 				Console.WriteLine("Q/q : 돌아가기");
@@ -130,13 +129,13 @@ namespace TestDataSender
 				if ('q' == send_data || 'Q' == send_data)
 					break;
 
-				if( !('r' == send_data || 'R' == send_data) )
+				if (!('r' == send_data || 'R' == send_data))
 					send_byte.Clear();
 
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')
 				{
-					if(send_data == 'i' || send_data == 'I')
+					if (send_data == 'i' || send_data == 'I')
 					{
 						i = sConvert.ToInt32(Console.ReadLine());
 					}
@@ -149,11 +148,13 @@ namespace TestDataSender
 				if (send_data == 'i' || send_data == 'I')
 					Generater.Generate(i, ref send_byte);
 				else if (send_data == 's' || send_data == 'S')
+#pragma warning disable CS8604 // 가능한 null 참조 인수입니다.
 					Generater.Generate(str, ref send_byte);
+#pragma warning restore CS8604 // 가능한 null 참조 인수입니다.
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -186,7 +187,7 @@ namespace TestDataSender
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')
 				{
-					if(send_ctrl == 'i' || send_ctrl == 'I')
+					if (send_ctrl == 'i' || send_ctrl == 'I')
 					{
 						Console.Write("id\t: ");
 						login.id = Console.ReadLine();
@@ -194,7 +195,7 @@ namespace TestDataSender
 						login.pw = Console.ReadLine();
 						Generater.Generate(login, ref send_byte);
 					}
-					else if(send_ctrl == 'o' || send_ctrl == 'O')
+					else if (send_ctrl == 'o' || send_ctrl == 'O')
 					{
 						Console.Write("usercode\t: ");
 						logout.usercode = sConvert.ToInt32(Console.ReadLine());
@@ -220,7 +221,7 @@ namespace TestDataSender
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -252,7 +253,7 @@ namespace TestDataSender
 				// 새로운데이터 전송이라면 데이터를 받음
 				if (send_way == '2')
 				{
-					if(send_class == 'u' || send_class == 'U')
+					if (send_class == 'u' || send_class == 'U')
 					{
 						Console.Write("code\t: ");
 						user.code = sConvert.ToInt32(Console.ReadLine());
@@ -267,7 +268,7 @@ namespace TestDataSender
 
 						Generater.Generate(user, ref send_byte);
 					}
-					else if(send_class == 'm' || send_class == 'M')
+					else if (send_class == 'm' || send_class == 'M')
 					{
 						Console.Write("usercode\t: ");
 						message.usercode = sConvert.ToInt32(Console.ReadLine());
@@ -288,7 +289,7 @@ namespace TestDataSender
 
 				try
 				{
-					send.Data(send_byte);
+					commu.Send(send_byte);
 					Console.WriteLine("다시전송 : r");
 				}
 				catch (Exception e)
@@ -299,6 +300,6 @@ namespace TestDataSender
 				}
 			}
 		}
-
 	}
 }
+
