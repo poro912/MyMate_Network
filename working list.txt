@@ -1,0 +1,164 @@
+파일
+ClientNetwork
+	Program.cs
+	Server.cs					: 서버에 대한 정보를 저장하기 위한 클래스
+ServerNetwork
+	Program.cs
+	Server.cs					: Accept가 가능하도록 만들어주는 서버 클래스
+		Client.cs				: Client 와 연결을 유지 및 통신할 수 있는 클래스
+		SocketAndEndPoint.cs	: 소켓 정보를 저장하기 위한 객체
+Protocol
+	DataType.cs					: 자료형에 대한 상수 정의
+	Generater.cs				: 송신 데이터를 생성해주는 클래스
+	Converter.cs				: 수신한 데이터를 사용할 수 있도록 번역해주는 클래스
+	Receive.cs					: 파일을 수신할 때의 방법을 정의
+	Send.cs						: 파일을 전송할 때의 방법을 정의
+	Protocols					: 프로토콜정의에 필요한 파일만을 모아놓은 디렉터리
+TestDataSender
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+추천 using
+global using RcdResult = System.Collections.Generic.KeyValuePair<byte, object?>;	: Received Result 반환된 결과값에 관한 using
+global using ByteList = System.Collections.Generic.List<byte>;						: List<byte>의 별칭을 줌
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+메모
+Generate	-> 데이터 생성		Data		->List<byte>
+Convert		-> 데이터 해석		List<byte>	-> KeyValuePair<byte, object?> -> RcdResult
+								byte[]		-> KeyValuePair<byte, object?> -> RcdResult
+
+Send		-> 데이터 전송		byte[]
+Receive		-> 데이터 수신		byte[]
+
+송수신 형태
+데이터
+	단일 변수	: |전송번호|분류상수|값|
+	배열		: |전송번호|분류상수|길이|배열|
+	클래스		: |전송번호|분류상수|단일변수|단일변수|배열|배열|
+대량데이터(다중 데이터)	: |전송번호|분류상수|분류번호|패킷 개수|데이터|
+대량데이터 패킷			: |전송번호|분류상수|전송 번호|데이터
+요청		: |전송번호|요청상수|분류상수|유저코드|서버코드|채널코드|시작날짜|종료날짜|
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+해야 할 일
+클라이언트	: 데이터를 전송할 수 있도록 만들어야 함
+서버		: 데이터를 수신받을 수 있도록 해야 함
+데이터 큐를 생성해야함
+
+
+서버와 클라이언트의 기본 구조에 대해 생성하였음
+서로 정보를 주고 받을 수 있도록 기본 구조를 만들었음
+
+instance 정보를 받으면 자동으로 통신이 실행되도록 만들었음
+
+9/23 금
+일부 코드에 대하여 주석 추가
+
+
+
+9/25 일
+프로토콜 구조 구현
+key 값에 대해 델리게이트가 발동되도록 구현
+Client static 태그에 따른 버그 수정 (생성자 변경)
+	Connect 객체 생성자 단일화
+
+서버에서 모든 클라이언트에게 문자열 데이터 전송이 가능하도록 제작
+
+
+9월 26일
+프로토콜을 생성하여 운용하는 형태를 작성함
+클라이언트의 주석을 작성함
+클래스의 용도가 달라 이름이 애매한 경우가 있어 이를 수정함
+프로토콜의 용도를 더 넓혀 Receive 방법과 Send 방법을 서버와 클라이언트가 동일하게 만듦
+
+9월 27일
+따로 관리되던 send 와 receive를 protocol로 빼서 함께 관리함
+
+9월 29일
+제너레이터, 컨버터 기본 구조 완성
+send, receive 메소드 기본 구조 완성
+server와 client에 send, receive 객체 할당
+
+9월 30일
+Receive 객체에 대한 버그를 확인 -> byte[]을 해석 하기전에 생성하여 문제 발생
+-> 한 곳에서만 새로 배열을 할당하는 방식으로 문제를 해결
+Login 프로토콜 생성
+
+10월 2일
+기존 generator 와 converter의 네임 스페이스가 너무 길어져 번거로움 발생
+이에 최대한 짧게 줄이는 방향으로 제공하기로 함
+Generator와 Converter를 통합하여 저장하기로 결정
+자료형을 통합하여 사용하지 않는 자료형을 삭제하였음
+자료형을 통합하여 DataType 클래스에 저장
+
+DynamicSend 메소드를 생성하여 전송중에 다음 전송을 대기 하지 않아도 되도록 만들었음
+Receive Class 에 이벤트를 생성해서 데이터가 전송될 때마다 이벤트를 발생시키게 하였음
+
+ClientNetwork의 Client 객체가 필요 없다 느껴져 삭제
+간단하게 Send 객체에 접근 할 수 있도록 수정
+기존 Client 의 객체 정보를 갖고있던 상태를 Server의 정보만 갖고 있도록 수정
+
+Server에서 Accept 발생 시 루틴을 정해놓는게 아닌 외부에서 지정해줘야함
+따라서 델리게이트를 선언하여 액셉트 시 루틴을 줄 수 있게 하였음
+
+
+10월 3일
+기본적인 구조 테스트 완료
+예제 구현 
+
+10월 5일
+Receive에 isEmpty 추가
+IsConnect 클래스 구현
+
+10월 6일
+send시 stream이 닫혀있을 경우 예외처리를 상위로 보내주기위한 코드를 작성함
+thread 의 run 변수를 isAlive로 대체하였다. 
+
+10월 8일
+ref 키워드의 불필요성이 제기 되어 많은 부분에서 해당 키워드를 삭제하려 한다.
+	배열의 경우 주소값의 복사가 일어나기 때문에 굳이 ref 를 쓸 필요가 없을듯 하다 
+	따라서 ref가 꼭 필요한 Generator를 제외한 대부분의 코드에서 해당 키워드를 제거하였다.
+또한 테스트시의 불편함때문에 테스트데이터 전송기를 작성하여 배포하려 한다.
+
+KeyValuePair<byte, object?>의 별칭을 RcdResult로 사용하였다.
+List<byte>의 별칭을 ByteList로 사용하였다.
+
+LoginClientContainer 삭제
+
+
+10월 10일 
+TDS 완성
+TDS 버그 수정
+
+10월 12일
+Receive 이벤트 수정
+
+10월 21일 (금)
+작업 내용들이 날라가서 멘탈 탈탈
+어디까지 날라갔는지 확인 필요
+대량 데이터를 전송하여 수신 받을 수 있도록 해야 함
+대량 데이터를 수신완료한 시점에 델리게이트를 발동해야 함
+
+10월 23일 (토)
+DataType에 여러 프로토콜 추가
+모든 작업을 DLL로 변경하는 작업을 시작함
+DLL로 변경하며 내부 매커니즘을 일부 손 볼 생각임
+async로 Send를 구현하는 작업 완료
+기존에 Server.Send.Data()		Server.Receive.Pop() 처럼 길었던 것을 
+			Server.Send()		Server.Pop() 처럼 간략하게 줄였음
+Protocol 옮기기 완료
+TDS 옮기기 완료
+Client 옮기기 완료
+
+혼란의 여지가 있는 프로젝트 명 일부 변경
+ClientNetwork -> ClientToServer
+ServerNetwork -> ServerToClient
+
+
+10월 28일 (금)
+
+Send 메소드의 변경
+	기존의 데이터를 곧바로 전송해주는 역할에서 Send큐에 넣으며, 비동기 전송을 시작하는 메소드로 변경되었습니다
+Receive 메소드의 변경
+	Receive 메소드의 out byte[] 를 주지 않는 경우 자동으로 RcdResult를 반환하게 작성하였습니다.
+모든 메소드의 이름을 CamelCase로 변경하였습니다.
+테스트 일부 완료

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ServerNetwork.Module.Server">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAACAAAAEAAAQAAAAgAEBAAAAAYAAAAAAIAAA=</HashCode>
+      <FileName>Module\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMate_Network.Accept" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Module\sub\Accept.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.Client" Collapsed="true">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Module\sub\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.ClientContatiner" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Module\sub\ClientContatiner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.PortManager" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Module\sub\PortManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.Send" Collapsed="true">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Module\sub\Send.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.Default" Collapsed="true">
+    <Position X="1.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAAAAAAAA=</HashCode>
+      <FileName>Module\sub\SocketAndEndPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerNetwork.Module.sub.SocketAndEndPoint" Collapsed="true">
+    <Position X="3.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAACAAAAAAAAAAAAAAAAIAAAiAAAACAACAAAQ=</HashCode>
+      <FileName>Module\sub\SocketAndEndPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
