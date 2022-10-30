@@ -1,3 +1,5 @@
+!DLL/
+DLL/*
 !DLL/*.dll
 
 *.v2
