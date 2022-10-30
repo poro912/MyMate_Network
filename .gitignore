@@ -1,3 +1,5 @@
+
+
 *.v2
 *.v3
 *.suo
@@ -20,6 +22,9 @@
 *.so
 *.dylib
 *.dll
+!DLL/
+!DLL/*
+!DLL/*.dll
 
 # Fortran module files
 *.mod
