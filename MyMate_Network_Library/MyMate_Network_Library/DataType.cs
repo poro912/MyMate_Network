@@ -37,7 +37,7 @@ namespace Protocol
 		public const byte FLOATARRAY	= 12; //12
 		public const byte DOUBLEARRAY	= 13; //13
 		public const byte BOOLARRAY		= 14; //14
-		public const byte TIME			= 15; //15
+		public const byte DATETIME			= 15; //15
 
 
 		// 제어 타입
@@ -66,7 +66,7 @@ namespace Protocol
 		public const byte CLASSBASE			= 0b_0001_1111; //31
 
 		// 유저 정보
-		public const byte USER_INFO			= CLASSBASE + 1;
+		public const byte USER				= CLASSBASE + 1;
 		// 메시지
 		public const byte MESSAGE			= CLASSBASE + 2;
 		// 서버

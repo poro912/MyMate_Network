@@ -3,7 +3,6 @@
 
 global using RcdResult = System.Collections.Generic.KeyValuePair<byte, object?>;
 
-using ServerToClinet;
 using Protocol;
 using TestDataSender;
 using ServerToClient;

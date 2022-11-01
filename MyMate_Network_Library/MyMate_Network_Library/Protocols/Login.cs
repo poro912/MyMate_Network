@@ -1,5 +1,4 @@
-﻿using MyMate_Network_Library.Protocols;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,19 +8,19 @@ namespace Protocol
 {
 	public class LoginProtocol
 	{
-		public class Login : IProtocolClass
+		public class LOGIN
 		{
 			public string id;
 			public string pw;
 
-			public Login() 
+			public LOGIN() 
 			{
 				id = "";
 				pw = "";
 			}
-			public Login(
-				string id,
-				string pw
+			public LOGIN(
+				string id = "",
+				string pw = "" 
 				)
 			{
 				this.id = id;
@@ -50,11 +49,12 @@ namespace Protocol
 				Console.WriteLine("Login");
 				Console.WriteLine("id : " + id);
 				Console.WriteLine("pw : " + pw);
+				
 			}
 		}
 
 		static public void Generate(
-			Login target, 
+			LOGIN target, 
 			ref ByteList destination
 			)
 		{
@@ -67,7 +67,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			Login result = new();
+			LOGIN result = new();
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)

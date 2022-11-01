@@ -1,5 +1,4 @@
-﻿using MyMate_Network_Library.Protocols;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,23 +7,23 @@ namespace Protocol
 {
     public class MessageProtocol
 	{
-		public class Message : IProtocolClass
+		public class MESSAGE
 		{
 			public int usercode;
 			public int servercode;
 			public String context;
 			public DateTime date;
 
-			public Message() 
+			public MESSAGE() 
 			{
 				context = "";
 				date = DateTime.Now;
 			}
-			public Message(
-				int usercode, 
-				int servercode, 
-				string context, 
-				DateTime date
+			public MESSAGE(
+				int usercode = 0, 
+				int servercode = 0, 
+				string context = "", 
+				DateTime date = new DateTime()
 				)
 			{
 				this.usercode = usercode;
@@ -73,7 +72,7 @@ namespace Protocol
 
 		// 클래스를 List<byte>로 변환
 		static public void Generate(
-			Message target, 
+			MESSAGE target, 
 			ref ByteList destination
 			)
 		{
@@ -87,7 +86,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			Message result = new();
+			MESSAGE result = new();
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)

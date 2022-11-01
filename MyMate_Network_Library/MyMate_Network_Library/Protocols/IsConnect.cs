@@ -1,5 +1,4 @@
-﻿using MyMate_Network_Library.Protocols;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +7,14 @@ namespace Protocol
 {
 	public class isConnectProtocol
 	{
-		public class IsConnect : IProtocolClass
+		public class ISCONNECT
 		{
 			// Data Declear
 			public int connectInfo;
 
-			public IsConnect() { }
-			public IsConnect(
-				int connectInfo
+			public ISCONNECT() { }
+			public ISCONNECT(
+				int connectInfo = 0
 				)
 			{
 				this.connectInfo = connectInfo;
@@ -43,7 +42,7 @@ namespace Protocol
 
 		}
 
-		static public void Generate(IsConnect target, ref ByteList destination)
+		static public void Generate(ISCONNECT target, ref ByteList destination)
 		{
 			destination.Add(DataType.ISCONNECT);
 			Generater.Generate(target.connectInfo, ref destination);
@@ -52,7 +51,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			IsConnect result = new();
+			ISCONNECT result = new();
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)

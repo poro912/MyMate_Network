@@ -1,5 +1,4 @@
-﻿using MyMate_Network_Library.Protocols;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ namespace Protocol
 {
 	public class UserInfoProtocol
 	{
-		public class User : IProtocolClass
+		public class USER
 		{
 			public int code;
 			public string id;
@@ -17,18 +16,18 @@ namespace Protocol
 			public string nick;
 			public string phone;
 
-			public User() {
+			public USER() {
 				id = "";
 				name = "";
 				nick = "";
 				phone = "";
 			}
-			public User(
-				int code,
-				string id,
-				string name,
-				string nick,
-				string phone
+			public USER(
+				int code = 0,
+				string id = "",
+				string name = "",
+				string nick = "",
+				string phone = ""
 				)
 			{
 				this.code = code;
@@ -78,9 +77,9 @@ namespace Protocol
 		}
 
 		// byte 데이터를 생성
-		static public void Generate(User target, ref ByteList destination)
+		static public void Generate(USER target, ref ByteList destination)
 		{
-			destination.Add(DataType.USER_INFO);
+			destination.Add(DataType.USER);
 			Generater.Generate(target.code, ref destination);
 			Generater.Generate(target.id, ref destination);
 			Generater.Generate(target.name, ref destination);
@@ -92,7 +91,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			User result = new();
+			USER result = new();
 
 			// code 값 입력 받음
 			temp = Converter.Convert(target);
@@ -115,7 +114,7 @@ namespace Protocol
 			if (temp.Value != null)
 				result.phone = (string)temp.Value;
 
-			return new (DataType.USER_INFO, result);
+			return new (DataType.USER, result);
 		}
 	}
 }

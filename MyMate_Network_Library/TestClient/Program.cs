@@ -2,7 +2,7 @@
 #define CLIENT_TDS
 
 global using RcdResult = System.Collections.Generic.KeyValuePair<byte, object?>;
-using Client_to_Server;
+using ClientToServer;
 using MyMate_Network_Library.Protocols;
 using Protocol;
 using TestDataSender;

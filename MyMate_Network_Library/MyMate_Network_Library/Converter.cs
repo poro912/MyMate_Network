@@ -26,7 +26,7 @@ namespace Protocol
 				{DataType.LOGOUT     , LogoutProtocol.Convert},
 				{DataType.ISCONNECT     , isConnectProtocol.Convert},
 
-				{DataType.USER_INFO , UserInfoProtocol.Convert},
+				{DataType.USER , UserInfoProtocol.Convert},
 				{DataType.MESSAGE   , MessageProtocol.Convert },
 		};
 		static public RcdResult Convert(byte[] target)

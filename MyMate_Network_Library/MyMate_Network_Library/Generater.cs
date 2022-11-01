@@ -65,12 +65,12 @@ namespace Protocol
 
 		// 제어 데이터형
 		// Login
-		static public void Generate(LoginProtocol.Login target, ref ByteList destination)
+		static public void Generate(LoginProtocol.LOGIN target, ref ByteList destination)
 		{
 			LoginProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(LoginProtocol.Login target)
+		static public ByteList Generate(LoginProtocol.LOGIN target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);
@@ -78,12 +78,12 @@ namespace Protocol
 		}
 
 		// Login
-		static public void Generate(LogoutProtocol.Logout target, ref ByteList destination)
+		static public void Generate(LogoutProtocol.LOGOUT target, ref ByteList destination)
 		{
 			LogoutProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(LogoutProtocol.Logout target)
+		static public ByteList Generate(LogoutProtocol.LOGOUT target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);
@@ -91,12 +91,12 @@ namespace Protocol
 		}
 
 		// IsConnect
-		static public void Generate(isConnectProtocol.IsConnect target, ref ByteList destination)
+		static public void Generate(isConnectProtocol.ISCONNECT target, ref ByteList destination)
 		{
 			isConnectProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(isConnectProtocol.IsConnect target)
+		static public ByteList Generate(isConnectProtocol.ISCONNECT target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);
@@ -105,12 +105,12 @@ namespace Protocol
 
 		// 클래스 형
 		// User
-		static public void Generate(UserInfoProtocol.User target, ref ByteList destination)
+		static public void Generate(UserInfoProtocol.USER target, ref ByteList destination)
 		{
 			UserInfoProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(UserInfoProtocol.User target)
+		static public ByteList Generate(UserInfoProtocol.USER target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);
@@ -118,12 +118,12 @@ namespace Protocol
 		}
 
 		// Message
-		static public void Generate(MessageProtocol.Message target, ref ByteList destination)
+		static public void Generate(MessageProtocol.MESSAGE target, ref ByteList destination)
 		{
 			MessageProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(MessageProtocol.Message target)
+		static public ByteList Generate(MessageProtocol.MESSAGE target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);

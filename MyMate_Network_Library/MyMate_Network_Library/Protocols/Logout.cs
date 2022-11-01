@@ -1,5 +1,4 @@
-﻿using MyMate_Network_Library.Protocols;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +7,18 @@ namespace Protocol
 {
 	public class LogoutProtocol
 	{
-		public class Logout : IProtocolClass
+		public class LOGOUT
 		{
 			// Data Declear
 			public int usercode;
 			public string id;
-			public Logout() 
+			public LOGOUT() 
 			{
 				id = "";
 			}
-			public Logout(
-				int usercode,
-				string id
+			public LOGOUT(
+				int usercode = 0,
+				string id = ""
 				)
 			{
 				this.usercode = usercode;
@@ -53,7 +52,7 @@ namespace Protocol
 
 
 		static public void Generate(
-			Logout target, 
+			LOGOUT target, 
 			ref ByteList destination
 			)
 		{
@@ -65,7 +64,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			Logout result = new();
+			LOGOUT result = new();
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)
