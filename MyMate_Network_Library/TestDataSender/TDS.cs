@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Protocol;
 using sConvert = System.Convert;
 
 
 namespace TestDataSender
 {
-	// 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
-	public class TDS
+    // 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
+    public class TDS
 	{
 		private Thread thread;
 
@@ -159,14 +158,14 @@ namespace TestDataSender
 					Console.WriteLine("SUCCESS : " + DataType.SUCCESS + "\tFAIL : " + DataType.FAIL + "\tISCONNECT : " + DataType.ISCONNECT);
 					Console.WriteLine("LOGIN : " + DataType.LOGIN + "\tLOGOUT : " + DataType.LOGOUT + "\tREQUEST : " + DataType.REQUEST);
 					Console.WriteLine("VARIABLE : " + DataType.VARIABLE + "\tREQUEST_RECENT_ALL : " + DataType.REQUEST_RECENT_ALL);
-
+					Console.WriteLine("TOAST : " + DataType.TOAST);
 					Console.WriteLine("CLASS Protocol");
 					Console.WriteLine("USER : " + DataType.USER + "\tMESSAGE : " + DataType.MESSAGE + "\tServer : " + DataType.SERVER);
 					Console.WriteLine("CALENDER : " + DataType.CALENDER + "\tCHECKLIST : " + DataType.CHECKLIST + "\tFRIEND : " + DataType.FRIEND);
 
-					byte[] arr = new byte[1];
+					Console.WriteLine("전송할 프로토콜 :");
 					send_byte.Clear();
-					send_byte[0] = sConvert.ToByte(Console.ReadLine());
+					send_byte.Add(sConvert.ToByte(Console.ReadLine()));
 				}
 
 				try
@@ -275,7 +274,7 @@ namespace TestDataSender
 						Console.Write("code\t: ");
 						user.code = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("id\t: ");
-						user.id = Console.ReadLine();
+						user.email = Console.ReadLine();
 						Console.Write("name\t: ");
 						user.name = Console.ReadLine();
 						Console.Write("nick\t: ");

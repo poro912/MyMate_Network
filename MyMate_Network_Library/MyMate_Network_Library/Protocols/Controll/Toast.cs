@@ -37,8 +37,8 @@ namespace Protocol
 			// Data Declear
 			public string data1;
 			public string data2;
-			public DataName() 
-			{
+			public DataName()
+	{
 				data1 = "";
 				data2 = "";
 			}

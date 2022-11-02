@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 namespace Protocol
 {
 	public class UserInfoProtocol
@@ -11,68 +10,70 @@ namespace Protocol
 		public class USER
 		{
 			public int code;
-			public string id;
 			public string name;
 			public string nick;
+			public string email;
 			public string phone;
-
-			public USER() {
-				id = "";
+			public string description;
+			public bool ismyfriend;
+			public bool isblind;
+			public USER()
+			{
+				code = 0;
 				name = "";
 				nick = "";
+				email = "";
 				phone = "";
+				description = "";
 			}
 			public USER(
 				int code = 0,
-				string id = "",
 				string name = "",
 				string nick = "",
-				string phone = ""
+				string email = "",
+				string phone = "",
+				string description = ""
 				)
 			{
 				this.code = code;
-				this.id = id;
 				this.name = name;
 				this.nick = nick;
+				this.email = email;
 				this.phone = phone;
+				this.description = description;
 			}
 
 			public void Get(
 				out int code,
-				out string id,
 				out string name,
 				out string nick,
-				out string phone
+				out string email,
+				out string phone,
+				out string description
 				)
 			{
 				code = this.code;
-				id = this.id;
 				name = this.name;
 				nick = this.nick;
+				email = this.email;
 				phone = this.phone;
+				description = this.description;
 			}
 			public void Set(
-				int code, 
-				string id, 
-				string name, 
-				string nick, 
-				string phone
+				int code,
+				string name,
+				string nick,
+				string email,
+				string phone,
+				string description
 				)
 			{
 				this.code = code;
-				this.id = id;
 				this.name = name;
 				this.nick = nick;
+				this.email = email;
 				this.phone = phone;
-			}
-			public void Print()
-			{
-				Console.WriteLine("UserInfo");
-				Console.WriteLine("code : " + code);
-				Console.WriteLine("id : " + id);
-				Console.WriteLine("name : " + name);
-				Console.WriteLine("nick : " + nick);
-				Console.WriteLine("phone : " + phone);
+				this.description = description;
 			}
 		}
 
@@ -81,10 +82,11 @@ namespace Protocol
 		{
 			destination.Add(DataType.USER);
 			Generater.Generate(target.code, ref destination);
-			Generater.Generate(target.id, ref destination);
 			Generater.Generate(target.name, ref destination);
 			Generater.Generate(target.nick, ref destination);
+			Generater.Generate(target.email, ref destination);
 			Generater.Generate(target.phone, ref destination);
+			Generater.Generate(target.description, ref destination);
 			return;
 		}
 
@@ -100,10 +102,6 @@ namespace Protocol
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)
-				result.id = (string)temp.Value;
-
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
 				result.name = (string)temp.Value;
 
 			temp = Converter.Convert(target);
@@ -112,9 +110,17 @@ namespace Protocol
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)
+				result.email = (string)temp.Value;
+
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
 				result.phone = (string)temp.Value;
 
-			return new (DataType.USER, result);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.description = (string)temp.Value;
+
+			return new(DataType.USER, result);
 		}
 	}
 }

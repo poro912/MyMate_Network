@@ -2,47 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-/*
- * 1. 아래의 형태로 클래스 생성
- * 2. DataType에 상수 등록
- * 3. Generater에 등록
- * 4. Converter에 등록
- */
 
 namespace Protocol
 {
-	/*	Generator와 Convertor에 추가할 내용
-	// Generator
-	// Base
-	static public void Generate(BaseProtocol.DataName target, ref ByteList destination)
+	public class CheckListProtocol
 	{
-		BaseProtocol.Generate(target, ref destination);
-		return;
-	}
-	static public ByteList Generate(BaseProtocol.DataName target)
-	{
-		ByteList destination = new();
-		Generate(target, ref destination);
-		return destination;
-	}
-	// Convertor
-	{DataType.BASEPROTOCOL     , BaseProtocol.Convert}
-	 */
-
-	/*
-	public class BaseProtocol
-	{
-		public class DataName
+		public class CHECKLIST
 		{
 			// Data Declear
-			public string data1;
-			public string data2;
-			public DataName() 
+			public int code;
+			public int servercode;
+			public int channelcode;
+			public int ownercode;		// 소유자
+			public DateTime startDate;
+			public DateTime endDate;
+			public string title;
+			bool status;
+
+			public CHECKLIST()
 			{
 				data1 = "";
 				data2 = "";
 			}
-			public DataName(
+			public CHECKLIST(
 				string data1,
 				string data2
 				)
@@ -78,9 +60,9 @@ namespace Protocol
 		}
 
 
-		static public void Generate(DataName target, ref ByteList destination)
+		static public void Generate(CHECKLIST target, ref ByteList destination)
 		{
-			destination.Add(DataType.DataName);
+			destination.Add(DataType.CHECKLIST);
 			Generater.Generate(target.data1, ref destination);
 			Generater.Generate(target.data2, ref destination);
 		}
@@ -88,7 +70,7 @@ namespace Protocol
 		static public RcdResult Convert(ByteList target)
 		{
 			RcdResult temp;
-			DataName result = new();
+			CHECKLIST result = new();
 
 			temp = Converter.Convert(target);
 			if (temp.Value != null)
@@ -98,8 +80,8 @@ namespace Protocol
 			if (temp.Value != null)
 				result.data2 = (string)temp.Value;
 
-			return new(DataType.DataName, result);
+			return new(DataType.CHECKLIST, result);
 		}
 	}
-	*/
+	
 }

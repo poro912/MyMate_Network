@@ -33,13 +33,6 @@ namespace Protocol
 			{
 				this.connectInfo = connectInfo;
 			}
-
-			public void Print()
-			{
-				Console.WriteLine("IsConnect");
-				Console.WriteLine("connectInfo : " + connectInfo);
-			}
-
 		}
 
 		static public void Generate(ISCONNECT target, ref ByteList destination)
