@@ -1,108 +1,107 @@
 ﻿namespace Protocol
 {
-    public class CheckListProtocol
+    public class CalenderProtocol
     {
-        public class CHECKLIST
+        public class CALENDER
         {
-            // Data Declear
-            public int checkListCode;
             public int serverCode;
             public int channelCode;
-            public DateTime startDate;
-            public DateTime endDate;
+            public int calenderCode;
             public string content;
-            public bool isChecked;
+            public int creater;
+            public DateTime startTime;
+            public DateTime endTime;
             public bool isPrivate;
 
-            public CHECKLIST()
+            public CALENDER()
             {
-                checkListCode = 0;
                 serverCode = 0;
                 channelCode = 0;
-                startDate = new();
-                endDate = new();
+                calenderCode = 0;
                 content = "";
-                isChecked = false;
+                creater = 0;
+                startTime = new();
+                endTime = new();
                 isPrivate = false;
             }
 
-            public CHECKLIST(
-                int checkListCode = 0,
+            public CALENDER(
                 int serverCode = 0,
                 int channelCode = 0,
-                DateTime startDate = new(),
-                DateTime endDate = new(),
+                int calenderCode = 0,
                 string content = "",
-                bool isChecked = false,
+                int creater = 0,
+                DateTime startTime = new(),
+                DateTime endTime = new(),
                 bool isPrivate = false
                 )
             {
-                this.checkListCode = checkListCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
-                this.startDate = startDate;
-                this.endDate = endDate;
+                this.calenderCode = calenderCode;
                 this.content = content;
-                this.isChecked = isChecked;
+                this.creater = creater;
+                this.startTime = startTime;
+                this.endTime = endTime;
                 this.isPrivate = isPrivate;
             }
 
             public void Set(
-                int checkListCode,
                 int serverCode,
                 int channelCode,
-                DateTime startDate,
-                DateTime endDate,
+                int calenderCode,
                 string content,
-                bool isChecked,
+                int creater,
+                DateTime startTime,
+                DateTime endTime,
                 bool isPrivate
                 )
             {
-                this.checkListCode = checkListCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
-                this.startDate = startDate;
-                this.endDate = endDate;
+                this.calenderCode = calenderCode;
                 this.content = content;
-                this.isChecked = isChecked;
+                this.creater = creater;
+                this.startTime = startTime;
+                this.endTime = endTime;
                 this.isPrivate = isPrivate;
             }
 
             public void Get(
-                out int checkListCode,
                 out int serverCode,
                 out int channelCode,
-                out DateTime startDate,
-                out DateTime endDate,
+                out int calenderCode,
                 out string content,
-                out bool isChecked,
+                out int creater,
+                out DateTime startTime,
+                out DateTime endTime,
                 out bool isPrivate
             )
             {
-                checkListCode = this.checkListCode;
                 serverCode = this.serverCode;
                 channelCode = this.channelCode;
-                startDate = this.startDate;
-                endDate = this.endDate;
+                calenderCode = this.calenderCode;
                 content = this.content;
-                isChecked = this.isChecked;
+                creater = this.creater;
+                startTime = this.startTime;
+                endTime = this.endTime;
                 isPrivate = this.isPrivate;
             }
         }
 
         static public void Generate(
-            CHECKLIST target,
+            CALENDER target,
             ref ByteList destination
             )
         {
-            destination.Add(DataType.CHECKLIST);
-            Generater.Generate(target.checkListCode, ref destination);
+            destination.Add(DataType.CALENDER);
             Generater.Generate(target.serverCode, ref destination);
             Generater.Generate(target.channelCode, ref destination);
-            Generater.Generate(target.startDate, ref destination);
-            Generater.Generate(target.endDate, ref destination);
+            Generater.Generate(target.calenderCode, ref destination);
             Generater.Generate(target.content, ref destination);
-            Generater.Generate(target.isChecked, ref destination);
+            Generater.Generate(target.creater, ref destination);
+            Generater.Generate(target.startTime, ref destination);
+            Generater.Generate(target.endTime, ref destination);
             Generater.Generate(target.isPrivate, ref destination);
         }
 
@@ -110,11 +109,7 @@
         static public RcdResult Convert(ByteList target)
         {
             RcdResult temp;
-            CHECKLIST result = new();
-
-            temp = Converter.Convert(target);
-            if (temp.Value != null)
-                result.checkListCode = (int)temp.Value;
+            CALENDER result = new();
 
             temp = Converter.Convert(target);
             if (temp.Value != null)
@@ -126,11 +121,7 @@
 
             temp = Converter.Convert(target);
             if (temp.Value != null)
-                result.startDate = (DateTime)temp.Value;
-
-            temp = Converter.Convert(target);
-            if (temp.Value != null)
-                result.endDate = (DateTime)temp.Value;
+                result.calenderCode = (int)temp.Value;
 
             temp = Converter.Convert(target);
             if (temp.Value != null)
@@ -138,14 +129,21 @@
 
             temp = Converter.Convert(target);
             if (temp.Value != null)
-                result.isChecked = (bool)temp.Value;
+                result.creater = (int)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.startTime = (DateTime)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.endTime = (DateTime)temp.Value;
 
             temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.isPrivate = (bool)temp.Value;
 
-            return new(DataType.CHECKLIST, result);
+            return new(DataType.CALENDER, result);
         }
     }
-
 }

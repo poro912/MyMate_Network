@@ -272,13 +272,13 @@ namespace TestDataSender
 					if (send_class == 'u' || send_class == 'U')
 					{
 						Console.Write("code\t: ");
-						user.code = sConvert.ToInt32(Console.ReadLine());
+						user.userCode = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("id\t: ");
 						user.email = Console.ReadLine();
 						Console.Write("name\t: ");
 						user.name = Console.ReadLine();
 						Console.Write("nick\t: ");
-						user.nick = Console.ReadLine();
+						user.nickname = Console.ReadLine();
 						Console.Write("phone\t: ");
 						user.phone = Console.ReadLine();
 
@@ -287,13 +287,13 @@ namespace TestDataSender
 					else if (send_class == 'm' || send_class == 'M')
 					{
 						Console.Write("usercode\t: ");
-						message.usercode = sConvert.ToInt32(Console.ReadLine());
+						message.creater = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("servercode\t: ");
-						message.servercode = sConvert.ToInt32(Console.ReadLine());
+						message.serverCode = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("context\t: ");
-						message.context = Console.ReadLine();
+						message.content = Console.ReadLine();
 
-						message.date = DateTime.Now;
+						message.startTime = DateTime.Now;
 
 					}
 				}

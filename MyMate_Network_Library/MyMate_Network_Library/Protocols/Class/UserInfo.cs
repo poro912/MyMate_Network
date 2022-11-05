@@ -1,126 +1,163 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Protocol
+﻿namespace Protocol
 {
-	public class UserInfoProtocol
-	{
-		public class USER
-		{
-			public int code;
-			public string name;
-			public string nick;
-			public string email;
-			public string phone;
-			public string description;
-			public bool ismyfriend;
-			public bool isblind;
-			public USER()
-			{
-				code = 0;
-				name = "";
-				nick = "";
-				email = "";
-				phone = "";
-				description = "";
-			}
-			public USER(
-				int code = 0,
-				string name = "",
-				string nick = "",
-				string email = "",
-				string phone = "",
-				string description = ""
-				)
-			{
-				this.code = code;
-				this.name = name;
-				this.nick = nick;
-				this.email = email;
-				this.phone = phone;
-				this.description = description;
-			}
+    public class UserInfoProtocol
+    {
+        public class USER
+        {
+            public int userCode;
+            public string id;
+            public string password;
+            public string name;
+            public string nickname;
+            public string email;
+            public string phone;
+            public string content;
+            public DateTime recentTime;
 
-			public void Get(
-				out int code,
-				out string name,
-				out string nick,
-				out string email,
-				out string phone,
-				out string description
-				)
-			{
-				code = this.code;
-				name = this.name;
-				nick = this.nick;
-				email = this.email;
-				phone = this.phone;
-				description = this.description;
-			}
-			public void Set(
-				int code,
-				string name,
-				string nick,
-				string email,
-				string phone,
-				string description
-				)
-			{
-				this.code = code;
-				this.name = name;
-				this.nick = nick;
-				this.email = email;
-				this.phone = phone;
-				this.description = description;
-			}
-		}
+            public USER()
+            {
+                userCode = 0;
+                id = "";
+                password = "";
+                name = "";
+                nickname = "";
+                email = "";
+                phone = "";
+                content = "";
+                recentTime = new();
+            }
 
-		// byte 데이터를 생성
-		static public void Generate(USER target, ref ByteList destination)
-		{
-			destination.Add(DataType.USER);
-			Generater.Generate(target.code, ref destination);
-			Generater.Generate(target.name, ref destination);
-			Generater.Generate(target.nick, ref destination);
-			Generater.Generate(target.email, ref destination);
-			Generater.Generate(target.phone, ref destination);
-			Generater.Generate(target.description, ref destination);
-			return;
-		}
+            public USER(
+                int userCode = 0,
+                string id = "",
+                string password = "",
+                string name = "",
+                string nickname = "",
+                string email = "",
+                string phone = "",
+                string content = "",
+                DateTime recentTime = new()
+                )
+            {
+                this.userCode = userCode;
+                this.id = id;
+                this.password = password;
+                this.name = name;
+                this.nickname = nickname;
+                this.email = email;
+                this.phone = phone;
+                this.content = content;
+                this.recentTime = recentTime;
+            }
+            public void Set(
+                int userCode,
+                string id,
+                string password,
+                string name,
+                string nickname,
+                string email,
+                string phone,
+                string content,
+                DateTime recentTime
+                )
+            {
+                this.userCode = userCode;
+                this.id = id;
+                this.password = password;
+                this.name = name;
+                this.nickname = nickname;
+                this.email = email;
+                this.phone = phone;
+                this.content = content;
+                this.recentTime = recentTime;
+            }
 
-		static public RcdResult Convert(ByteList target)
-		{
-			RcdResult temp;
-			USER result = new();
+            public void Get(
+                out int userCode,
+                out string id,
+                out string password,
+                out string name,
+                out string nickname,
+                out string email,
+                out string phone,
+                out string content,
+                out DateTime recentTime
+                )
+            {
+                userCode = this.userCode;
+                id = this.id;
+                password = this.password;
+                name = this.name;
+                nickname = this.nickname;
+                email = this.email;
+                phone = this.phone;
+                content = this.content;
+                recentTime = this.recentTime;
+            }
+        }
 
-			// code 값 입력 받음
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.code = (int)temp.Value;
+        // byte 데이터를 생성
+        static public void Generate(
+            USER target,
+            ref ByteList destination
+            )
+        {
+            destination.Add(DataType.USER);
+            Generater.Generate(target.userCode, ref destination);
+            Generater.Generate(target.id, ref destination);
+            Generater.Generate(target.password, ref destination);
+            Generater.Generate(target.name, ref destination);
+            Generater.Generate(target.nickname, ref destination);
+            Generater.Generate(target.email, ref destination);
+            Generater.Generate(target.phone, ref destination);
+            Generater.Generate(target.content, ref destination);
+            Generater.Generate(target.recentTime, ref destination);
+            return;
+        }
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.name = (string)temp.Value;
+        static public RcdResult Convert(ByteList target)
+        {
+            RcdResult temp;
+            USER result = new();
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.nick = (string)temp.Value;
+            // code 값 입력 받음
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.userCode = (int)temp.Value;
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.email = (string)temp.Value;
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.id = (string)temp.Value;
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.phone = (string)temp.Value;
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.password = (string)temp.Value;
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.description = (string)temp.Value;
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.name = (string)temp.Value;
 
-			return new(DataType.USER, result);
-		}
-	}
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.nickname = (string)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.email = (string)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.phone = (string)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.content = (string)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.recentTime = (DateTime)temp.Value;
+
+            return new(DataType.USER, result);
+        }
+    }
 }

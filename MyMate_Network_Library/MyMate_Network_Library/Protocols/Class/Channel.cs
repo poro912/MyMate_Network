@@ -1,82 +1,98 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
-namespace Protocol
+﻿namespace Protocol
 {
-	public class ChannelProtocol
-	{
-		public class CHNNEL
-		{
-			// Data Declear
-			public int servercode;
-			public int channelcode;
-			public string title;
-			public CHNNEL()
-			{
-				data1 = "";
-				data2 = "";
-			}
-			public CHNNEL(
-				string data1,
-				string data2
-				)
-			{
-				this.data1 = data1;
-				this.data2 = data2;
-			}
+    public class ChannelProtocol
+    {
+        public class CHNNEL
+        {
+            // Data Declear
+            public int serverCode;
+            public int channelCode;
+            public string title;
+            public int state;
 
-			public void Set(
-				string data1,
-				string data2
-				)
-			{
-				this.data1 = data1;
-				this.data2 = data2;
-			}
+            public CHNNEL()
+            {
+                serverCode = 0;
+                channelCode = 0;
+                title = "";
+                state = 0;
+            }
 
-			public void Get(
-				out string data1,
-				out string data2
-			)
-			{
-				data1 = this.data1;
-				data2 = this.data2;
-			}
-			public void Print()
-			{
-				
-				Console.WriteLine("Base");
-				Console.WriteLine("data1 : " + data2);
-				Console.WriteLine("data2 : " + data2);
-			}
-		}
+            public CHNNEL(
+                int serverCode = 0,
+                int channelCode = 0,
+                string title = "",
+                int state = 0
+                )
+            {
+                this.serverCode = serverCode;
+                this.channelCode = channelCode;
+                this.title = title;
+                this.state = state;
+            }
 
+            public void Set(
+                int serverCode,
+                int channelCode,
+                string title,
+                int state
+                )
+            {
+                this.serverCode = serverCode;
+                this.channelCode = channelCode;
+                this.title = title;
+                this.state = state;
+            }
 
-		static public void Generate(CHNNEL target, ref ByteList destination)
-		{
-			destination.Add(DataType.CHNNEL);
-			Generater.Generate(target.data1, ref destination);
-			Generater.Generate(target.data2, ref destination);
-		}
-		// List<byte>를 클래스로 변환
-		static public RcdResult Convert(ByteList target)
-		{
-			RcdResult temp;
-			CHNNEL result = new();
+            public void Get(
+                out int serverCode,
+                out int channelCode,
+                out string title,
+                out int state
+            )
+            {
+                serverCode = this.serverCode;
+                channelCode = this.channelCode;
+                title = this.title;
+                state = this.state;
+            }
+        }
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.data1 = (string)temp.Value;
+        static public void Generate(
+            CHNNEL target,
+            ref ByteList destination
+            )
+        {
+            destination.Add(DataType.CHNNEL);
+            Generater.Generate(target.serverCode, ref destination);
+            Generater.Generate(target.channelCode, ref destination);
+            Generater.Generate(target.title, ref destination);
+            Generater.Generate(target.state, ref destination);
+        }
 
-			temp = Converter.Convert(target);
-			if (temp.Value != null)
-				result.data2 = (string)temp.Value;
+        // List<byte>를 클래스로 변환
+        static public RcdResult Convert(ByteList target)
+        {
+            RcdResult temp;
+            CHNNEL result = new();
 
-			return new(DataType.CHNNEL, result);
-		}
-	}
-	
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.serverCode = (int)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.channelCode = (int)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.title = (string)temp.Value;
+
+            temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.state = (int)temp.Value;
+
+            return new(DataType.CHNNEL, result);
+        }
+    }
 }
