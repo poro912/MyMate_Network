@@ -47,37 +47,36 @@
                 title = this.title;
                 content = this.content;
             }
-
-            static public void Generate(
-                TOAST target,
-                ref ByteList destination
-                )
-            {
-                destination.Add(DataType.TOAST);
-                Generater.Generate(target.userCode, ref destination);
-                Generater.Generate(target.title, ref destination);
-                Generater.Generate(target.content, ref destination);
-            }
-
-            static public RcdResult Convert(ByteList target)
-            {
-                RcdResult temp;
-                TOAST result = new();
-
-                temp = Converter.Convert(target);
-                if (temp.Value != null)
-                    result.userCode = (int)temp.Value;
-
-                temp = Converter.Convert(target);
-                if (temp.Value != null)
-                    result.title = (string)temp.Value;
-
-                temp = Converter.Convert(target);
-                if (temp.Value != null)
-                    result.content = (string)temp.Value;
-
-                return new(DataType.TOAST, result);
-            }
         }
-    }
+        static public void Generate(
+				TOAST target,
+				ref ByteList destination
+				)
+		{
+			destination.Add(DataType.TOAST);
+			Generater.Generate(target.userCode, ref destination);
+			Generater.Generate(target.title, ref destination);
+			Generater.Generate(target.content, ref destination);
+		}
+
+		static public RcdResult Convert(ByteList target)
+		{
+			RcdResult temp;
+			TOAST result = new();
+
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.userCode = (int)temp.Value;
+
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.title = (string)temp.Value;
+
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.content = (string)temp.Value;
+
+			return new(DataType.TOAST, result);
+		}
+	}
 }

@@ -26,7 +26,10 @@ namespace Protocol
 				{DataType.LOGIN			, LoginProtocol.Convert},
 				{DataType.LOGOUT		, LogoutProtocol.Convert},
 				{DataType.ISCONNECT		, isConnectProtocol.Convert},
-				{DataType.FAIL     , FailProtocol.Convert},
+				//{DataType.FAIL			, FailProtocol.Convert},
+				{DataType.REQUEST		, RequestProtocol.Convert},
+				{DataType.REQUEST_RECENT_ALL , RequestRecentAllProtocol.Convert},
+				{DataType.TOAST			, ToastProtocol.Convert},
 
 				{DataType.USER			, UserInfoProtocol.Convert},
 				{DataType.MESSAGE		, MessageProtocol.Convert },

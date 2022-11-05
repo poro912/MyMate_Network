@@ -120,12 +120,56 @@ namespace Protocol
 		}
 		
 		//FAIL
-		static public void Generate(FailProtocol.FAIL target, ref ByteList destination)
+		/*static public void Generate(FailProtocol.FAIL target, ref ByteList destination)
 		{
 			FailProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(FailProtocol.FAIL target)
+		//static public ByteList Generate(FailProtocol.FAIL target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+		*/
+
+		// TOAST
+		static public void Generate(ToastProtocol.TOAST target, ref ByteList destination)
+		{
+			ToastProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(ToastProtocol.TOAST target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
+		// Request
+		static public void Generate(RequestProtocol.REQUEST target, ref ByteList destination)
+		{
+			RequestProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(RequestProtocol.REQUEST target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
+		// REQUEST_RECENT_ALL
+		static public void Generate(
+			RequestRecentAllProtocol.REQUESTRECENTALL target,
+			ref ByteList destination
+			)
+		{
+			RequestRecentAllProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(
+			RequestRecentAllProtocol.REQUESTRECENTALL target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);

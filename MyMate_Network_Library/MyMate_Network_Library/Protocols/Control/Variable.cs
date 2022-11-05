@@ -8,7 +8,6 @@ using System.Text;
  * 3. Generater에 등록
  * 4. Converter에 등록
  */
-1`
 namespace Protocol
 {
 	/*	Generator와 Convertor에 추가할 내용

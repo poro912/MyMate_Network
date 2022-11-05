@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Protocol
 {
+	/*
 	public class FailProtocol
 	{
 		public class FAIL
@@ -73,5 +74,5 @@ namespace Protocol
 
 			return new(DataType.FAIL, result);
 		}
-	}
+	}*/
 }

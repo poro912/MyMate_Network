@@ -71,23 +71,21 @@
                 startTime = this.startTime;
                 endTime = this.endTime;
             }
-
-            static public void Generate(
-                REQUEST target,
-                ref ByteList destination
-                )
-            {
-                destination.Add(DataType.DELIVER);
-                Generater.Generate(target.dataType, ref destination);
-                Generater.Generate(target.userCode, ref destination);
-                Generater.Generate(target.serverCode, ref destination);
-                Generater.Generate(target.channelCode, ref destination);
-                Generater.Generate(target.startTime, ref destination);
-                Generater.Generate(target.endTime, ref destination);
-            }
         }
-
-        static public RcdResult Convert(ByteList target)
+		static public void Generate(
+			   REQUEST target,
+			   ref ByteList destination
+			   )
+		{
+			destination.Add(DataType.DELIVER);
+			Generater.Generate(target.dataType, ref destination);
+			Generater.Generate(target.userCode, ref destination);
+			Generater.Generate(target.serverCode, ref destination);
+			Generater.Generate(target.channelCode, ref destination);
+			Generater.Generate(target.startTime, ref destination);
+			Generater.Generate(target.endTime, ref destination);
+		}
+		static public RcdResult Convert(ByteList target)
         {
             RcdResult temp;
             REQUEST result = new();
