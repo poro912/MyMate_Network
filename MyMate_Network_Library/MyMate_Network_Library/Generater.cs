@@ -27,7 +27,6 @@ namespace Protocol
 			return destination;
 		}
 
-
 		// string
 		static public void Generate(string target, ref ByteList destination)
 		{
@@ -57,6 +56,26 @@ namespace Protocol
 			destination.AddRange(BitConverter.GetBytes(target));
 		}
 		static public ByteList Generate(bool target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
+		// int array
+		static public void Generate(List<int> target, ref ByteList destination)
+		{
+			// 해석하기 위한 데이터 삽입
+			destination.Add(DataType.INTARRAY);
+			destination.AddRange(BitConverter.GetBytes(target.Count));
+
+			for (int i = 0; i < target.Count; i++)
+			{
+				// int 형 데이터를 해당 byte 형으로 변환
+				destination.AddRange(BitConverter.GetBytes(target[i]));
+			}
+		}
+		static public ByteList Generate(List<int> target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);

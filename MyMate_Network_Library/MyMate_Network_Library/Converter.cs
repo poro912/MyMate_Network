@@ -21,6 +21,7 @@ namespace Protocol
 				{DataType.STRING		, ConvertString },
 				{DataType.INT			, ConvertInt },
 				{DataType.BOOL			, ConvertBool },
+				{DataType.INTARRAY      , ConvertIntArray },
 				{DataType.DATETIME      , ConvertDateTime },
 
 				{DataType.LOGIN			, LoginProtocol.Convert},
@@ -122,6 +123,34 @@ namespace Protocol
 			return new(DataType.BOOL, BitConverter.ToBoolean(temp, 0));
 		}
 
+		//Int Array
+		static private RcdResult ConvertIntArray(ByteList target)
+		{
+			// 임시 변수에 데이터를 넣어 저장 후
+			byte[] temp = new byte[4];
+			target.CopyTo(0, temp, 0, 4);
+
+			// 읽은 데이터 만큼 삭제
+			target.RemoveRange(0, 4);
+
+			// 배열 크기 만큼 미리 할당 함
+			List<int> result = new (BitConverter.ToInt32(temp, 0));
+
+			for(int i = 0; i < result.Count; i++)
+			{
+				// 4바이트 읽어옴
+				target.CopyTo(0, temp, 0, 4);
+
+				// 읽은 데이터 만큼 삭제
+				target.RemoveRange(0, 4);
+
+				result[i] = BitConverter.ToInt32(temp, 0);
+			}	
+
+			return new(DataType.INTARRAY, result);
+		}
+
+		//DateTime
 		static private RcdResult ConvertDateTime(ByteList target)
 		{
 			// 임시 변수에 데이터를 넣어 저장 후
