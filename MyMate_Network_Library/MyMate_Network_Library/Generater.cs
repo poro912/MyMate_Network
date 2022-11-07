@@ -195,6 +195,23 @@ namespace Protocol
 			return destination;
 		}
 
+		// SignUp
+		static public void Generate(
+			SignUpProtocol.SiginUp target,
+			ref ByteList destination
+			)
+		{
+			SignUpProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(
+			SignUpProtocol.SiginUp target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
 
 		// 클래스 형
 		// User

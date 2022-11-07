@@ -66,6 +66,8 @@ namespace Protocol
         public const byte TOAST = CONTROLLBASE + 8;
         // 전달
         public const byte DELIVER = CONTROLLBASE + 9;
+        // 회원가입
+        public const byte SIGNUP = CONTROLLBASE + 10;
 
         // 클래스 타입
         public const byte CLASSBASE = 0b_0010_0000; //32
