@@ -112,7 +112,7 @@ namespace Protocol
 			return destination;
 		}
 
-		// Login
+		// LogOut
 		static public void Generate(LogoutProtocol.LOGOUT target, ref ByteList destination)
 		{
 			LogoutProtocol.Generate(target, ref destination);
@@ -137,7 +137,7 @@ namespace Protocol
 			Generate(target, ref destination);
 			return destination;
 		}
-		
+
 		//FAIL
 		/*static public void Generate(FailProtocol.FAIL target, ref ByteList destination)
 		{
