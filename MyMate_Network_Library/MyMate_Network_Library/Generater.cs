@@ -211,6 +211,7 @@ namespace Protocol
 			Generate(target, ref destination);
 			return destination;
 		}
+
 		// LoginUser
 		static public void Generate(LoginUserProtocol.LOGINUSER target, ref ByteList destination)
 		{

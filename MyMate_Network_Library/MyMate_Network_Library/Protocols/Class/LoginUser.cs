@@ -1,4 +1,5 @@
-﻿
+﻿using Protocol;
+
 namespace Protocol
 {
     public class LoginUserProtocol
@@ -26,7 +27,7 @@ namespace Protocol
         static public RcdResult Convert(ByteList target)
         {
             RcdResult temp;
-			LOGINUSER result = new();
+            LOGINUSER result = new();
 
             // code 값 입력 받음
             temp = Converter.Convert(target);

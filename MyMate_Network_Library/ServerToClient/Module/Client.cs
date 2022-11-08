@@ -19,7 +19,7 @@ namespace ServerToClient
 		// 생성된 클라이언트 구조체를 초기화
 		public Client(TcpClient tcpClient)
         {
-            // tcpClinet 객체를 저장
+            // tcpClient 객체를 저장
             this.tcpClient = tcpClient;
 
             // 클라이언트의 스트림을 저장

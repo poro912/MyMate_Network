@@ -6,7 +6,7 @@ using ClientToServer;
 using Protocol;
 using TestDataSender;
 
-namespace TestClinet
+namespace TestClient
 {
 	class TestClient
 	{
