@@ -35,14 +35,14 @@ namespace Protocol
 				{DataType.SIGNUP        , SignUpProtocol.Convert},
 
 				// 클래스 자료형
-				{DataType.USER          , UserInfoProtocol.Convert},
+				{DataType.USER          , UserProtocol.Convert},
 				{DataType.MESSAGE       , MessageProtocol.Convert },
 				{DataType.SERVER        , ServerProtocol.Convert},
 				{DataType.CHECKLIST     , CheckListProtocol.Convert},
 				{DataType.CHNNEL        , ChannelProtocol.Convert},
 				{DataType.CALENDER      , CalenderProtocol.Convert},
 				{DataType.FRIEND        , FriendProtocol.Convert},
-				{DataType.LOGINUSER     , UserInfoProtocol.Convert}
+				{DataType.LOGINUSER     , LoginUserProtocol.Convert}
 		};
 		static public RcdResult Convert(byte[] target)
 		{

@@ -29,7 +29,7 @@ namespace TestDataSender
 
 		// Class	
 		public MessageProtocol.MESSAGE message = new();
-		public UserInfoProtocol.USER user = new();
+		public UserProtocol.USER user = new();
 
 		private List<byte> send_byte;
 
