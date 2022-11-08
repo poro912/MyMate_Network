@@ -212,15 +212,28 @@ namespace Protocol
 			return destination;
 		}
 
+		// LoginUser
+		static public void Generate(LoginUserProtocol.LOGINUSER target, ref ByteList destination)
+		{
+			LoginUserProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(LoginUserProtocol.LOGINUSER target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
 
 		// 클래스 형
 		// User
-		static public void Generate(UserInfoProtocol.USER target, ref ByteList destination)
+		static public void Generate(UserProtocol.USER target, ref ByteList destination)
 		{
-			UserInfoProtocol.Generate(target, ref destination);
+			UserProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(UserInfoProtocol.USER target)
+		static public ByteList Generate(UserProtocol.USER target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);

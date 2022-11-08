@@ -10,9 +10,19 @@ using System.Threading.Tasks;
 
 namespace Protocol
 {
-    // 컨버터 메소드
-    // byte_arr 형태의 데이터를 해당 자료형으로 변환해준다.
-    public delegate RcdResult Convert(ByteList target);
+	//1 : 메시지, 2 : 캘린더, 3 : 프로젝트, 4 : 통화
+	static public class ChannelType
+    {
+        public const byte Default = 0;  // 오류
+        public const byte Message = 1;  // 메시지 채널
+        public const byte Calender = 2; // 캘린더 채널
+        public const byte Project = 3;  // 프로젝트 채널
+        public const byte Call = 4;     // 전화 채널
+    }
+
+	// 컨버터 메소드
+	// byte_arr 형태의 데이터를 해당 자료형으로 변환해준다.
+	public delegate RcdResult Convert(ByteList target);
 
     // 자료형에 따른 상수를 정의
     static public class DataType
@@ -41,10 +51,8 @@ namespace Protocol
         public const byte DATETIME = 15; //15
                                          // 년/월/일/시/분/초
 
-
         // 제어 타입
         public const byte CONTROLLBASE = 0b_0001_0000; //16
-
         // 전송 완료
         public const byte SUCCESS = CONTROLLBASE + 0;
         // 전송 실패 (라이브러리 내에서 처리)
@@ -69,9 +77,9 @@ namespace Protocol
         // 회원가입
         public const byte SIGNUP = CONTROLLBASE + 10;
 
+
         // 클래스 타입
         public const byte CLASSBASE = 0b_0010_0000; //32
-
         // 유저 정보
         public const byte USER = CLASSBASE + 0;
         // 메시지
@@ -86,6 +94,8 @@ namespace Protocol
         public const byte CHECKLIST = CLASSBASE + 5;
         // 친구
         public const byte FRIEND = CLASSBASE + 6;
+		// 로그인 당시 유저 정보
+		public const byte LOGINUSER = CLASSBASE + 7;
 
-    }
+	}
 }

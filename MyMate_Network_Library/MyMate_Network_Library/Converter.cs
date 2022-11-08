@@ -32,16 +32,17 @@ namespace Protocol
 				{DataType.REQUEST       , RequestProtocol.Convert},
 				{DataType.REQUEST_RECENT_ALL , RequestRecentAllProtocol.Convert},
 				{DataType.TOAST         , ToastProtocol.Convert},
-				{DataType.SIGNUP         , SignUpProtocol.Convert},
+				{DataType.SIGNUP        , SignUpProtocol.Convert},
 
 				// 클래스 자료형
-				{DataType.USER          , UserInfoProtocol.Convert},
+				{DataType.USER          , UserProtocol.Convert},
 				{DataType.MESSAGE       , MessageProtocol.Convert },
 				{DataType.SERVER        , ServerProtocol.Convert},
 				{DataType.CHECKLIST     , CheckListProtocol.Convert},
 				{DataType.CHNNEL        , ChannelProtocol.Convert},
 				{DataType.CALENDER      , CalenderProtocol.Convert},
-				{DataType.FRIEND        , FriendProtocol.Convert}
+				{DataType.FRIEND        , FriendProtocol.Convert},
+				{DataType.LOGINUSER     , LoginUserProtocol.Convert}
 		};
 		static public RcdResult Convert(byte[] target)
 		{
@@ -167,7 +168,7 @@ namespace Protocol
 
 			// 키값과 함께 데이터를 넘겨 줌
 			// 해석을 완료하여 넘겨줌
-			return new(DataType.INT, result );
+			return new(DataType.DATETIME, result );
 		}
 
 		static private RcdResult ReturnNull()

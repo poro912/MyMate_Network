@@ -1,6 +1,6 @@
 ﻿namespace Protocol
 {
-    public class UserInfoProtocol
+    public class UserProtocol
     {
         public class USER
         {
