@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 
-namespace ServerToClinet
+namespace ServerToClient
 {
 	// 기본값 설정
 	// 소켓과 Endpoint 정보를 저장하는 클래스

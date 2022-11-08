@@ -46,7 +46,7 @@ namespace Protocol
 			{
 				Receive_event += value;
 			}
-			remove
+			remove	
 			{
 				Receive_event -= value;
 			}

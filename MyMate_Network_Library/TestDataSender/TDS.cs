@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Protocol;
 using sConvert = System.Convert;
 
 
 namespace TestDataSender
 {
-	// 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
-	public class TDS
+    // 해당 클래스는 출력 스트림이 생성되고 바인딩 된 상태에서 사용해야 함
+    public class TDS
 	{
 		private Thread thread;
 
@@ -24,13 +23,13 @@ namespace TestDataSender
 		string str = "TestData";
 
 		// Controll
-		public isConnectProtocol.IsConnect isConnect = new();
-		public LoginProtocol.Login login = new();
-		public LogoutProtocol.Logout logout = new();
+		public isConnectProtocol.ISCONNECT isConnect = new();
+		public LoginProtocol.LOGIN login = new();
+		public LogoutProtocol.LOGOUT logout = new();
 
 		// Class	
-		public MessageProtocol.Message message = new();
-		public UserInfoProtocol.User user = new();
+		public MessageProtocol.MESSAGE message = new();
+		public UserInfoProtocol.USER user = new();
 
 		private List<byte> send_byte;
 
@@ -49,8 +48,8 @@ namespace TestDataSender
 			isConnect.Set(1);
 			login.Set("admin", "1234");
 			logout.Set(1, "admin");
-			message.Set(1, 1, "hello", DateTime.Now);
-			user.Set(1, "admin", "admin", "admin", "010-0000-0000");
+			message.Set(1, 1, 1, 1, "hello", DateTime.Now, false);
+			user.Set(1, "admin", "admin", "admin", "010-0000-0000","",DateTime.Now);
 
 
 			thread = new(Run);
@@ -62,8 +61,8 @@ namespace TestDataSender
 			Thread.Sleep(1000);
 			while (true)
 			{
-				Console.WriteLine("\n1 : 저장된 데이터\t 2 : 새로운 데이터");
 				Console.WriteLine("Q/q : 종료");
+				Console.WriteLine("\n1 : 저장된 데이터\t 2 : 새로운 데이터");
 				Console.Write("어떤 방식으로 전송하십니까? : ");
 				send_way = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -90,8 +89,8 @@ namespace TestDataSender
 		{
 			while (true)
 			{
-				Console.WriteLine("\n1 : 기본 변수\t 2 : 컨트롤\t 3 : 메소드\t");
 				Console.WriteLine("Q/q : 돌아가기");
+				Console.WriteLine("\n1 : 변수,프로토콜\t 2 : 컨트롤\t 3 : 메소드\t");
 				Console.Write("어떤 자료를 전송하십니까 : ");
 				send_type = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -120,8 +119,8 @@ namespace TestDataSender
 		{
 			while (true)
 			{
-				Console.WriteLine("\nint : i\t sting : s");
 				Console.WriteLine("Q/q : 돌아가기");
+				Console.WriteLine("\nint : i\t sting : s\t Protocols : p");
 				Console.Write("어떤 데이터를 전송합니까? : ");
 				send_data = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -151,6 +150,23 @@ namespace TestDataSender
 #pragma warning disable CS8604 // 가능한 null 참조 인수입니다.
 					Generater.Generate(str, ref send_byte);
 #pragma warning restore CS8604 // 가능한 null 참조 인수입니다.
+				// 데이터 전송이 프로토콜이라면
+				else if (send_data == 'p' || send_data == 'P')
+				{
+					Console.WriteLine("프로토콜 리스트");
+					Console.WriteLine("CONTROLL Protocol");
+					Console.WriteLine("SUCCESS : " + DataType.SUCCESS + "\tFAIL : " + DataType.FAIL + "\tISCONNECT : " + DataType.ISCONNECT);
+					Console.WriteLine("LOGIN : " + DataType.LOGIN + "\tLOGOUT : " + DataType.LOGOUT + "\tREQUEST : " + DataType.REQUEST);
+					Console.WriteLine("VARIABLE : " + DataType.VARIABLE + "\tREQUEST_RECENT_ALL : " + DataType.REQUEST_RECENT_ALL);
+					Console.WriteLine("TOAST : " + DataType.TOAST);
+					Console.WriteLine("CLASS Protocol");
+					Console.WriteLine("USER : " + DataType.USER + "\tMESSAGE : " + DataType.MESSAGE + "\tServer : " + DataType.SERVER);
+					Console.WriteLine("CALENDER : " + DataType.CALENDER + "\tCHECKLIST : " + DataType.CHECKLIST + "\tFRIEND : " + DataType.FRIEND);
+
+					Console.WriteLine("전송할 프로토콜 :");
+					send_byte.Clear();
+					send_byte.Add(sConvert.ToByte(Console.ReadLine()));
+				}
 
 				try
 				{
@@ -171,9 +187,9 @@ namespace TestDataSender
 		{
 			while (true)
 			{
-				Console.WriteLine("\nLogin : i\t Logout : o");
-				Console.WriteLine("InConnect : c\t ");
 				Console.WriteLine("Q/q : 돌아가기");
+				Console.WriteLine("\nLogin : i\t Logout : o");
+				Console.WriteLine("InConnect : c\t "); 
 				Console.Write("어떤 데이터를 전송합니까? : ");
 				send_ctrl = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -256,13 +272,13 @@ namespace TestDataSender
 					if (send_class == 'u' || send_class == 'U')
 					{
 						Console.Write("code\t: ");
-						user.code = sConvert.ToInt32(Console.ReadLine());
+						user.userCode = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("id\t: ");
-						user.id = Console.ReadLine();
+						user.email = Console.ReadLine();
 						Console.Write("name\t: ");
 						user.name = Console.ReadLine();
 						Console.Write("nick\t: ");
-						user.nick = Console.ReadLine();
+						user.nickname = Console.ReadLine();
 						Console.Write("phone\t: ");
 						user.phone = Console.ReadLine();
 
@@ -271,13 +287,13 @@ namespace TestDataSender
 					else if (send_class == 'm' || send_class == 'M')
 					{
 						Console.Write("usercode\t: ");
-						message.usercode = sConvert.ToInt32(Console.ReadLine());
+						message.creater = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("servercode\t: ");
-						message.servercode = sConvert.ToInt32(Console.ReadLine());
+						message.serverCode = sConvert.ToInt32(Console.ReadLine());
 						Console.Write("context\t: ");
-						message.context = Console.ReadLine();
+						message.content = Console.ReadLine();
 
-						message.date = DateTime.Now;
+						message.startTime = DateTime.Now;
 
 					}
 				}

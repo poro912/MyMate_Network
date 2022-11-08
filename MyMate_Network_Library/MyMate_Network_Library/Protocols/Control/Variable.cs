@@ -8,7 +8,6 @@ using System.Text;
  * 3. Generater에 등록
  * 4. Converter에 등록
  */
-
 namespace Protocol
 {
 	/*	Generator와 Convertor에 추가할 내용
@@ -37,8 +36,8 @@ namespace Protocol
 			// Data Declear
 			public string data1;
 			public string data2;
-			public DataName() 
-			{
+			public DataName()
+	{
 				data1 = "";
 				data2 = "";
 			}

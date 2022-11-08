@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Protocol;
 
-namespace Client_to_Server
+namespace ClientToServer
 {
 	// 서버에 대한 연결 정보를 갖고 있기위한 클래스
 	public class Server : Communicater
@@ -19,12 +19,6 @@ namespace Client_to_Server
 		private NetworkStream? stream;
 		public readonly string address;
 		public readonly int port;
-
-		//public Send send;
-		//public DynamicSend dynamicSend;
-		//public Receive receive;
-
-		// public Communicater? communicater;
 
 		// 싱글톤 구현
 		static private Server? instance;
@@ -48,17 +42,21 @@ namespace Client_to_Server
 			Console.WriteLine("Connect 객체 생성");
 			this.address = address;
 			this.port = port;
+			Console.WriteLine("Default Address : " + this.address);
+#if DEBUG
+			Console.WriteLine("주소 입력");
+			string? addr_temp = Console.ReadLine();
+			if (addr_temp != null)
+				if(!addr_temp.Trim().Equals(""))
+					this.address = addr_temp;
+			Console.WriteLine("Result Address : " + this.address);
+#endif
+
 
 			Console.WriteLine("데이터 삽입 완료");
 			this.tcpclient = new();
 
 			Console.WriteLine("객체 생성 완료");
-
-			// 클라이언트의 전송 클래스
-			//send = new();
-
-			// 클라이언트의 수신 클래스
-			//receive = new();
 
 			// 송수신 시작
 			this.Start();
@@ -80,21 +78,6 @@ namespace Client_to_Server
 
 				// 스트림을 현재 객체에 저장
 				this.stream = tcpclient.GetStream();
-
-				
-				// 클라이언트의 전송 클래스
-				//dynamicSend = new(stream);
-
-				// 전송 객체에 스트림을 저장한다.
-				//send.setStream(stream);
-
-				// 수신 객체에 스트림을 저장한다.
-				//receive.setStream(stream);
-
-				// 수신을 시작한다.
-				//receive.Start();
-
-
 
 				// 송수신(Communicator) 스트림 설정
 				this.SetStream(stream);

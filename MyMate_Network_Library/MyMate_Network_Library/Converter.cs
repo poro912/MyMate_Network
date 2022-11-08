@@ -16,18 +16,32 @@ namespace Protocol
 	{
 		// 데이터 컨버터
 		// byte_arr 형태의 데이터를 해석해주는 형태의 델리게이트를 배열로 저장
-		static public Dictionary<byte, Convert?> convert_dict =
-			new Dictionary<byte, Convert?> {
-				{DataType.STRING    , ConvertString },
-				{DataType.INT       , ConvertInt },
-				{DataType.BOOL       , ConvertBool },
-
-				{DataType.LOGIN     , LoginProtocol.Convert},
-				{DataType.LOGOUT     , LogoutProtocol.Convert},
+		static public readonly Dictionary<byte, Convert?> convert_dict = new() {
+				// 기본 자료형
+				{DataType.STRING        , ConvertString },
+				{DataType.INT           , ConvertInt },
+				{DataType.BOOL          , ConvertBool },
+				{DataType.INTARRAY      , ConvertIntArray },
+				{DataType.DATETIME      , ConvertDateTime },
+				
+				// 제어 타입
+				{DataType.LOGIN         , LoginProtocol.Convert},
+				{DataType.LOGOUT        , LogoutProtocol.Convert},
 				{DataType.ISCONNECT     , isConnectProtocol.Convert},
+				//{DataType.FAIL			, FailProtocol.Convert},
+				{DataType.REQUEST       , RequestProtocol.Convert},
+				{DataType.REQUEST_RECENT_ALL , RequestRecentAllProtocol.Convert},
+				{DataType.TOAST         , ToastProtocol.Convert},
+				{DataType.SIGNUP         , SignUpProtocol.Convert},
 
-				{DataType.USER_INFO , UserInfoProtocol.Convert},
-				{DataType.MESSAGE   , MessageProtocol.Convert },
+				// 클래스 자료형
+				{DataType.USER          , UserInfoProtocol.Convert},
+				{DataType.MESSAGE       , MessageProtocol.Convert },
+				{DataType.SERVER        , ServerProtocol.Convert},
+				{DataType.CHECKLIST     , CheckListProtocol.Convert},
+				{DataType.CHNNEL        , ChannelProtocol.Convert},
+				{DataType.CALENDER      , CalenderProtocol.Convert},
+				{DataType.FRIEND        , FriendProtocol.Convert}
 		};
 		static public RcdResult Convert(byte[] target)
 		{
@@ -110,6 +124,50 @@ namespace Protocol
 			// 키값과 함께 데이터를 넘겨 줌
 			// 해석을 완료하여 넘겨줌
 			return new(DataType.BOOL, BitConverter.ToBoolean(temp, 0));
+		}
+
+		//Int Array
+		static private RcdResult ConvertIntArray(ByteList target)
+		{
+			// 임시 변수에 데이터를 넣어 저장 후
+			byte[] temp = new byte[4];
+			target.CopyTo(0, temp, 0, 4);
+
+			// 읽은 데이터 만큼 삭제
+			target.RemoveRange(0, 4);
+
+			// 배열 크기 만큼 미리 할당 함
+			List<int> result = new (BitConverter.ToInt32(temp, 0));
+
+			for(int i = 0; i < result.Count; i++)
+			{
+				// 4바이트 읽어옴
+				target.CopyTo(0, temp, 0, 4);
+
+				// 읽은 데이터 만큼 삭제
+				target.RemoveRange(0, 4);
+
+				result[i] = BitConverter.ToInt32(temp, 0);
+			}	
+
+			return new(DataType.INTARRAY, result);
+		}
+
+		//DateTime
+		static private RcdResult ConvertDateTime(ByteList target)
+		{
+			// 임시 변수에 데이터를 넣어 저장 후
+			byte[] temp = new byte[8];
+			target.CopyTo(0, temp, 0, 8);
+
+			// 읽은 데이터 만큼 삭제
+			target.RemoveRange(0, 8);
+
+			DateTime result = new(BitConverter.ToInt64(temp, 0));
+
+			// 키값과 함께 데이터를 넘겨 줌
+			// 해석을 완료하여 넘겨줌
+			return new(DataType.INT, result );
 		}
 
 		static private RcdResult ReturnNull()
