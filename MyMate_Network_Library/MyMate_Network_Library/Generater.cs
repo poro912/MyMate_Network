@@ -195,6 +195,19 @@ namespace Protocol
 			return destination;
 		}
 
+		// DeleteRequest
+		static public void Generate(DeleteRequestProtocol.DELETE_REQUEST target, ref ByteList destination)
+		{
+			DeleteRequestProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(DeleteRequestProtocol.DELETE_REQUEST target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
+
 		// SignUp
 		static public void Generate(
 			SignUpProtocol.SiginUp target,

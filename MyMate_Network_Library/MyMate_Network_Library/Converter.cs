@@ -33,6 +33,7 @@ namespace Protocol
 				{DataType.REQUEST_RECENT_ALL , RequestRecentAllProtocol.Convert},
 				{DataType.TOAST         , ToastProtocol.Convert},
 				{DataType.SIGNUP        , SignUpProtocol.Convert},
+				{DataType.DELETE_REQUEST       , DeleteRequestProtocol.Convert},
 
 				// 클래스 자료형
 				{DataType.USER          , UserProtocol.Convert},
