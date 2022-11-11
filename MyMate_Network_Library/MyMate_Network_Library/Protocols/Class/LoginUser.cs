@@ -5,7 +5,37 @@ namespace Protocol
     public class LoginUserProtocol
     {
         public class LOGINUSER : UserProtocol.USER
-        { }
+        { 
+            public LOGINUSER()
+            {
+				userCode = 0;
+				name = "";
+				nickname = "";
+				email = "";
+				phone = "";
+				content = "";
+				recentTime = new();
+			}
+
+			public LOGINUSER(
+				int userCode = 0,
+				string name = "",
+				string nickname = "",
+				string email = "",
+				string phone = "",
+				string content = "",
+				DateTime recentTime = new()
+				)
+			{
+				this.userCode = userCode;
+				this.name = name;
+				this.nickname = nickname;
+				this.email = email;
+				this.phone = phone;
+				this.content = content;
+				this.recentTime = recentTime;
+			}
+		}
 
         // byte 데이터를 생성
         static public void Generate(
