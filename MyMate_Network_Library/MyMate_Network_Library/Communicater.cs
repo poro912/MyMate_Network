@@ -175,11 +175,12 @@ namespace Protocol
 		// 데이터를 읽어오기 시작한다.
 		private void ReceiveProcess()
 		{
-			received_byte = new byte[1024];
+			Console.WriteLine("ReceiveProcess ");
 
 			// 실행 상태가 아니라면종료
 			if (!this.ReceiveRun)
 				return;
+
 			// 스트림이 설정되어 있지 않다면 종료
 			if (this.stream == null)
 			{
@@ -195,7 +196,9 @@ namespace Protocol
 					return;
 				}
 			}
-				
+
+			received_byte = new byte[1024];
+
 			try
 			{
 				// 데이터를 받기 시작한다.
@@ -225,6 +228,18 @@ namespace Protocol
 			Console.WriteLine("데이터 길이 : " + received_byte.Length);
 			string receive_data = Encoding.Default.GetString(this.received_byte);
 			Console.WriteLine("내용 : " + receive_data);
+
+			if (received_byte[0] == 0)
+			{
+				StopReceive();
+				return;
+			}
+			if (receive_data.Equals(""))
+			{
+				StopReceive();
+				return;
+			}
+				
 
 			// 데이터를 받아오는 대로 queue에 저장
 			receive_queue.Enqueue(this.received_byte);
