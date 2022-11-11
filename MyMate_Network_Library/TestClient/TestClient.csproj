@@ -9,13 +9,13 @@
 
   <ItemGroup>
     <Reference Include="ClientToServer">
-      <HintPath>..\ProjectBuilder\bin\Debug\net6.0\ClientToServer.dll</HintPath>
+      <HintPath>..\..\DLL\ClientToServer.dll</HintPath>
     </Reference>
     <Reference Include="MyMate_Network_Library">
-      <HintPath>..\ProjectBuilder\bin\Debug\net6.0\MyMate_Network_Library.dll</HintPath>
+      <HintPath>..\..\DLL\MyMate_Network_Library.dll</HintPath>
     </Reference>
     <Reference Include="TestDataSender">
-      <HintPath>..\ProjectBuilder\bin\Debug\net6.0\TestDataSender.dll</HintPath>
+      <HintPath>..\..\DLL\TestDataSender.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -43,15 +43,6 @@ namespace ClientToServer
 			this.address = address;
 			this.port = port;
 			Console.WriteLine("Default Address : " + this.address);
-#if DEBUG
-			Console.WriteLine("주소 입력");
-			string? addr_temp = Console.ReadLine();
-			if (addr_temp != null)
-				if(!addr_temp.Trim().Equals(""))
-					this.address = addr_temp;
-			Console.WriteLine("Result Address : " + this.address);
-#endif
-
 
 			Console.WriteLine("데이터 삽입 완료");
 			this.tcpclient = new();

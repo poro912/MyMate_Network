@@ -20,5 +20,8 @@ namespace Default
 		public const string Gateway = "172.18.7.254";
 		public const string DNS = "220.66.10.11";
 		public const string SubDNS = "220.66.10.12";
+
+		public const string Address_LoopBack = "127.0.0.1";
+		public const string Address_Seat = "172.18.7.140";
 	}
 }

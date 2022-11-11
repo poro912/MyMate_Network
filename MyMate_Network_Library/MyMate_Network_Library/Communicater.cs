@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning restore CS1998
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +40,8 @@ namespace Protocol
 		// 임시 변수
 		private byte[] received_byte;
 		private bool ReceiveRun = false;
+		public bool receiveRun { get { return ReceiveRun; } }
+
 		// 이벤트 발생기
 		private event DataReceived? Receive_event;
 		public event DataReceived ReceiveEvent
@@ -102,9 +106,7 @@ namespace Protocol
 		}
 
 		// 데이터 연속전송
-#pragma warning disable CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
 		private async void SnedSatrt()
-#pragma warning restore CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
 		{
 			send_task = new Task(this.SnedSatrt);
 			if (!send_semaphore.WaitOne(10))
@@ -133,7 +135,12 @@ namespace Protocol
 			if (data.Length.Equals(0))
 				return;
 			if (this.stream == null)
+			{
+				StopReceive();
 				return;
+			}
+
+
 			try
 			{
 				this.stream.Write(data, 0, data.Length);
@@ -160,6 +167,8 @@ namespace Protocol
 		public void StopReceive()
 		{
 			this.ReceiveRun = false;
+			if(Receive_event != null)
+				Receive_event();
 		}
 		
 		// Receive.Data()
@@ -167,12 +176,26 @@ namespace Protocol
 		private void ReceiveProcess()
 		{
 			received_byte = new byte[1024];
+
 			// 실행 상태가 아니라면종료
 			if (!this.ReceiveRun)
 				return;
 			// 스트림이 설정되어 있지 않다면 종료
 			if (this.stream == null)
+			{
+				StopReceive(); 
 				return;
+			}
+				
+			if(this.Stream != null)
+			{
+				if (this.Stream.Socket.Connected == false)
+				{
+					StopReceive();
+					return;
+				}
+			}
+				
 			try
 			{
 				// 데이터를 받기 시작한다.
@@ -180,7 +203,7 @@ namespace Protocol
 				// 데이터 수신을 완료하면 SaveData를 호출한다.
 				this.stream.BeginRead(
 					this.received_byte, 0, this.received_byte.Length,
-					new AsyncCallback(SaveDataInQueue), null);
+					new AsyncCallback(SaveDataEnQueue), null);
 			}
 			catch (System.IO.IOException)
 			{
@@ -196,7 +219,7 @@ namespace Protocol
 		}
 
 		// 데이터 삽입
-		private void SaveDataInQueue(IAsyncResult ar)
+		private void SaveDataEnQueue(IAsyncResult ar)
 		{
 			Console.WriteLine("데이터 들어옴");
 			Console.WriteLine("데이터 길이 : " + received_byte.Length);
