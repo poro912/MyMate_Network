@@ -24,6 +24,8 @@
 *.dll
 !DLL/
 !DLL/*
+!DLL/*.*
+!DLL/*/*.*
 !DLL/*.dll
 
 # Fortran module files
