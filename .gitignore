@@ -27,6 +27,12 @@
 !DLL/*.*
 !DLL/*/*.*
 !DLL/*.dll
+!DLL/[Dd]ebug/
+!DLL/[Dd]ebug/*
+!DLL/[Dd]ebug/*.dll
+!DLL/[Rr]elease/
+!DLL/[Rr]elease/*
+!DLL/[Rr]elease/*.dll
 
 # Fortran module files
 *.mod
