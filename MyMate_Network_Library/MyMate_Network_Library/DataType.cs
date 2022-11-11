@@ -78,6 +78,7 @@ namespace Protocol
         public const byte SIGNUP = CONTROLLBASE + 10;
 		// 삭제요청
 		public const byte DELETE_REQUEST = CONTROLLBASE + 11;
+        public const byte INVITE = CONTROLLBASE + 12;
 
 
 		// 클래스 타입

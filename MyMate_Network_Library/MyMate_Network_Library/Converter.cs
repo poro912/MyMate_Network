@@ -34,6 +34,7 @@ namespace Protocol
 				{DataType.TOAST         , ToastProtocol.Convert},
 				{DataType.SIGNUP        , SignUpProtocol.Convert},
 				{DataType.DELETE_REQUEST       , DeleteRequestProtocol.Convert},
+				{DataType.INVITE		, InviteProtocol.Convert},
 
 				// 클래스 자료형
 				{DataType.USER          , UserProtocol.Convert},

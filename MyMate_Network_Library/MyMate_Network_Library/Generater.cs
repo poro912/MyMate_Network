@@ -237,7 +237,17 @@ namespace Protocol
 			Generate(target, ref destination);
 			return destination;
 		}
-
+		static public void Generate(InviteProtocol.Invite target, ref ByteList destination)
+		{
+			InviteProtocol.Generate(target, ref destination);
+			return;
+		}
+		static public ByteList Generate(InviteProtocol.Invite target)
+		{
+			ByteList destination = new();
+			Generate(target, ref destination);
+			return destination;
+		}
 
 		// 클래스 형
 		// User

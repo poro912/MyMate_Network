@@ -8,6 +8,7 @@
             public int userCode;
             public int serverCode;
             public int channelCode;
+            public string id;
             public DateTime startTime;
             public DateTime endTime;
 
@@ -17,6 +18,7 @@
                 userCode = 0;
                 serverCode = 0;
                 channelCode = 0;
+                id = "";
                 startTime = new();
                 endTime = new();
             }
@@ -26,6 +28,7 @@
                 int userCode = 0,
                 int serverCode = 0,
                 int channelCode = 0,
+                string id = "",
                 DateTime startTime = new(),
                 DateTime endTime = new()
                 )
@@ -34,6 +37,7 @@
                 this.userCode = userCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
+                this.id = id;
                 this.startTime = startTime;
                 this.endTime = endTime;
             }
@@ -43,6 +47,7 @@
                 int userCode,
                 int serverCode,
                 int channelCode,
+                string id,
                 DateTime startTime,
                 DateTime endTime
                 )
@@ -51,6 +56,7 @@
                 this.userCode = userCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
+                this.id = id;
                 this.startTime = startTime;
                 this.endTime = endTime;
             }
@@ -60,6 +66,7 @@
                 out int userCode,
                 out int serverCode,
                 out int channelCode,
+                out string id,
                 out DateTime startTime,
                 out DateTime endTime
                 )
@@ -68,6 +75,7 @@
                 userCode = this.userCode;
                 serverCode = this.serverCode;
                 channelCode = this.channelCode;
+                id = this.id;
                 startTime = this.startTime;
                 endTime = this.endTime;
             }
@@ -82,6 +90,7 @@
 			Generater.Generate(target.userCode, ref destination);
 			Generater.Generate(target.serverCode, ref destination);
 			Generater.Generate(target.channelCode, ref destination);
+			Generater.Generate(target.id, ref destination);
 			Generater.Generate(target.startTime, ref destination);
 			Generater.Generate(target.endTime, ref destination);
 		}
@@ -105,8 +114,13 @@
             temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.channelCode = (int)temp.Value;
-
-            temp = Converter.Convert(target);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.channelCode = (int)temp.Value;
+			temp = Converter.Convert(target);
+            if (temp.Value != null)
+                result.id = (string)temp.Value;
+			temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.startTime = (DateTime)temp.Value;
 

@@ -5,7 +5,8 @@
         public class USER
         {
             public int userCode;
-            public string name;
+			public string id;
+			public string name;
             public string nickname;
             public string email;
             public string phone;
@@ -15,6 +16,7 @@
             public USER()
             {
                 userCode = 0;
+                id = "";
                 name = "";
                 nickname = "";
                 email = "";
@@ -25,6 +27,7 @@
 
             public USER(
                 int userCode = 0,
+                string id = "",
                 string name = "",
                 string nickname = "",
                 string email = "",
@@ -43,6 +46,7 @@
             }
             public void Set(
                 int userCode,
+                string id,
                 string name,
                 string nickname,
                 string email,
@@ -52,6 +56,7 @@
                 )
             {
                 this.userCode = userCode;
+                this.id = id;
                 this.name = name;
                 this.nickname = nickname;
                 this.email = email;
@@ -62,6 +67,7 @@
 
             public void Get(
                 out int userCode,
+                out string id,
                 out string name,
                 out string nickname,
                 out string email,
@@ -71,6 +77,7 @@
                 )
             {
                 userCode = this.userCode;
+                id = this.id;
                 name = this.name;
                 nickname = this.nickname;
                 email = this.email;
@@ -88,7 +95,8 @@
         {
             destination.Add(DataType.USER);
             Generater.Generate(target.userCode, ref destination);
-            Generater.Generate(target.name, ref destination);
+			Generater.Generate(target.id, ref destination);
+			Generater.Generate(target.name, ref destination);
             Generater.Generate(target.nickname, ref destination);
             Generater.Generate(target.email, ref destination);
             Generater.Generate(target.phone, ref destination);
@@ -107,7 +115,11 @@
             if (temp.Value != null)
                 result.userCode = (int)temp.Value;
 
-            temp = Converter.Convert(target);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.id = (string)temp.Value;
+
+			temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.name = (string)temp.Value;
 
