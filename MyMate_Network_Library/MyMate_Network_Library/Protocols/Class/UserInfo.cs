@@ -37,6 +37,7 @@
                 )
             {
                 this.userCode = userCode;
+                this.id = id;
                 this.name = name;
                 this.nickname = nickname;
                 this.email = email;

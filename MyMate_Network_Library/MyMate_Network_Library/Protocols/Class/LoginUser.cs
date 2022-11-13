@@ -9,6 +9,7 @@ namespace Protocol
             public LOGINUSER()
             {
 				userCode = 0;
+                id = "";
 				name = "";
 				nickname = "";
 				email = "";
@@ -19,6 +20,7 @@ namespace Protocol
 
 			public LOGINUSER(
 				int userCode = 0,
+                string id = "",
 				string name = "",
 				string nickname = "",
 				string email = "",
@@ -28,6 +30,7 @@ namespace Protocol
 				)
 			{
 				this.userCode = userCode;
+                this.id = id;
 				this.name = name;
 				this.nickname = nickname;
 				this.email = email;
@@ -45,7 +48,8 @@ namespace Protocol
         {
             destination.Add(DataType.LOGINUSER);
             Generater.Generate(target.userCode, ref destination);
-            Generater.Generate(target.name, ref destination);
+			Generater.Generate(target.id, ref destination);
+			Generater.Generate(target.name, ref destination);
             Generater.Generate(target.nickname, ref destination);
             Generater.Generate(target.email, ref destination);
             Generater.Generate(target.phone, ref destination);
@@ -64,7 +68,11 @@ namespace Protocol
             if (temp.Value != null)
                 result.userCode = (int)temp.Value;
 
-            temp = Converter.Convert(target);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.id = (string)temp.Value;
+
+			temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.name = (string)temp.Value;
 
