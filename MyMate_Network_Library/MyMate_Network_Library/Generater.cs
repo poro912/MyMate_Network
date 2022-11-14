@@ -303,12 +303,12 @@ namespace Protocol
 		}
 
 		// Chnnel
-		static public void Generate(ChannelProtocol.CHNNEL target, ref ByteList destination)
+		static public void Generate(ChannelProtocol.CHANNEL target, ref ByteList destination)
 		{
 			ChannelProtocol.Generate(target, ref destination);
 			return;
 		}
-		static public ByteList Generate(ChannelProtocol.CHNNEL target)
+		static public ByteList Generate(ChannelProtocol.CHANNEL target)
 		{
 			ByteList destination = new();
 			Generate(target, ref destination);

@@ -11,8 +11,8 @@
             public string content;
             public DateTime startTime;
             public bool isPrivate;
-
-            public MESSAGE()
+			public bool isDelete;
+			public MESSAGE()
             {
                 messageCode = 0;
                 serverCode = 0;
@@ -21,7 +21,8 @@
                 content = "";
                 startTime = new();
                 isPrivate = false;
-            }
+				isDelete = false;
+			}
             public MESSAGE(
                 int messageCode = 0,
                 int serverCode = 0,
@@ -29,8 +30,9 @@
                 int creater = 0,
                 string content = "",
                 DateTime startTime = new(),
-                bool isPrivate = false
-                )
+                bool isPrivate = false,
+				bool isDelete = false   
+				)
             {
                 this.messageCode = messageCode;
                 this.serverCode = serverCode;
@@ -39,7 +41,8 @@
                 this.content = content;
                 this.startTime = startTime;
                 this.isPrivate = isPrivate;
-            }
+				this.isDelete = isDelete;
+			}
 
             public void Set(
                 int messageCode,
@@ -48,8 +51,9 @@
                 int creater,
                 string content,
                 DateTime startTime,
-                bool isPrivate
-                )
+                bool isPrivate,
+				bool isDelete = false
+				)
             {
                 this.messageCode = messageCode;
                 this.serverCode = serverCode;
@@ -58,7 +62,8 @@
                 this.content = content;
                 this.startTime = startTime;
                 this.isPrivate = isPrivate;
-            }
+				this.isDelete = isDelete;
+			}
 
             // 데이터를 각 변수에 저장
             public void Get(
@@ -68,8 +73,9 @@
                 out int creater,
                 out string content,
                 out DateTime startTime,
-                out bool isPrivate
-                )
+                out bool isPrivate,
+				out bool isDelete
+				)
             {
                 messageCode = this.messageCode;
                 serverCode = this.serverCode;
@@ -78,7 +84,8 @@
                 content = this.content;
                 startTime = this.startTime;
                 isPrivate = this.isPrivate;
-            }
+				isDelete = this.isDelete;
+			}
         }
 
         // 클래스를 List<byte>로 변환
@@ -95,7 +102,8 @@
             Generater.Generate(target.content, ref destination);
             Generater.Generate(target.startTime, ref destination);
             Generater.Generate(target.isPrivate, ref destination);
-        }
+			Generater.Generate(target.isDelete, ref destination);
+		}
 
         // List<byte>를 클래스로 변환
         static public RcdResult Convert(ByteList target)
@@ -131,7 +139,11 @@
             if (temp.Value != null)
                 result.isPrivate = (bool)temp.Value;
 
-            return new(DataType.MESSAGE, result);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.isDelete = (bool)temp.Value;
+
+			return new(DataType.MESSAGE, result);
         }
     }
 }

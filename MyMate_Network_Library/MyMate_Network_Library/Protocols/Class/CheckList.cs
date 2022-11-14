@@ -13,8 +13,9 @@
             public string content;
             public bool isChecked;
             public bool isPrivate;
+			public bool isDelete;
 
-            public CHECKLIST()
+			public CHECKLIST()
             {
                 checkListCode = 0;
                 serverCode = 0;
@@ -24,7 +25,8 @@
                 content = "";
                 isChecked = false;
                 isPrivate = false;
-            }
+				isDelete = false;   
+			}
 
             public CHECKLIST(
                 int checkListCode = 0,
@@ -34,7 +36,8 @@
                 DateTime endDate = new(),
                 string content = "",
                 bool isChecked = false,
-                bool isPrivate = false
+                bool isPrivate = false,
+				bool isDelete = false
                 )
             {
                 this.checkListCode = checkListCode;
@@ -45,7 +48,8 @@
                 this.content = content;
                 this.isChecked = isChecked;
                 this.isPrivate = isPrivate;
-            }
+				this.isDelete = isDelete;
+			}
 
             public void Set(
                 int checkListCode,
@@ -55,8 +59,9 @@
                 DateTime endDate,
                 string content,
                 bool isChecked,
-                bool isPrivate
-                )
+                bool isPrivate,
+				bool isDelete = false
+				)
             {
                 this.checkListCode = checkListCode;
                 this.serverCode = serverCode;
@@ -66,7 +71,8 @@
                 this.content = content;
                 this.isChecked = isChecked;
                 this.isPrivate = isPrivate;
-            }
+				this.isDelete = isDelete;
+			}
 
             public void Get(
                 out int checkListCode,
@@ -76,8 +82,9 @@
                 out DateTime endDate,
                 out string content,
                 out bool isChecked,
-                out bool isPrivate
-            )
+                out bool isPrivate,
+				out bool isDelete
+			)
             {
                 checkListCode = this.checkListCode;
                 serverCode = this.serverCode;
@@ -87,8 +94,9 @@
                 content = this.content;
                 isChecked = this.isChecked;
                 isPrivate = this.isPrivate;
-            }
-        }
+				isDelete = this.isDelete;
+			}
+		}
 
         static public void Generate(
             CHECKLIST target,
@@ -104,7 +112,8 @@
             Generater.Generate(target.content, ref destination);
             Generater.Generate(target.isChecked, ref destination);
             Generater.Generate(target.isPrivate, ref destination);
-        }
+			Generater.Generate(target.isDelete, ref destination);
+		}
 
         // List<byte>를 클래스로 변환
         static public RcdResult Convert(ByteList target)
@@ -144,7 +153,11 @@
             if (temp.Value != null)
                 result.isPrivate = (bool)temp.Value;
 
-            return new(DataType.CHECKLIST, result);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.isDelete = (bool)temp.Value;
+
+			return new(DataType.CHECKLIST, result);
         }
     }
 

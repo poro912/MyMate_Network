@@ -12,6 +12,7 @@
             public DateTime startTime;
             public DateTime endTime;
             public bool isPrivate;
+            public bool isDelete;
 
             public CALENDER()
             {
@@ -23,6 +24,7 @@
                 startTime = new();
                 endTime = new();
                 isPrivate = false;
+                isDelete = false;
             }
 
             public CALENDER(
@@ -33,8 +35,9 @@
                 int creater = 0,
                 DateTime startTime = new(),
                 DateTime endTime = new(),
-                bool isPrivate = false
-                )
+                bool isPrivate = false,
+				bool isDelete = false
+				)
             {
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
@@ -44,6 +47,7 @@
                 this.startTime = startTime;
                 this.endTime = endTime;
                 this.isPrivate = isPrivate;
+                this.isDelete = isDelete;
             }
 
             public void Set(
@@ -54,7 +58,8 @@
                 int creater,
                 DateTime startTime,
                 DateTime endTime,
-                bool isPrivate
+                bool isPrivate,
+                bool isDelete = false
                 )
             {
                 this.serverCode = serverCode;
@@ -65,6 +70,7 @@
                 this.startTime = startTime;
                 this.endTime = endTime;
                 this.isPrivate = isPrivate;
+                this.isDelete = isDelete;
             }
 
             public void Get(
@@ -75,7 +81,8 @@
                 out int creater,
                 out DateTime startTime,
                 out DateTime endTime,
-                out bool isPrivate
+                out bool isPrivate,
+                out bool isDelete
             )
             {
                 serverCode = this.serverCode;
@@ -86,6 +93,7 @@
                 startTime = this.startTime;
                 endTime = this.endTime;
                 isPrivate = this.isPrivate;
+                isDelete = this.isDelete;
             }
         }
 
@@ -103,7 +111,8 @@
             Generater.Generate(target.startTime, ref destination);
             Generater.Generate(target.endTime, ref destination);
             Generater.Generate(target.isPrivate, ref destination);
-        }
+			Generater.Generate(target.isDelete, ref destination);
+		}
 
         // List<byte>를 클래스로 변환
         static public RcdResult Convert(ByteList target)
@@ -143,7 +152,11 @@
             if (temp.Value != null)
                 result.isPrivate = (bool)temp.Value;
 
-            return new(DataType.CALENDER, result);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.isDelete = (bool)temp.Value;
+
+			return new(DataType.CALENDER, result);
         }
     }
 }
