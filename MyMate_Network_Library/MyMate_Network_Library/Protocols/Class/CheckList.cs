@@ -8,6 +8,7 @@
             public int checkListCode;
             public int serverCode;
             public int channelCode;
+            public int creater;
             public DateTime startDate;
             public DateTime endDate;
             public string content;
@@ -20,7 +21,8 @@
                 checkListCode = 0;
                 serverCode = 0;
                 channelCode = 0;
-                startDate = new();
+				creater = 0;
+				startDate = new();
                 endDate = new();
                 content = "";
                 isChecked = false;
@@ -32,6 +34,7 @@
                 int checkListCode = 0,
                 int serverCode = 0,
                 int channelCode = 0,
+                int creater = 0,
                 DateTime startDate = new(),
                 DateTime endDate = new(),
                 string content = "",
@@ -43,6 +46,7 @@
                 this.checkListCode = checkListCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
+                this.creater = creater;
                 this.startDate = startDate;
                 this.endDate = endDate;
                 this.content = content;
@@ -55,6 +59,7 @@
                 int checkListCode,
                 int serverCode,
                 int channelCode,
+                int creater,
                 DateTime startDate,
                 DateTime endDate,
                 string content,
@@ -66,6 +71,7 @@
                 this.checkListCode = checkListCode;
                 this.serverCode = serverCode;
                 this.channelCode = channelCode;
+                this.creater = creater;
                 this.startDate = startDate;
                 this.endDate = endDate;
                 this.content = content;
@@ -78,6 +84,7 @@
                 out int checkListCode,
                 out int serverCode,
                 out int channelCode,
+                out int creater,
                 out DateTime startDate,
                 out DateTime endDate,
                 out string content,
@@ -89,6 +96,7 @@
                 checkListCode = this.checkListCode;
                 serverCode = this.serverCode;
                 channelCode = this.channelCode;
+                creater = this.creater;
                 startDate = this.startDate;
                 endDate = this.endDate;
                 content = this.content;
@@ -107,7 +115,8 @@
             Generater.Generate(target.checkListCode, ref destination);
             Generater.Generate(target.serverCode, ref destination);
             Generater.Generate(target.channelCode, ref destination);
-            Generater.Generate(target.startDate, ref destination);
+			Generater.Generate(target.creater, ref destination);
+			Generater.Generate(target.startDate, ref destination);
             Generater.Generate(target.endDate, ref destination);
             Generater.Generate(target.content, ref destination);
             Generater.Generate(target.isChecked, ref destination);
@@ -133,7 +142,11 @@
             if (temp.Value != null)
                 result.channelCode = (int)temp.Value;
 
-            temp = Converter.Convert(target);
+			temp = Converter.Convert(target);
+			if (temp.Value != null)
+				result.creater = (int)temp.Value;
+
+			temp = Converter.Convert(target);
             if (temp.Value != null)
                 result.startDate = (DateTime)temp.Value;
 
