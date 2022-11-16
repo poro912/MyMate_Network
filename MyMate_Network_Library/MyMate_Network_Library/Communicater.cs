@@ -95,14 +95,14 @@ namespace Protocol
 		public void Send(ByteList data)
 		{
 			send_queue.Enqueue(data.ToArray());
+			send_task = new Task(this.SnedSatrt);
 			send_task.Start();
-			//Task.Run(this.SnedSatrt);
 		}
 		public void Send(byte[] data)
 		{
 			send_queue.Enqueue(data);
+			send_task = new Task(this.SnedSatrt);
 			send_task.Start();
-			//Task.Run(this.SnedSatrt);
 		}
 
 		// 데이터 연속전송
